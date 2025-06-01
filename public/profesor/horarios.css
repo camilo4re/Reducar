@@ -1,0 +1,78 @@
+body {
+    margin: 0;
+    font-family:'arial' sans-serif;
+    background-color: #ebebeb;
+    color: white;
+  }
+  
+  header {
+    background-color: white;
+    padding: 8px;
+  }
+  
+  .logo {
+    width: 70px;
+  }
+  
+  .barras {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .barra-naranja {
+    background-color: #f45206;
+    height: 10px;
+  }
+  
+  .barra-verde {
+    background-color: #007c00;
+    height: 10px;
+  }
+
+h2 {
+    text-align: center;
+    color: black;
+    margin-top: 30px;
+  }
+  
+  .horario-container {
+    padding: 20px;
+  }
+  
+  .tabla-horario {
+    overflow-x: auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    padding: 20px;
+    max-width: 1000px;
+    margin: auto;
+  }
+  
+  .tabla-horario table {
+    width: 100%;
+    border-collapse: collapse;
+    color: black;
+    text-align: center;
+  }
+  
+  .tabla-horario th,
+  .tabla-horario td {
+    padding: 15px;
+    border: 1px solid #ddd;
+  }
+  
+  .tabla-horario thead th {
+    background-color: #007c00;
+    color: white;
+  }
+  
+  .tabla-horario tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .tabla-horario td:first-child {
+    font-weight: bold;
+    background-color: #f45206;
+    color: white;
+  }
