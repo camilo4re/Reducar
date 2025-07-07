@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reducar</title>
-    <link rel="stylesheet" href="{{ asset('app.css') }}">
+  <title>REGISTRO</title>
+  <link rel="stylesheet" href="{{ asset("login.css") }}">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="background">
     <header>
         <img src="/IMAGENES/LOGOTEC3.png" alt="Logo de la escuela" class="logo">
     </header>

@@ -1,13 +1,20 @@
-<x-layout>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+    <title>Iniciar Sesión</title>
+  <link rel="stylesheet" href="{{ asset("login.css") }}">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+</head>
+ <header>
 
     <title>Iniciar Sesión</title>
 
-    <body>
-  <header>
-    <img src="/IMAGENES/LOGOTEC3.png" alt="Logo de la escuela" class="logo">
-
   
+
+    <img src="{{ asset("imagenes/LOGOTEC3.png") }}" alt="Logo de la escuela" class="logo">
 </header>
+  <body class="background">
         <div class="barras">
             <div class="barra-naranja"></div>
             <div class="barra-verde"></div>
@@ -37,5 +44,5 @@
                 <button type="submit">INGRESAR</button>
             </form>
         </div>
-    </body>
-</x-layout>
+    </body> 
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Horarios (Profesor)</title>
-  <link rel="stylesheet" href="/ALUMNO/estilospaginico.css">
+  <link rel="stylesheet" href={{ asset("profesor/horarios.css") }}|>
 
 </head>
 <body>

@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfesorController;
 
 
-Route::view("inicio", "dashboard")->middleware('auth')->name("dashboard");
-Route::view("inicio", "dashboard")->middleware('auth')->name("dashboard");
+Route::view("/", "index")->middleware('auth')->name("dashboard");
 Route::view("nosotros", "about")->name("about");
 
 /* rutas de profes */
@@ -17,11 +16,14 @@ Route::view("nosotros", "about")->name("about");
 Route::get("profesor", [ProfesorController::class, 'index'])
     ->middleware('auth')
     ->name("profesor");
+    Route::view("horarios", "profesor.horarios")->middleware('auth')->name("horarios");
 /* rutas de alumnos */
 Route::view("alumno", "alumno.alumnoInicio")->middleware('auth')->name("alumno");
 
 /* rutas de directivos */
 Route::view("directivo", "directivo.directivoInicio")->middleware('auth')->name("directivo");
+
+
 
 /* rutas de login */
 

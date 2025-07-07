@@ -1,6 +1,11 @@
-<x-layout>
-
-  <body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>RECUPERAR</title>
+  <link rel="stylesheet" href="{{ asset("login.css") }}">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+</head>
+  <body class="background">>
       <header>
           <img src="LOGOTEC3.png" alt="Logo de la escuela" class="logo">
       </header>
@@ -24,5 +29,5 @@
           <p><a href="login">Volver a Iniciar Sesión</a></p>
       </div>
 
-
-</x-layout>
+    </body>
+</html>
