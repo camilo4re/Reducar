@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
     <title>Iniciar Sesión</title>
-  <link rel="stylesheet" href="{{ asset("login.css") }}">
+<link href="{{ asset('login.css') }}" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 </head>
  <header>

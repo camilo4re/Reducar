@@ -21,11 +21,11 @@ class AuthenticatedSessionController extends Controller
 
     /* Redireccionamiento segun rol. -c*/
     
-    public function store(LoginRequest $request): RedirectResponse 
+    public function store(LoginRequest $request) 
     {
         $request->authenticate();
-        $request->session()->regenerate();
-        $user=auth::user();
+        // $request->session()->regenerate(); //para produccion lo saco por que es re tosco c-
+        $user = auth()->user();       
         if ($user->role=== "alumno") {
             return 
             redirect()->route("alumno");

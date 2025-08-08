@@ -12,6 +12,14 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+      protected $table = 'users';
+      public function cursos()
+{
+    return $this->hasMany(Curso::class);
+}
+
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -21,7 +29,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role', // <--- AÑADIDO
+        'role', // AÑADIDO
     ];
     /**
      * The attributes that should be hidden for serialization.

@@ -2,7 +2,7 @@
 body {
   margin: 0;
   font-family:'arial' sans-serif;
-  background-color: #ebebeb;
+  background-color: #f8f8f8;
   color: white;
 }
 
@@ -14,9 +14,16 @@ header {
   align-items: flex-end;
 }
 
+.logo-derecha {
+  display: flex;
+  align-items: end;
+  justify-content: flex-end;
+}
+
 .logo {
   width: 50px;
   margin: 10px 10px 10px 0;
+  align-items: flex-end;
 }
 
 .barras {
@@ -101,63 +108,61 @@ header {
 /* /MENU REDUCAR */
 
 /* BOXS MATERIAS */
+/* CONTENEDOR DE TODAS LAS TARJETAS */
 ul.clases {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
+  list-style: none; /* Sin viñetas */
+  display: grid; /* Usar grid para organizar */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Tarjetas responsivas */
+  gap: 20px; /* Separación entre tarjetas */
   padding: 20px;
   margin: 0;
 }
 
+/* TARJETA */
 li.cajas {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  padding: 10px;
+  background: #fffefe; /* Fondo similar a Classroom, puedes cambiarlo */
+  border-radius: 8px; /* Esquinas redondeadas */
+  overflow: hidden; /* Cortar contenido que se salga */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4); /* Sombra suave */
+  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Animación suave */
+}
+
+/* HOVER TARJETA */
+li.cajas:hover {
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3); /* Más sombra */
+  transform: translateY(-5px); /* Flotante */
+}
+
+/* LINK INTERNO */
+.cajas-link {
+  text-decoration: none; /* Sin subrayado */
+  color: black; /* Texto negro */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: transform 0.2s ease;
+  height: 150px; /* Altura fija para parecerse más */
+  padding: 20px; /* Espaciado interno */
+  background: inherit; /* Hereda fondo */
 }
 
-li.card:hover {
-  transform: translateY(-5px);
-}
-
+/* TITULO */
 .titulo-caja {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   margin-bottom: 10px;
-  color: black;
 }
 
+/* SUBTITULO */
 .subtitulo-caja {
-  color: gray;
   font-size: 14px;
-  margin-bottom: 15px;
+  color: rgba(160, 159, 159, 0.8); /* Gris claro */
 }
 
-.cajafooter {
-  margin-top: auto;
-  text-align: right;
-}
-
-.boton {
-  display: inline-block;
-  font-family: arial;
-  font-size: 14px;
-  padding: 5px 6px;
-  border: none;
-  border-radius: 5px;
-  background: #006400;
-  color: white;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.boton:hover {
-  background-color: #004d00;
+/* OPCIONAL: ICONO O IMAGEN */
+.cajas-link::after {
+  content: '📚'; /* Emoji de libro como ejemplo */
+  font-size: 40px;
+  align-self: flex-end; /* Lo manda a la esquina inferior derecha */
 }
 
 /* /BOXS MATERIAS */
@@ -236,14 +241,15 @@ h2 {
 
 .header-superior {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  padding: 10px 15px;
+  padding: 10px 20px;
 }
 
 .titulo-izquierda {
   display: flex;
   flex-direction: column;
+  padding: 20px 30px 20px 20px;
 }
 
 .titulo-principal {
@@ -257,29 +263,9 @@ h2 {
   font-size: 14px;
 }
 
-.logo {
-  width: 50px;
-  margin: 10px 10px 10px 0;
-}
-
-.barras {
-  width: 100%;
-}
-
-.barra-naranja {
-  background-color: #f45206;
-  height: 10px;
-  width: 100%;
-}
-
-.barra-verde {
-  background-color: #007c00;
-  height: 10px;
-  width: 100%;
-}
-
 .tabs-nav {
   display: flex;
+  justify-content: center;
   background-color: white;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
@@ -294,7 +280,7 @@ h2 {
 }
 
 .tabs-nav a:hover {
-  background-color: #f0f0f0;
+  background-color: #fff9f9;
 }
 
 .tab-activa {
@@ -425,85 +411,227 @@ h2 {
 /* /NOTIFICACIONES REDUCAR (P) */
 
 /* CALIFICACIONES (P) */
-.tabla-calificaciones {
-  max-width: 1000px;
-  margin: 40px auto;
-  padding: 20px;
+ .tabla-container {
+  overflow-x: auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  background: #fff;
+  color: black;
 }
 
-.acciones-tabla {
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 1200px;
+  color: black;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px 12px;
   text-align: center;
-  margin-bottom: 15px;
 }
 
-.acciones-tabla button {
-  background-color: #007c00;
+
+
+th {
+  background: #007c00;
+  color: white;
+}
+
+.sub {
+  background: #f8f8f8;
+}
+
+th.c1, td.c1 {
+  background: hsl(219, 100%, 73%);
+}
+
+th.c2, td.c2 {
+  background: #ff6767;
+}
+
+
+td[contenteditable]{
+  background: #f9f9f9;
+  cursor: text;
+}
+
+td.promedio {
+  background: #e8f5e9;
+  font-weight: bold;
+}
+
+.acciones {
+  margin: 20px 0;
+}
+
+button {
+  background: #007c00;
   color: white;
   border: none;
-  padding: 10px 12px;
-  margin: 5px;
-  border-radius: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
   cursor: pointer;
-  font-weight: bold;
+  margin-right: 10px;
 }
 
-.acciones-tabla button:hover {
-  background-color: #005a00;
+button:hover {
+  background: #005a00;
 }
-
-.contenedor-tabla {
-  overflow-x: auto;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  padding: 20px;
-}
-
-#calificaciones {
-  width: 100%;
-  border-collapse: collapse;
-  color: black;
-  text-align: center;
-}
-
-#calificaciones th,
-#calificaciones td {
-  padding: 12px;
-  border: 1.5px solid #ccc;
-  min-width: 100px;
-}
-
-#calificaciones thead th {
-  background-color: #007c00;
-  color: white;
-}
-
-#calificaciones tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-#calificaciones td[contenteditable="true"],
-#calificaciones th[contenteditable="true"] {
-
-  outline: none;
-}
-
-#calificaciones td:first-child,
-#calificaciones th:first-child {
-  background-color: #f45206;
-  color: white;
-  font-weight: bold;
-}
-
-#calificaciones th.cuatri1,
-#calificaciones td.cuatri1 {
-  background-color: #fc9458;
-}
-
-#calificaciones th.cuatri2,
-#calificaciones td.cuatri2 {
-  background-color: #63aa34;
-}
-
 
 /* /CALIFICACIONES (P) */
+
+/* ASISTENCIAS (P) */
+
+.tabla-asistencias {
+  overflow-x: auto;
+  max-width: 100%;
+  margin: 20px auto;
+}
+
+.tabla-asistencias table {
+  border-collapse: collapse;
+  width: max-content;
+  min-width: 100%;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.tabla-asistencias th, .tabla-asistencias td {
+  border: 1px solid #ccc;
+  padding: 6px;
+}
+
+.tabla-asistencias thead th {
+  background-color: #25af18;
+}
+.popover {
+  position: absolute;
+  background: white;
+  border: 2px solid #007c00;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.popover button {
+  border: none;
+  background: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.popover button:hover {
+  background: #007c00;
+  color: white;
+}
+
+.hidden {
+  display: none;
+}
+
+.asistencia-celda {
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  min-width: 32px;
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.asistencia-celda.presente {
+  background: #007c00;
+  color: white;
+  border: none;
+}
+
+.asistencia-celda.ausente {
+  background: #d32f2f;
+  color: white;
+  border: none;
+}
+
+.barra-asistencia {
+  display: inline-block;
+  height: 10px;
+  background: #007c00;
+}
+
+/* /ASISTENCIAS (P) */
+
+/* PERSONAS (A) */
+
+.contenedor {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.bloque {
+  margin-bottom: 50px;
+  border-bottom: 1px solid #007c00;
+  padding-bottom: 20px;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.encabezado-alumnos {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lista-personas {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.persona {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 0;
+  border-top: 1px solid #007c00;
+}
+
+.persona:first-child {
+  border-top: none;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #ccc;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: white;
+  text-transform: uppercase;
+}
+
+.nombre {
+  font-size: 16px;
+  font-weight: 500;
+  color: black;
+}
+
+/* /PERSONAS (A) */
+

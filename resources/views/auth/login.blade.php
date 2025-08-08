@@ -1,12 +1,20 @@
-<x-layout>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+    <title>Iniciar Sesión</title>
+<link href="{{ asset('login.css') }}" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+</head>
+ <header>
 
     <title>Iniciar Sesión</title>
 
-    <body>
-        <header>
-            <img src="LOGOTEC3.png" alt="Logo de la escuela" class="logo">
-        </header>
+  
 
+    <img src="{{ asset("imagenes/LOGOTEC3.png") }}" alt="Logo de la escuela" class="logo">
+</header>
+  <body class="background">
         <div class="barras">
             <div class="barra-naranja"></div>
             <div class="barra-verde"></div>
@@ -16,7 +24,7 @@
             <h1>Iniciar Sesión</h1>
             <p>¿No tienes cuenta? <a href="{{ route('register') }}">Regístrate</a></p>
 
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('login.store') }}">
                 @csrf
 
                 <label>Correo electrónico</label>
@@ -36,5 +44,5 @@
                 <button type="submit">INGRESAR</button>
             </form>
         </div>
-    </body>
-</x-layout>
+    </body> 
+</html>

@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Pagina Inicial (Profesores)</title>
-    <link rel="stylesheet" href="{{ asset("profesor/estilospaginico.css") }}">
+    <title>Pagina Inicial (Alumnos)</title>
+    <link rel="stylesheet" href={{ asset("profesor/estilospaginico.css") }}>
 </head>
 <body>
   
@@ -18,6 +18,7 @@
 </header>
 
     <!-- /HEADER REDUCAR -->
+    <h1>
 
     <!-- MENU REDUCAR-->
     <button id="abrirMenu">☰</button>
@@ -27,8 +28,8 @@
     
     <ul>
     <li><a href="/paginicio.html">Inicio</a></li>
-    <li><a href="horarios.html">Horarios</a></li>
-    <li><a href="inicioprofesor.html">Materias/Cursos</a></li>
+    <li><a href="nuevohorario.html">Horarios</a></li>
+    <li><a href="asistencias.html">Asistencias</a></li>
     <li><a href="#">Notificaciones</a></li>
     <li><a href="#">Cerrar sesión</a></li>
     </ul>
@@ -48,17 +49,28 @@
         menu.classList.remove('abierto');
         abrir.classList.remove('oculto');
       });
-    </script>
-    
-    <!-- /MENU REDUCAR-->
-
-    <!-- BOXS DE MATERIAS-->
+    </script> 
     <ul class="clases">
-      <li class="cajas">
-        <div class="titulo-caja">Materia 1</div>
-        <div class="subtitulo-caja">Curso 1</div>
-        <div class="cajafooter">
-          <a href="materia1p.html" class="boton">Entrar</a>
-        </div>            
-      </li>
-    </ul>    
+          <li class="cajas">
+             @foreach ($cursos as $curso)
+            <option value="{{ $curso->id }}" style="color: black">{{ $curso->nombre }}</option>
+            @endforeach
+    <div style="color: black">Crear Materia</div>
+
+    @if ($errors->any())
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
+
+    <form action="{{ route('materias.store') }}" method="POST">
+        @csrf
+        <label for="nombre" style="color: black">Nombre:</label>
+        <input type="text" name="nombre" id="nombre" required>
+        <button type="submit" class="boton">Guardar</button>
+    </form>
+    </li></ul>
+ </body>
+</html>

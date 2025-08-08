@@ -6,11 +6,11 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; // Asegúrate de incluir esto
+use Illuminate\Support\Facades\Auth; //incluir esto
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
-use App\Models\RegistrationCode; // Asegúrate de usar el modelo de RegistrationCode
+use App\Models\RegistrationCode; // modelo de RegistrationCode
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Auth\StatefulGuard;
 

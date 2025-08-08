@@ -11,19 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->enum('role', ['alumno', 'maestro', 'director'])->default('alumno');
+          Schema::create('cursos', function (Blueprint $table) {
+          $table->id();
+          $table->string('nombre');
+         $table->timestamps();
         });
     }
-    
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('role');
-        });
+        Schema::dropIfExists('cursos');
     }
 };

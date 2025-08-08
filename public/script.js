@@ -7,26 +7,26 @@ const observer = new IntersectionObserver(entries => {
     }
   });
 }, {
-  threshold: 0.9
+  threshold: 0.5
 });
 
 sections.forEach(section => {
   observer.observe(section);
-});
+}); 
 
 //TITULO ANIMADO
  const frases = [
-  "Bienvenido a nuestra página",
-  "Secundaria Tecnica n°3 de Padua",
-  "Proyecto Reducar",
+  "Bienvenido a nuestra página ...",
+  "Secundaria Tecnica n°3 de Padua ...",
+  "Proyecto Reducar ...",
 ];
 
 let i = 0;
 let j = 0;
 let escribiendo = true;
-const velocidadEscritura = 100;
-const velocidadBorrado = 50;
-const pausaEntreFrases = 2000;
+const velocidadEscritura = 200;
+const velocidadBorrado = 100;
+const pausaEntreFrases = 1000;  
 
 const titulo = document.getElementById("tituloAnimado");
 
@@ -40,6 +40,7 @@ function animarTexto() {
       escribiendo = false;
       setTimeout(animarTexto, pausaEntreFrases);
     }
+
   } else {
     if (j > 0) {
       titulo.textContent = frases[i].substring(0, j - 1);

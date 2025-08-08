@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+
 
 class AlumnoController extends Controller
 {
@@ -11,9 +13,9 @@ class AlumnoController extends Controller
         $user = auth()->user();
 
         if ($user->role !== 'alumno') {
-            abort(403); // Acceso prohibido
+            abort('403'); // Acceso prohibido
         }
 
-        return view('alumno.alumnoInicio');
+        return view('alumno.index');
     }
 }
