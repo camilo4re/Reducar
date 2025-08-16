@@ -468,14 +468,33 @@ td.promedio {
 
 button {
   background: #007c00;
-  color: white;
   border: none;
   padding: 8px 12px;
   border-radius: 6px;
   cursor: pointer;
   margin-right: 10px;
 }
+.boton,
+button.boton {
+  display: inline-block;
+  background: #007c00;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
 
+.boton:hover,
+button.boton:hover {
+  background: #005a00;
+}
+
+/* Asegurar lectura en tarjetas con fondo claro */
+li.cajas { color: black; }
+.titulo-caja { color: black; }
+.subtitulo-caja { color: rgba(160,159,159,0.9); }
 button:hover {
   background: #005a00;
 }

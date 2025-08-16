@@ -52,25 +52,31 @@
     </script> 
     <ul class="clases">
           <li class="cajas">
-             @foreach ($cursos as $curso)
-            <option value="{{ $curso->id }}" style="color: black">{{ $curso->nombre }}</option>
-            @endforeach
-    <div style="color: black">Crear Materia</div>
+    <form action="{{ route('materias.store') }}" method="POST">
+    @csrf
+    <div class="titulo-caja">
+      <label for="nombre">Nombre de la materia:</label>
+      <input type="text" name="nombre" id="nombre" required>
+    </div>
+    <div class="titulo-caja">
+    <label for="curso_id">Curso:</label>
+    </div>
+    <select name="curso_id" id="curso_id" required>
+        <option value="">-- Seleccionar curso --</option>
+        @foreach($cursos as $curso)
+            <option value="{{ $curso->id }}">{{ $curso->año }} {{ $curso->division }}</option>
+        @endforeach
+    </select>
 
-    @if ($errors->any())
+    <button class="boton" type="submit">Crear materia</button>
+       @if ($errors->any())
         <ul>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach
         </ul>
     @endif
-
-    <form action="{{ route('materias.store') }}" method="POST">
-        @csrf
-        <label for="nombre" style="color: black">Nombre:</label>
-        <input type="text" name="nombre" id="nombre" required>
-        <button type="submit" class="boton">Guardar</button>
-    </form>
+</form>
     </li></ul>
  </body>
 </html>

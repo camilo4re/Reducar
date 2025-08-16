@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Pagina Inicial (Profesores)</title>
-    <link rel="stylesheet" href="{{ asset("profesor/estilospaginico.css") }}">
+    <title>Pagina Inicial (Alumnos)</title>
+    <link rel="stylesheet" href={{ asset("profesor/estilospaginico.css") }}>
 </head>
 <body>
   
@@ -18,6 +18,7 @@
 </header>
 
     <!-- /HEADER REDUCAR -->
+    <h1>
 
     <!-- MENU REDUCAR-->
     <button id="abrirMenu">☰</button>
@@ -27,8 +28,8 @@
     
     <ul>
     <li><a href="/paginicio.html">Inicio</a></li>
-    <li><a href="horarios.html">Horarios</a></li>
-    <li><a href="inicioprofesor.html">Materias/Cursos</a></li>
+    <li><a href="nuevohorario.html">Horarios</a></li>
+    <li><a href="asistencias.html">Asistencias</a></li>
     <li><a href="#">Notificaciones</a></li>
     <li><a href="#">Cerrar sesión</a></li>
     </ul>
@@ -48,18 +49,16 @@
         menu.classList.remove('abierto');
         abrir.classList.remove('oculto');
       });
-    </script>
-    
-    <!-- /MENU REDUCAR-->
+    </script> 
+<form action="{{ route('materias.update', $materia->id) }}" method="POST">
+    @csrf
+    @method('PUT')
 
-    <!-- BOXS DE MATERIAS-->
-    <ul class="clases">
-      <li class="cajas">
-        <div class="titulo-caja">Materia 1</div>
-        <div class="subtitulo-caja">Curso 1</div>
-        <div class="cajafooter">
-          <a href="materia1p.html" class="boton">Entrar</a>
-        </div>            
-      </li>
-    </ul>    
-    
+    <label style="color: black">Nombre:</label>
+    <input type="text" name="nombre" value="{{ $materia->nombre }}">
+
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+</form>
+
+ </body>
+</html>

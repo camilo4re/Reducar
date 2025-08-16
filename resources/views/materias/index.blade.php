@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Pagina Inicial (Alumnos)</title>
-    <link rel="stylesheet" href={{ asset("profesor/estilospaginico.css") }}>
+    <link rel="stylesheet" href="{{ asset('profesor/estilospaginico.css') }}">
+
 </head>
 <body>
   
@@ -31,7 +32,11 @@
     <li><a href="nuevohorario.html">Horarios</a></li>
     <li><a href="asistencias.html">Asistencias</a></li>
     <li><a href="#">Notificaciones</a></li>
-    <li><a href="#">Cerrar sesión</a></li>
+    <li> 
+      <form action="{{ route('logout') }}" method="POST">
+        @csrf <button class="boton" type="submit">CERRAR SESION</button>
+      </form>
+    </li>
     </ul>
     </nav>
     
@@ -65,26 +70,26 @@
           @endif
 
 
-          @foreach($materias as $materia)                            
-              @csrf
-              <li class="cajas">
-                <div class="titulo-caja">{{ $materia->nombre }}</div>
-                    <div class="subtitulo-caja">Profesor {{ Auth::user()->name }}</div>
-                    <div class="subtitulo-caja">Curso {{ $materia->curso_id }}</div>
-                        <div class="cajafooter">
-                          @if((Auth()->user()->role==='profesor')||(Auth()->user()->role==='directivo'))
-                            <a href="{{ route('materias.edit', $materia->id) }}" class="boton" style="background-color: yellow">Editar</a>
-                          @endif
-                          @if((Auth()->user()->role==='profesor')||(Auth()->user()->role==='directivo'))
-                             <form action="{{ route('materias.destroy', $materia->id) }}" method="POST" style="display:inline;">
-                                @method('DELETE')
-                                <button class="boton" style="background-color: red" type="submit">Eliminar</button>
-                              </form>
-                          @endif
-                          <a href="materia1p.html" class="boton">Entrar</a>
-                        </div>
-                </div>
-                          
-          @endforeach
+          @foreach($materias as $materia)
+  <li class="cajas">
+    <div class="titulo-caja">{{ $materia->nombre }}</div>
+    <div class="titulo-caja">Profesor {{ Auth::user()->name }}</div>
+    <div class="titulo-caja">Curso {{ $materia->curso->año }} {{ $materia->curso->division }}</div>
+
+    <div class="cajafooter">
+      @if(in_array(Auth::user()->role, ['profesor','directivo']))
+        <a class="boton" href="{{ route('materias.edit', $materia) }}" style="background-color: yellow">Editar</a>
+
+        <form action="{{ route('materias.destroy', $materia) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Seguro que querés eliminar esta materia?');">
+          @csrf
+          @method('DELETE')
+          <button class="boton" type="submit" style="background-color: red">Eliminar</button>
+        </form>
+      @endif
+
+      <a class="boton" href="{{ route('materias.index', $materia) ?? url('materia1p.html') }}">Entrar</a>
+    </div>
+  </li>
+@endforeach
   </body>
 </html>
