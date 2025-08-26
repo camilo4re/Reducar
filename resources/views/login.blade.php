@@ -5,6 +5,7 @@
     <title>Iniciar Sesión</title>
 <link href="{{ asset('login.css') }}" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
 </head>
  <header>
 
@@ -39,7 +40,7 @@
                     <div class="error">{{ $message }}</div>
                 @enderror
 
-                <a href="/olvidaste" class="link-olvide">¿Olvidaste tu contraseña?</a>
+                <a href="{{ route('olvidaste') }}" class="link-olvide">¿Olvidaste tu contraseña?</a>
 
                 <button type="submit">INGRESAR</button>
             </form>

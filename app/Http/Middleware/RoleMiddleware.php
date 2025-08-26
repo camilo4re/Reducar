@@ -8,16 +8,18 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RoleMiddleware
 {
-    public function handle(Request $request, Closure $next, string $role) 
-    {
-        if (!auth()->check()) {
-            return redirect()->route('login');
-        }
-
-        if (auth()->user()->role !== $role) {
-            abort(403, 'Acceso no autorizado.');
-        }
-
-        return $next($request);
+public function handle($request, Closure $next, $roles)
+{
+    if (!auth()->check()) {
+        return redirect()->route('login');
     }
+
+    $rolesArray = explode(',', $roles);
+
+    if (!in_array(auth()->user()->role, $rolesArray)) {
+        abort(403, 'Acceso no autorizado.');
+    }
+
+    return $next($request);
+}
 }

@@ -1,9 +1,12 @@
-/* HEADER REDUCAR */
-body {
+ body {
   margin: 0;
   font-family:'Montserrat', sans-serif;
   background-color: #0c0b0b;
   color: white;
+}
+
+a {
+  text-decoration: none;
 }
 
 .background {
@@ -41,8 +44,8 @@ header {
   width: 100%;
 }
 
-/* /HEADER REDUCAR */
-/* FORMULARIO */
+/* /HEADER REDUCAR /
+/ FORMULARIO */
 .formulario-contenedor {
   background-color: #141414;
   text-align: left;
@@ -80,5 +83,3 @@ button {
 button:hover {
   background-color: white;
 }
-
-/* /FORMULARIO */

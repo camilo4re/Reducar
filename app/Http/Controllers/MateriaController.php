@@ -10,7 +10,7 @@ class MateriaController extends Controller
 {
     public function index()
 {
-    $user = auth()->user();
+    $user = Auth::user();
     $materias = [];
 
     if ($user->role === 'profesor') {
@@ -33,6 +33,7 @@ class MateriaController extends Controller
 
     public function create()
     {
+          
         $cursos = Curso::all();
         return view('materias.create', ['cursos' => $cursos]);
     }
@@ -84,6 +85,10 @@ public function destroy($id)
     $materia = Materia::findOrFail($id);
     $materia->delete();
     return redirect()->route('materias.index')->with('success','Materia eliminada.');
+}
+public function show(Materia $materia)
+{
+    return view('materias.show', ['materia' => $materia]);
 }
 
 }

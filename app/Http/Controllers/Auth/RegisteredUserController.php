@@ -40,36 +40,32 @@ class RegisteredUserController extends Controller
         ]);
 
         // Validar si el código ha sido usado
-        $regCode = RegistrationCode::where('code', $request->code)->first();
+        $code = RegistrationCode::where('code', $request->codigo)->first();
+
+if (!$code || $code->role !== 'alumno') {
+    return back()->withErrors(['codigo' => 'Código inválido']);
+}
+
+$user = User::create([
+    'name' => $request->name,
+    'email' => $request->email,
+    'password' => bcrypt($request->password),
+    'role' => 'alumno',
+ ]);
+
+// asignar a curso
+$user->cursos()->attach($code->curso_id);
+
+        // Hacer login al usuario automticamente
         
-        if (!$regCode) {
-            return back()->withErrors(['code' => 'El código de inscripción no es válido.']);
-        }
 
-        if ($regCode->used) {
-            return back()->withErrors(['code' => 'Este código ya ha sido utilizado.']);
-        }
-
-        // Crear el nuevo usuario
-        $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-            'role' => 'alumno', // Asignar el rol de alumno por defecto
-        ]);
-
-        // Marcar el código como usado
-        $regCode->used = true;
-        $regCode->save();
-
-        // Hacer login al usuario automáticamente
-        
 /** @var StatefulGuard $auth */
+
 $auth = auth();
 $auth->login($user);
 
         // Redirigir a la página principal 
-        return redirect()->route('dashboard');
+        return redirect()->route('materias.index');
     }
 }
 

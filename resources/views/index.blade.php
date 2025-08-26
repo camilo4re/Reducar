@@ -4,6 +4,7 @@
   <title>REDUCAR</title>
   <link rel="stylesheet" href="{{asset('inicio.css')}}">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  
 </head>
 
   <body class="background-fade">
@@ -26,18 +27,20 @@
 
       <div class="contenedor-principal">
       <section class="hero">
-          <div class="logo-central img">
-           <img src="{{asset('imagenes/LOGOTEC3NUEVO.png')}}" alt="logo-central img">
-          </div>
-      </section>
-      </div>
-   
-        <main class="contenido">
           <section class="info-destacada">
               <div class="mensaje fade-in-section">
               <h1 class="typewriter-text" id="tituloAnimado"></h1>
               </div>
           </section>
+
+          <div class="logo-central">
+           <img src="{{asset('imagenes/LOGOTEC3NUEVO.png')}}" alt="Logo Central">
+          </div>
+      </section>
+      </div>
+   
+        <main class="contenido">
+
         
           <section class="fade-in-section info-destacada">
             <div class="texto">

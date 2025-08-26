@@ -28,11 +28,11 @@ class AuthenticatedSessionController extends Controller
         $user = auth()->user();       
         if ($user->role=== "alumno") {
             return 
-            redirect()->route("alumno");
+            redirect()->route("materias.index");
         } elseif ($user->role === "profesor") {
-        return redirect()->route("profesor");
+        return redirect()->route("materias.index");
     } elseif ($user->role === "directivo") {
-        return redirect()->route("directivo");
+        return redirect()->route("materias.index");
     }
 
 

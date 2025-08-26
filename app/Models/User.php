@@ -19,6 +19,10 @@ class User extends Authenticatable
 }
 
 
+public function getRoleAttribute($value)
+{
+    return $value;
+}
 
     /**
      * The attributes that are mass assignable.

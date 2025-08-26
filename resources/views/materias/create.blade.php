@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Pagina Inicial (Alumnos)</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+        <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap' rel="stylesheet">
     <link rel="stylesheet" href={{ asset("profesor/estilospaginico.css") }}>
 </head>
 <body>
@@ -18,20 +21,29 @@
 </header>
 
     <!-- /HEADER REDUCAR -->
-    <h1>
 
     <!-- MENU REDUCAR-->
-    <button id="abrirMenu">☰</button>
+<!-- MENU REDUCAR -->
+<button id="abrirMenu">☰</button>
 
     <nav id="menuLateral" class="cerrado">
     <button id="cerrarMenu">×</button>
     
     <ul>
-    <li><a href="/paginicio.html">Inicio</a></li>
-    <li><a href="nuevohorario.html">Horarios</a></li>
-    <li><a href="asistencias.html">Asistencias</a></li>
-    <li><a href="#">Notificaciones</a></li>
-    <li><a href="#">Cerrar sesión</a></li>
+    <li><a href="{{ route ('materias.index')}}">Inicio <i class="fa-solid fa-house"></i></a></li>
+    <li><a href="nuevohorario.html">Horarios <i class="fa-solid fa-calendar"></i></a></li>
+    <!-- <li><a href="asistencias.html">Asistencias <i class="fa-solid fa-user-check"></i></a></li> -->
+     <!--<li><a href="#">Notificaciones <i class="fa-solid fa-bell"></i></a></li>-->
+   <li>
+        <a href="#" 
+           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+           Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i>
+        </a>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+    </li>
     </ul>
     </nav>
     
@@ -49,7 +61,14 @@
         menu.classList.remove('abierto');
         abrir.classList.remove('oculto');
       });
-    </script> 
+    </script>
+
+<main class="content">
+<!-- /MENU REDUCAR -->
+        <!-- /MENU REDUCAR-->
+
+    <main class="content">
+
     <ul class="clases">
           <li class="cajas">
     <form action="{{ route('materias.store') }}" method="POST">
@@ -61,6 +80,7 @@
     <div class="titulo-caja">
     <label for="curso_id">Curso:</label>
     </div>
+    <div class="cajafooter">
     <select name="curso_id" id="curso_id" required>
         <option value="">-- Seleccionar curso --</option>
         @foreach($cursos as $curso)
@@ -78,5 +98,8 @@
     @endif
 </form>
     </li></ul>
- </body>
+        </div>
+
+    </main>
+</body>
 </html>
