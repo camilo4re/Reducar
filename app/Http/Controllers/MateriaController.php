@@ -18,8 +18,7 @@ class MateriaController extends Controller
         $materias = Materia::where('user_id', $user->id)->get();
 
     } elseif ($user->role === 'alumno') {
-        // Por ahora mostramos todas, luego se filtra según el curso
-        $materias = Materia::all();
+        $materias = Materia::where('curso_id', auth()->user()->curso_id)->get();
 
     } else { // directivo 
         $materias = Materia::all();
@@ -27,10 +26,6 @@ class MateriaController extends Controller
 
     return view('materias.index', ['materias' => $materias]);
 }
-
-
-
-
     public function create()
     {
           

@@ -31,7 +31,7 @@
     <button id="cerrarMenu">×</button>
     
     <ul>
-    <li><a href="{{ route ('materias.index')}}">Inicio <i class="fa-solid fa-house"></i></a></li>
+    <!-- <li><a href="{{ route ('materias.index')}}">Inicio <i class="fa-solid fa-house"></i></a></li>--> 
     <li><a href="nuevohorario.html">Horarios <i class="fa-solid fa-calendar"></i></a></li>
     <!-- <li><a href="asistencias.html">Asistencias <i class="fa-solid fa-user-check"></i></a></li> -->
      <!--<li><a href="#">Notificaciones <i class="fa-solid fa-bell"></i></a></li>-->

@@ -15,4 +15,9 @@ class Curso extends Model
     {
         return $this->hasMany(Materia::class);
     }
+    public function alumnos()
+{
+    return $this->hasMany(User::class);
+}
+    
 }

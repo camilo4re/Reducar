@@ -105,7 +105,7 @@ class ContenidoController extends Controller
      */
     public function destroy(Materia $materia, Contenido $contenido)
     {
-        if (Auth::id() !== $contenido->user_id && Auth::user()->rol !== 'directivo') {
+        if (Auth::id() !== $contenido->user_id && Auth::user()->role !== 'directivo') {
             abort(403, 'No tienes permiso para eliminar este contenido.');
         }
 

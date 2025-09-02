@@ -30,7 +30,11 @@ class DatabaseSeeder extends Seeder
             'password' => '12345678',
 
         ]);
-        
+   User::factory()->count(10)->create([
+       'role' => 'alumno',
+       'password' => '12345678', // encripta la contraseña
+   ]);
+
         User::factory()->create([
             'name' => 'Directivo',
             'email' => 'directivo@gmail.com',

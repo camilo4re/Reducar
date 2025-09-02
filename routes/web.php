@@ -10,6 +10,7 @@ use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\DirectivoController;
 use App\Http\Controllers\MateriaController;
 use App\Http\Controllers\ContenidoController;
+use App\Http\Controllers\NotaController;
 
 Route::view("/", "index")->name("inicio");
 Route::view("nosotros", "about")->name("about");
@@ -97,6 +98,49 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/materias/{materia}/contenidos/{contenido}', [ContenidoController::class, 'show'])->name('contenidos.show');
 });
 
+
+// RUTAS DE NOTAS - Sistema de cuatrimestres
+Route::middleware(['auth'])->group(function () {
+    
+    // Vista principal de notas por materia (muestra los 3 periodos)
+    Route::get('/materias/{materia}/notas', [NotaController::class, 'index'])->name('notas.index');
+    
+    // Ver trabajos de un periodo específico
+    Route::get('/materias/{materia}/notas/{periodo}', [NotaController::class, 'mostrarPeriodo'])
+         ->name('notas.periodo')
+         ->where('periodo', 'primer_cuatrimestre|segundo_cuatrimestre|recuperatorio');
+    
+    // Ver promedios de todos los alumnos
+    Route::get('/materias/{materia}/promedios', [NotaController::class, 'promediosAlumnos'])->name('notas.promedios');
+    
+    // Rutas solo para profesores y directivos
+    Route::middleware('role:profesor,directivo')->group(function () {
+        
+        // Crear nuevo trabajo
+        Route::get('/materias/{materia}/notas/{periodo}/crear', [NotaController::class, 'crearTrabajo'])
+             ->name('notas.crear-trabajo')
+             ->where('periodo', 'primer_cuatrimestre|segundo_cuatrimestre|recuperatorio');
+        
+        Route::post('/materias/{materia}/notas/{periodo}', [NotaController::class, 'guardarTrabajo'])
+             ->name('notas.guardar-trabajo')
+             ->where('periodo', 'primer_cuatrimestre|segundo_cuatrimestre|recuperatorio');
+        
+        // Editar trabajo existente
+        Route::get('/materias/{materia}/notas/{periodo}/{trabajo}/editar', [NotaController::class, 'editarTrabajo'])
+             ->name('notas.editar-trabajo')
+             ->where('periodo', 'primer_cuatrimestre|segundo_cuatrimestre|recuperatorio');
+        
+        Route::put('/materias/{materia}/notas/{periodo}/{trabajo}', [NotaController::class, 'actualizarTrabajo'])
+             ->name('notas.actualizar-trabajo')
+             ->where('periodo', 'primer_cuatrimestre|segundo_cuatrimestre|recuperatorio');
+        
+        // Eliminar trabajo
+        Route::delete('/materias/{materia}/notas/{periodo}/{trabajo}', [NotaController::class, 'eliminarTrabajo'])
+             ->name('notas.eliminar-trabajo')
+             ->where('periodo', 'primer_cuatrimestre|segundo_cuatrimestre|recuperatorio');
+    });
+});
+// Rutas de perfil y logout (todos los roles logueados)
 
     Route::get('/profile', function () {
     return 'Página de edición de perfil';

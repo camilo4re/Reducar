@@ -81,10 +81,10 @@
     <i class="fa-solid fa-users"></i>
   </div>
   <div class="icono-header" data-tooltip="Calificaciones">
-    <i class="fa-solid fa-clipboard-list"></i>
+    <a href="{{ route('notas.index', $materia->id) }}"><i class="fa-solid fa-clipboard-list"></i></a>
   </div>
   <div class="icono-header" data-tooltip="Asistencias">
-    <i class="fa-solid fa-calendar-check"></i>
+    <i class="fa-solid fa-calendar-check"></i></a>
   </div>
 </nav>
 <!-- /NAV NUEVO -->

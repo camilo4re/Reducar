@@ -28,5 +28,9 @@ class Materia extends Model
     {
     return $this->hasMany(Contenido::class);
     }
-    
+
+    public function notas()
+    {
+        return $this->hasMany(Nota::class);
+    }
 }
