@@ -105,17 +105,10 @@
                 </div>
                 <div class="cajafooter">
                      <button>
-                    <a href="{{ route('notas.periodo', [$materia->id, 'primer_cuatrimestre']) }}">
+                    <a href="{{ route('notas.periodo', [$materia->id, 'primer-cuatrimestre']) }}">
                         Ver Trabajos
                     </a>
-                </button>
-                    @if(auth()->user()->role !== 'alumno')
-                    <button>
-                        <a href="{{ route('notas.crear-trabajo', [$materia->id, 'primer_cuatrimestre']) }}">
-                            Crear Trabajo
-                        </a>
-                    </button>
-                    @endif
+                </button>  
                 </div>
             </li>
 
@@ -126,49 +119,30 @@
                 </div>
                 <div class="cajafooter">
                     <button>
-                        <a href="{{ route('notas.periodo', [$materia->id, 'segundo_cuatrimestre']) }}">
+                        <a href="{{ route('notas.periodo', [$materia->id, 'segundo-cuatrimestre']) }}">
                             Ver Trabajos
                         </a>
                     </button>
-                    @if(auth()->user()->role !== 'alumno')
-                     <button>
-                        <a href="{{ route('notas.crear-trabajo', [$materia->id, 'segundo_cuatrimestre']) }}">
-                            Crear Trabajo
-                        </a>
-                    </button>
-                    @endif
                 </div>
             </li>
 
             <!-- RECUPERATORIO -->
             <li class="cajas">
                 <div class="titulo-caja">
-                    Recuperatorio
+                    intensificacion
                 </div>
                 <div class="cajafooter">
                     <button>
-                    <a href="{{ route('notas.periodo', [$materia->id, 'recuperatorio']) }}">
+                    <a href="{{ route('notas.periodo', [$materia->id, 'intensificacion']) }}">
                         Ver Trabajos
                     </a>
                     </button>
-                    @if(auth()->user()->role !== 'alumno')
-                    <button>
-                        <a href="{{ route('notas.crear-trabajo', [$materia->id, 'recuperatorio']) }}">
-                            Crear Trabajo
-                        </a>
-                    </button>
-                    @endif
                 </div>
             </li>
         <div>
             <button>
                 <a href="{{ route('materias.show', $materia->id) }}" >Volver a la Materia</a>
             </button>
-            @if(auth()->user()->role !== 'alumno')
-            <button>
-                <a href="{{ route('notas.promedios', $materia->id) }}" >Ver Promedios</a>
-              </button>
-            @endif
          </div>
         </ul>
       

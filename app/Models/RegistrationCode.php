@@ -21,4 +21,15 @@ class RegistrationCode extends Model
     {
         return $this->belongsTo(Curso::class);
     }
+
+     public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    // Método auxiliar para verificar si se puede usar
+    public function usable()
+    {
+        return !$this->used && !$this->user_id;
+    }
 }

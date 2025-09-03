@@ -42,22 +42,17 @@ class Nota extends Model
         return $query->where('periodo', 'recuperatorio');
     }
 
-    // Método para obtener trabajos únicos por periodo y materia
-    public static function getTrabajosUnicos($materia_id, $periodo)
+    // metodop trabajos por periodo y materia
+    public static function trabajosUnicos($materia_id, $periodo)
     {
-        return self::where('materia_id', $materia_id)
-                   ->where('periodo', $periodo)
-                   ->select('trabajo_titulo', 'trabajo_descripcion')
-                   ->distinct()
-                   ->get();
+        return self::where('materia_id', $materia_id)->where('periodo', $periodo)->select('trabajo_titulo', 'trabajo_descripcion')->distinct()
+        ->get();
     }
 
-    // Método para calcular promedio por alumno y periodo
-    public static function promedioAlumnoPeriodo($user_id, $materia_id, $periodo)
+    // promedio
+    public static function promedioNota($user_id, $materia_id, $periodo)
     {
-        return self::where('user_id', $user_id)
-                   ->where('materia_id', $materia_id)
-                   ->where('periodo', $periodo)
-                   ->avg('valor');
+        return self::where('user_id', $user_id)->where('materia_id', $materia_id)->where('periodo', $periodo)
+                   ->avg('valor'); //avg hace el promedio 
     }
 }

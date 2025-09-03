@@ -65,8 +65,8 @@
     </script>
 
 <main class="content">
-<!-- /MENU REDUCAR -->
-    <!-- /MENU REDUCAR-->
+
+    
       <div class="container" id="container">
     <!-- columna izquierda -->
       <div class="columna izquierda">

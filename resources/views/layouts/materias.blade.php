@@ -12,7 +12,7 @@
   
   <!--HEADER REDUCAR -->
   <header>
-    <img src="/IMAGENES/LOGOTEC3.png" alt="Logo de la escuela" class="logo">
+    <img src="{{ asset('imagenes/LOGOTEC3.png') }}" alt="Logo de la escuela" class="logo">
 
     <div class="barras">
         <div class="barra-naranja"></div>
@@ -62,41 +62,6 @@
         abrir.classList.remove('oculto');
       });
     </script>
-
-<main class="content">
-
-
-
-    <main class="content">
-
-    <ul class="clases">
-          <li class="cajas">
-    <form action="{{ route('materias.store') }}" method="POST">
-    @csrf
-    <div class="titulo-caja">
-      <label for="nombre">Nombre de la materia:</label>
-      <input type="text" name="nombre" id="nombre" required>
-    </div>
-    <div class="titulo-caja">
-    <label for="curso_id">Curso:</label>
-    </div>
-    <div class="cajafooter">
-    <select name="curso_id" id="curso_id" required>
-        <option value="">-- Seleccionar curso --</option>
-        @foreach($cursos as $curso)
-            <option value="{{ $curso->id }}">{{ $curso->año }} {{ $curso->division }}</option>
-        @endforeach
-    </select>
-
-    <button class="boton" type="submit">Crear materia</button>
-       @if ($errors->any())
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
-</form>
-    </li></ul>
-        </div>
-</main>
+@yield('content')
+</body>
+</html>

@@ -10,18 +10,22 @@ use Illuminate\Support\Facades\Auth;
 
 class NotaController extends Controller
 {
-    public function index(Materia $materia)
-    {
+    public function rutas(Materia $materia){
         $user = Auth::user();
-
         // tuve que hacer condicionales para saber si el usuario o profesor que quiere entrar a las notas de la materia pertenece a la misma
+
         if ($user->role === 'alumno' && $user->curso_id !== $materia->curso_id) {
             abort(403, 'No tienes acceso a las notas de esta materia.');
         }
-        
         if ($user->role === 'profesor' && $materia->user_id !== $user->id) {
             abort(403, 'No tienes acceso a las notas de esta materia.');
         }
+    }
+
+    public function index(Materia $materia)
+    {
+
+        $this->rutas($materia);
 
         return view('notas.index', compact('materia'));
     }
@@ -29,25 +33,12 @@ class NotaController extends Controller
 
     public function mostrarPeriodo(Materia $materia, $periodo)
     {
-        $user = Auth::user();
-        
-        // Verificar permisos
-        if ($user->role === 'alumno' && $user->curso_id !== $materia->curso_id) {
-            abort(403);
-        }
-        
-        if ($user->role === 'profesor' && $materia->user_id !== $user->id) {
-            abort(403);
-        }
+        $this->rutas($materia);
 
-        // Obtener trabajos únicos del periodo
-        $trabajos = Nota::getTrabajosUnicos($materia->id, $periodo);
+        $trabajos = Nota::trabajosUnicos($materia->id, $periodo);
         
-        // Obtener alumnos del curso
         $alumnos = User::where('role', 'alumno')
-                      ->where('curso_id', $materia->curso_id)
-                      ->orderBy('name')
-                      ->get();
+                      ->where('curso_id', $materia->curso_id)->orderBy('name')->get();
 
         // Para cada trabajo, obtener las notas de todos los alumnos
         $trabajosConNotas = [];
@@ -63,53 +54,36 @@ class NotaController extends Controller
                 $notasDelTrabajo[$alumno->id] = $nota ? $nota->valor : null;
             }
             
-            $trabajosConNotas[] = [
+            $trabajosNotas[] = [
                 'trabajo' => $trabajo,
                 'notas' => $notasDelTrabajo
             ];
         }
 
-        return view('notas.periodo', compact('materia', 'periodo', 'alumnos', 'trabajosConNotas'));
+        return view('notas.periodo', compact('materia', 'periodo', 'alumnos', 'trabajosNotas'));
     }
 
     /**
      * Crear nuevo trabajo en un periodo
      */
-    public function crearTrabajo(Materia $materia, $periodo)
+    public function create(Materia $materia, $periodo)
     {
-        $user = Auth::user();
-        
-        // Solo profesores de la materia o directivos
-        if ($user->role === 'profesor' && $materia->user_id !== $user->id) {
-            abort(403);
-        }
-
-        if ($user->role === 'alumno') {
-            abort(403);
-        }
+        $this->rutas($materia);
 
         $alumnos = User::where('role', 'alumno')
                       ->where('curso_id', $materia->curso_id)
                       ->orderBy('name')
                       ->get();
 
-        return view('notas.crear-trabajo', compact('materia', 'periodo', 'alumnos'));
+        return view('notas.create', compact('materia', 'periodo', 'alumnos'));
     }
 
     /**
      * Guardar nuevo trabajo con notas
      */
-    public function guardarTrabajo(Request $request, Materia $materia, $periodo)
+    public function store(Request $request, Materia $materia, $periodo)
     {
-        $user = Auth::user();
-        
-        if ($user->role === 'profesor' && $materia->user_id !== $user->id) {
-            abort(403);
-        }
-
-        if ($user->role === 'alumno') {
-            abort(403);
-        }
+        $this->rutas($materia);
 
         $request->validate([
             'trabajo_titulo' => 'required|string|max:100',
@@ -136,24 +110,15 @@ class NotaController extends Controller
             }
         }
 
-        return redirect()->route('notas.periodo', [$materia->id, $periodo])
-                        ->with('success', 'Trabajo creado exitosamente.');
+        return redirect()->route('notas.periodo', [$materia->id, $periodo]);
     }
 
     /**
      * Editar notas de un trabajo específico
      */
-    public function editarTrabajo(Materia $materia, $periodo, $trabajo_titulo)
+    public function edit(Materia $materia, $periodo, $trabajo_titulo)
     {
-        $user = Auth::user();
-        
-        if ($user->role === 'profesor' && $materia->user_id !== $user->id) {
-            abort(403);
-        }
-
-        if ($user->role === 'alumno') {
-            abort(403);
-        }
+        $this->rutas($materia);
 
         // Obtener el trabajo
         $trabajo = Nota::where('materia_id', $materia->id)
@@ -182,19 +147,15 @@ class NotaController extends Controller
             $notasActuales[$alumno->id] = $nota ? $nota->valor : null;
         }
 
-        return view('notas.editar-trabajo', compact('materia', 'periodo', 'trabajo', 'alumnos', 'notasActuales'));
+        return view('notas.edit', compact('materia', 'periodo', 'trabajo', 'alumnos', 'notasActuales'));
     }
 
     /**
      * Actualizar notas de un trabajo
      */
-    public function actualizarTrabajo(Request $request, Materia $materia, $periodo, $trabajo_titulo)
+    public function update(Request $request, Materia $materia, $periodo, $trabajo_titulo)
     {
-        $user = Auth::user();
-        
-        if ($user->role === 'profesor' && $materia->user_id !== $user->id) {
-            abort(403);
-        }
+        $this->rutas($materia);
 
         $request->validate([
             'trabajo_descripcion' => 'nullable|string',
@@ -238,48 +199,26 @@ class NotaController extends Controller
             }
         }
 
-        return redirect()->route('notas.periodo', [$materia->id, $periodo])
-                        ->with('success', 'Trabajo actualizado exitosamente.');
+        return redirect()->route('notas.periodo', [$materia->id, $periodo]);
     }
 
-    /**
-     * Eliminar un trabajo completo
-     */
-    public function eliminarTrabajo(Materia $materia, $periodo, $trabajo_titulo)
+    public function destroy(Materia $materia, $periodo, $trabajo_titulo)
     {
-        $user = Auth::user();
-        
-        if ($user->role === 'profesor' && $materia->user_id !== $user->id) {
-            abort(403);
-        }
-
-        if ($user->role === 'alumno') {
-            abort(403);
-        }
+        $this->rutas($materia);
 
         Nota::where('materia_id', $materia->id)
             ->where('periodo', $periodo)
             ->where('trabajo_titulo', $trabajo_titulo)
             ->delete();
 
-        return redirect()->route('notas.periodo', [$materia->id, $periodo])
-                        ->with('success', 'Trabajo eliminado exitosamente.');
+        return redirect()->route('notas.periodo', [$materia->id, $periodo]);
     }
 
-    /**
-     * Ver promedios de todos los alumnos en la materia
-     */
-    public function promediosAlumnos(Materia $materia)
+
+
+    public function promediosNotas(Materia $materia)
     {
-        $user = Auth::user();
-        
-        if ($user->role === 'alumno' && $user->curso_id !== $materia->curso_id) {
-            abort(403);
-        }
-        
-        if ($user->role === 'profesor' && $materia->user_id !== $user->id) {
-            abort(403);
-        }
+        $this->rutas($materia);
 
         $alumnos = User::where('role', 'alumno')
                       ->where('curso_id', $materia->curso_id)
@@ -288,9 +227,9 @@ class NotaController extends Controller
 
         $promedios = [];
         foreach ($alumnos as $alumno) {
-            $promedioPrimero = Nota::promedioAlumnoPeriodo($alumno->id, $materia->id, 'primer_cuatrimestre');
-            $promedioSegundo = Nota::promedioAlumnoPeriodo($alumno->id, $materia->id, 'segundo_cuatrimestre');
-            $promedioRecup = Nota::promedioAlumnoPeriodo($alumno->id, $materia->id, 'recuperatorio');
+            $promedioPrimero = Nota::promedioNota($alumno->id, $materia->id, 'primer_cuatrimestre');
+            $promedioSegundo = Nota::promedioNota($alumno->id, $materia->id, 'segundo_cuatrimestre');
+            $promedioRecup = Nota::promedioNota($alumno->id, $materia->id, 'recuperatorio');
             
             $promedioGeneral = collect([$promedioPrimero, $promedioSegundo, $promedioRecup])
                               ->filter()

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class MateriaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
 {
     $user = Auth::user();
     $materias = [];
@@ -20,8 +20,23 @@ class MateriaController extends Controller
     } elseif ($user->role === 'alumno') {
         $materias = Materia::where('curso_id', auth()->user()->curso_id)->get();
 
-    } else { // directivo 
-        $materias = Materia::all();
+    } else { 
+       
+        $curso_id = $request->input('curso_id');
+
+        $query = Materia::query();
+
+        if ($curso_id) {
+            $query->where('curso_id', $curso_id);
+        }
+
+        $materias = $query->get();
+
+        // Traer todos los cursos para el select
+        $cursos = Curso::orderBy('año')->orderBy('division')->get();
+
+        return view('materias.index', compact('materias', 'cursos', 'curso_id'));
+    
     }
 
     return view('materias.index', ['materias' => $materias]);

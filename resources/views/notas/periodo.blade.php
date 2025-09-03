@@ -97,10 +97,16 @@
         @endif
 
         <div>
-            <h2>Trabajos del {{ ucfirst(str_replace('_', ' ', $periodo)) }}</h2>
-            @if(auth()->user()->role !== 'alumno')
+            <h2> @if ($periodo=='intensificacion') <!--si no hacia este if iba a quedar como trabajos del intensificacion xd-->
+                Trabajos de intensificacion
+            
+             @else Trabajos del {{ $periodo=str_replace('-', ' ', $periodo) }}</h2> <!-- std replace es como el .replace del js -->
+             @endif</h2>
+            
+            
+             @if(auth()->user()->role !== 'alumno')
             <button>
-                <a href="{{ route('notas.crear-trabajo', [$materia->id, $periodo]) }}">
+                <a href="{{ route('notas.create', [$materia->id, $periodo]) }}">
                    Crear Trabajo
                 </a>
                 </button>
@@ -121,13 +127,13 @@
                     @if(auth()->user()->role !== 'alumno')
                         <div>
                             <button>
-                            <a href="{{ route('notas.editar-trabajo', [$materia->id, $periodo, $trabajoData['trabajo']->trabajo_titulo]) }}">
+                            <a href="{{ route('notas.edit', [$materia->id, $periodo, $trabajoData['trabajo']->trabajo_titulo]) }}">
                              Editar
                             </a>
 
                         </button>
                             <form 
-                                  action="{{ route('notas.eliminar-trabajo', [$materia->id, $periodo, $trabajoData['trabajo']->trabajo_titulo]) }}" 
+                                  action="{{ route('notas.destroy', [$materia->id, $periodo, $trabajoData['trabajo']->trabajo_titulo]) }}" 
                                   method="POST" 
                                   onsubmit="return confirm('¿Estás seguro de eliminar este trabajo y todas sus notas?')">
                                 @csrf
@@ -176,7 +182,7 @@
                 <h3>No hay trabajos en este periodo</h3>
                 @if(auth()->user()->role !== 'alumno')
                 <button>
-                    <a href="{{ route('notas.crear-trabajo', [$materia->id, $periodo]) }}">
+                    <a href="{{ route('notas.create', [$materia->id, $periodo]) }}">
                         Crear primer trabajo
                     </a>
                 </button>

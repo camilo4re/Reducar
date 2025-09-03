@@ -33,25 +33,21 @@ class User extends Authenticatable
         ];
     }
 
-    // Relación con curso
-    public function curso()
+     public function curso()
     {
         return $this->belongsTo(Curso::class);
     }
 
-    // Relación con notas (como alumno)
     public function notas()
     {
         return $this->hasMany(Nota::class);
     }
 
-    // Relación con materias que creó (como profesor)
     public function materias()
     {
         return $this->hasMany(Materia::class);
     }
 
-    // Relación con contenidos que creó
     public function contenidos()
     {
         return $this->hasMany(Contenido::class);

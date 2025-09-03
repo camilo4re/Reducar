@@ -50,7 +50,6 @@
     </script>
 
 <main class="content">
-<!-- /MENU REDUCAR -->
 
 <!-- HEADER REDUCAR -->
 <header>

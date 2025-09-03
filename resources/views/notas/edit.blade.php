@@ -50,7 +50,6 @@
     </script>
 
 <main class="content">
-<!-- /MENU REDUCAR -->
 
 <!-- HEADER REDUCAR -->
 <header>
@@ -90,60 +89,58 @@
 
 
 <!-- /NAV NUEVO -->
-
-
-    <div class="container">
+<div class="container">
         
-        <form action="{{ route('notas.guardar-trabajo', [$materia->id, $periodo]) }}" method="POST" class="formulario-trabajo">
+        <form action="{{ route('notas.update', [$materia->id, $periodo, $trabajo->trabajo_titulo]) }}" method="POST" class="formulario-trabajo">
             @csrf
-            
-            <div class="campo-grupo">
+            @method('PUT')
+            <div>
                 <label for="trabajo_titulo">
-                     Título del Trabajo 
+                     Título del Trabajo
                 </label>
                 <input type="text" 
                        id="trabajo_titulo" 
                        name="trabajo_titulo" 
-                       value="{{ old('trabajo_titulo') }}" 
-                       placeholder="Ej: Parcial 1, TP Integrador, Examen Final..." 
-                       required>
-                @error('trabajo_titulo')
-                    <div class="error-message">{{ $message }}</div>
-                @enderror
+                       value="{{ $trabajo->trabajo_titulo }}" 
+                       readonly>
+                <small>El título no se puede modificar una vez creado el trabajo.</small>
             </div>
 
-            <div class="campo-grupo">
+            <div>
                 <label for="trabajo_descripcion">
-                    <i ></i> Descripción (opcional)
+                     Descripción
                 </label>
                 <textarea id="trabajo_descripcion" 
                           name="trabajo_descripcion" 
                           rows="3" 
-                          placeholder="Descripción adicional del trabajo...">{{ old('trabajo_descripcion') }}</textarea>
+                          placeholder="Descripción adicional del trabajo...">{{ old('trabajo_descripcion', $trabajo->trabajo_descripcion) }}</textarea>
             </div>
 
             <h3> Notas de los Alumnos</h3>
-            <table >
+            <p>Modifica las notas según sea necesario. Deja vacío para eliminar una nota.</p>
+
+            <table class="tabla-alumnos">
                 <thead>
                     <tr>
                         <th> Alumno</th>
-                        <th> Nota (1-10)</th>
+                        <th>
+                             Nota (1-10)
+                        </th>
                     </tr>
                 </thead>
-                
+                <tbody>
                     @foreach($alumnos as $alumno)
                         <tr>
                             <td>
                                 {{ $alumno->name }}
                             </td>
-                            <td >
+                            <td style="text-align: center;">
                                 <input type="number" 
                                        name="notas[{{ $alumno->id }}]" 
-                                       class="input-nota"
                                        min="1" 
                                        max="10" 
                                        step="0.01"
-                                       value="{{ old("notas.{$alumno->id}") }}"
+                                       value="{{ old("notas.{$alumno->id}", $notasActuales[$alumno->id]) }}"
                                        placeholder="-">
                                 @error("notas.{$alumno->id}")
                                     <div class="error-message">{{ $message }}</div>
@@ -151,26 +148,29 @@
                             </td>
                         </tr>
                     @endforeach
-                
+                </tbody>
             </table>
 
             @error('notas')
-                <div>
+                <div class="error-message" style="margin-top: 10px; text-align: center;">
                     {{ $message }}
                 </div>
             @enderror
 
-            <div>
-                <button type="submit">
-                 Guardar Trabajo
+            <div class="botones-accion">
+                <button type="submit" >
+                     Actualizar Trabajo
                 </button>
                 <button>
                 <a href="{{ route('notas.periodo', [$materia->id, $periodo]) }}">
                      Cancelar
-                </a></button>
+                </a>
+                </button>
             </div>
         </form>
-        
     </div>
+</section>
+
 </main>
 </body>
+</html>
