@@ -8,31 +8,45 @@ use Illuminate\Support\Facades\Auth;
 
 class MateriaController extends Controller
 {
-    public function index()
+public function index(Request $request)
 {
-    $user = auth()->user();
-    $materias = [];
+    $user = Auth::user();
 
     if ($user->role === 'profesor') {
-        // Filtrar por user_id (el profesor)
+        // Solo las materias del profesor
         $materias = Materia::where('user_id', $user->id)->get();
 
+        return view('materias.index', compact('materias'));
+
     } elseif ($user->role === 'alumno') {
-        // Por ahora mostramos todas, luego se filtra según el curso
+        // Por ahora todas
         $materias = Materia::all();
 
-    } else { // directivo 
-        $materias = Materia::all();
+        return view('materias.index', compact('materias'));
+
+    } else { // directivo
+        // Obtener curso seleccionado desde el select (si hay)
+        $curso_id = $request->input('curso_id');
+
+        $query = Materia::query();
+
+        if ($curso_id) {
+            $query->where('curso_id', $curso_id);
+        }
+
+        $materias = $query->get();
+
+        // Traer todos los cursos para el select
+        $cursos = Curso::orderBy('año')->orderBy('division')->get();
+
+        return view('materias.index', compact('materias', 'cursos', 'curso_id'));
     }
-
-    return view('materias.index', ['materias' => $materias]);
 }
-
-
 
 
     public function create()
     {
+          
         $cursos = Curso::all();
         return view('materias.create', ['cursos' => $cursos]);
     }
@@ -84,6 +98,10 @@ public function destroy($id)
     $materia = Materia::findOrFail($id);
     $materia->delete();
     return redirect()->route('materias.index')->with('success','Materia eliminada.');
+}
+public function show(Materia $materia)
+{
+    return view('materias.show', ['materia' => $materia]);
 }
 
 }

@@ -25,14 +25,14 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
         // $request->session()->regenerate(); //para produccion lo saco por que es re tosco c-
-        $user = auth()->user();       
+        $user = auth::user();       
         if ($user->role=== "alumno") {
             return 
-            redirect()->route("alumno");
+            redirect()->route("materias.index");
         } elseif ($user->role === "profesor") {
-        return redirect()->route("profesor");
+        return redirect()->route("materias.index");
     } elseif ($user->role === "directivo") {
-        return redirect()->route("directivo");
+        return redirect()->route("materias.index");
     }
 
 

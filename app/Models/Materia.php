@@ -9,6 +9,12 @@ class Materia extends Model
 
     protected $fillable = ['nombre', 'curso_id', 'user_id'];
 
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
+
     public function curso()
     {
         return $this->belongsTo(Curso::class);
@@ -18,4 +24,9 @@ class Materia extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function contenidos()
+    {
+    return $this->hasMany(Contenido::class);
+    }
+    
 }

@@ -6,6 +6,10 @@ body {
   color: white;
 }
 
+a {
+  text-decoration: none;
+}
+
 .background {
   background-image: url("imagenes/footerfondo.jpg");
     background-size: cover;

@@ -26,18 +26,20 @@
 
       <div class="contenedor-principal">
       <section class="hero">
-          <div class="logo-central img">
-           <img src="{{asset('imagenes/LOGOTEC3NUEVO.png')}}" alt="logo-central img">
-          </div>
-      </section>
-      </div>
-   
-        <main class="contenido">
           <section class="info-destacada">
               <div class="mensaje fade-in-section">
               <h1 class="typewriter-text" id="tituloAnimado"></h1>
               </div>
           </section>
+
+          <div class="logo-central">
+           <img src="{{asset('imagenes/LOGOTEC3NUEVO.png')}}" alt="Logo Central">
+          </div>
+      </section>
+      </div>
+   
+        <main class="contenido">
+
         
           <section class="fade-in-section info-destacada">
             <div class="texto">

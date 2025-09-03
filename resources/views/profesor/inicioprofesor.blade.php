@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Pagina Inicial (Profesores)</title>
+           <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap' rel="stylesheet">
     <link rel="stylesheet" href="{{ asset("profesor/estilospaginico.css") }}">
 </head>
 <body>
@@ -49,46 +50,65 @@
         abrir.classList.remove('oculto');
       });
     </script>
-    
     <!-- /MENU REDUCAR-->
 
-      <div class="container" id="container">
-    <!-- NOTIFICACIONES (IZQUIERDA) -->
-     <div class="columna-izquierda">
-      <h2 class="notificaciones-titulo">Notificaciones</h2>
-      <ul class="notificaciones-lista">
-        <li class="notificacion-item">Notificación 1: Recordatorio de reunión.</li>
-        <li class="notificacion-item">Notificación 2: Nuevo material disponible.</li>
-        <li class="notificacion-item">Notificación 3: Actualización del horario.</li>
-      </ul>
-          </div>
-
-    <!-- BOXS DE MATERIAS (CENTRO) -->
-     <div class="columna-centro">
-    <ul class="clases">
-      <li class="cajas">
-        <div class="titulo-caja">Materia 1</div>
-        <div class="subtitulo-caja">Curso 1</div>
-        <div class="cajafooter">
-          <a href="materia1p.html" class="boton">Entrar</a>
-        </div>            
-      </li>
-    </ul>    
-    </div>
-        <!-- HORARIOS (DERECHA) -->
-
-         <div class="columna-derecha">
-          <h2 class="horarios-titulo">Horarios</h2>
-          <ul class="horarios-lista">
-            <li class="horario-item">Lunes: 8:00 - 10:00</li>
-            <li class="horario-item">Martes: 10:00 - 12:00</li>
-            <li class="horario-item">Miércoles: 14:00 - 16:00</li>
-          </ul>
-        </div>
-
-    </div>
-
-    <script>
+  <div class="container" id="container">
+    <!-- columna izquierda -->
+      <div class="columna izquierda">
+      <button class="toggle-btn btn-left" onclick="toggleLeft()">⮞</button>
+      <h2>Notificaciones</h2>
+      </div>
+    <!-- columna centro -->
+      <div class="columna centro">
 
       
-    </script>
+  <li class="cajas">
+    <div class="titulo-caja"> Materia</div>
+    <div class="subtitulo-caja"> Profesor </div>
+    <div class="subsubtitulo-caja"> Curso </div>
+
+    <div class="cajafooter">
+        <a class="boton editar" href="#" >Editar</a>
+
+        <form action="#" method="POST" style="display:inline;" onsubmit="return confirm('¿Seguro que querés eliminar esta materia?');">
+
+          <button class="boton eliminar" type="submit" >Eliminar</button>
+        </form>
+
+      <a class="boton entrar" href="#">Entrar</a>
+    </div>
+  </li>
+
+      </div>
+    <!-- columna derecha -->
+    <div class="columna derecha">
+    <button class="toggle-btn btn-right" onclick="toggleRight()">⮜</button>
+    <h2>Horario Semanal</h2>
+    </div>
+    
+  </div>
+
+  <script>
+    const container = document.getElementById("container");
+
+    function toggleLeft() {
+      if (container.classList.contains("expand-left")) {
+        container.classList.remove("expand-left");
+      } else {
+        container.classList.remove("expand-right");
+        container.classList.add("expand-left");
+      }
+    }
+
+    function toggleRight() {
+      if (container.classList.contains("expand-right")) {
+        container.classList.remove("expand-right");
+      } else {
+        container.classList.remove("expand-left");
+        container.classList.add("expand-right");
+      }
+    }
+  </script>
+
+</body>
+</html>
