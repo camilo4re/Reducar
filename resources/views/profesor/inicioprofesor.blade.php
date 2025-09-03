@@ -52,7 +52,19 @@
     
     <!-- /MENU REDUCAR-->
 
-    <!-- BOXS DE MATERIAS-->
+      <div class="container" id="container">
+    <!-- NOTIFICACIONES (IZQUIERDA) -->
+     <div class="columna-izquierda">
+      <h2 class="notificaciones-titulo">Notificaciones</h2>
+      <ul class="notificaciones-lista">
+        <li class="notificacion-item">Notificación 1: Recordatorio de reunión.</li>
+        <li class="notificacion-item">Notificación 2: Nuevo material disponible.</li>
+        <li class="notificacion-item">Notificación 3: Actualización del horario.</li>
+      </ul>
+          </div>
+
+    <!-- BOXS DE MATERIAS (CENTRO) -->
+     <div class="columna-centro">
     <ul class="clases">
       <li class="cajas">
         <div class="titulo-caja">Materia 1</div>
@@ -62,4 +74,21 @@
         </div>            
       </li>
     </ul>    
-    
+    </div>
+        <!-- HORARIOS (DERECHA) -->
+
+         <div class="columna-derecha">
+          <h2 class="horarios-titulo">Horarios</h2>
+          <ul class="horarios-lista">
+            <li class="horario-item">Lunes: 8:00 - 10:00</li>
+            <li class="horario-item">Martes: 10:00 - 12:00</li>
+            <li class="horario-item">Miércoles: 14:00 - 16:00</li>
+          </ul>
+        </div>
+
+    </div>
+
+    <script>
+
+      
+    </script>
