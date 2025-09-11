@@ -87,7 +87,57 @@
             <option value="{{ $curso->id }}">{{ $curso->año }} {{ $curso->division }}</option>
         @endforeach
     </select>
+<!-- Agregar después del select de curso_id -->
+<div class="titulo-caja">
+    <label>Horarios de clase:</label>
+    <div id="horarios-container">
+        <div class="horario-item">
+            <select name="horarios[0][dia_semana]" required>
+                <option value="">-- Seleccionar día --</option>
+                <option value="1">Lunes</option>
+                <option value="2">Martes</option>
+                <option value="3">Miércoles</option>
+                <option value="4">Jueves</option>
+                <option value="5">Viernes</option>
+                <option value="6">Sábado</option>
+            </select>
+            <input type="time" name="horarios[0][hora_inicio]" required>
+            <input type="time" name="horarios[0][hora_fin]" required>
+            <button type="button" onclick="eliminarHorario(this)">Eliminar</button>
+        </div>
+    </div>
+    <button type="button" onclick="agregarHorario()">+ Agregar otro horario</button>
+</div>
 
+<script>
+let horarioIndex = 1;
+
+function agregarHorario() {
+    const container = document.getElementById('horarios-container');
+    const div = document.createElement('div');
+    div.className = 'horario-item';
+    div.innerHTML = `
+        <select name="horarios[${horarioIndex}][dia_semana]" required>
+            <option value="">-- Seleccionar día --</option>
+            <option value="1">Lunes</option>
+            <option value="2">Martes</option>
+            <option value="3">Miércoles</option>
+            <option value="4">Jueves</option>
+            <option value="5">Viernes</option>
+            <option value="6">Sábado</option>
+        </select>
+        <input type="time" name="horarios[${horarioIndex}][hora_inicio]" required>
+        <input type="time" name="horarios[${horarioIndex}][hora_fin]" required>
+        <button type="button" onclick="eliminarHorario(this)">Eliminar</button>
+    `;
+    container.appendChild(div);
+    horarioIndex++;
+}
+
+function eliminarHorario(button) {
+    button.parentElement.remove();
+}
+</script>
     <button class="boton" type="submit">Crear materia</button>
        @if ($errors->any())
         <ul>

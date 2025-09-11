@@ -15,11 +15,9 @@ class NotaController extends Controller
         // tuve que hacer condicionales para saber si el usuario o profesor que quiere entrar a las notas de la materia pertenece a la misma
 
         if ($user->role === 'alumno' && $user->curso_id !== $materia->curso_id) {
-            abort(403, 'No tienes acceso a las notas de esta materia.');
-        }
+            abort(403, 'No tienes acceso a las notas de esta materia.');}
         if ($user->role === 'profesor' && $materia->user_id !== $user->id) {
-            abort(403, 'No tienes acceso a las notas de esta materia.');
-        }
+            abort(403, 'No tienes acceso a las notas de esta materia.');}
     }
 
     public function index(Materia $materia)
@@ -41,7 +39,7 @@ class NotaController extends Controller
                       ->where('curso_id', $materia->curso_id)->orderBy('name')->get();
 
         // Para cada trabajo, obtener las notas de todos los alumnos
-        $trabajosConNotas = [];
+        $trabajosNotas = [];
         foreach ($trabajos as $trabajo) {
             $notasDelTrabajo = [];
             foreach ($alumnos as $alumno) {
@@ -229,7 +227,7 @@ class NotaController extends Controller
         foreach ($alumnos as $alumno) {
             $promedioPrimero = Nota::promedioNota($alumno->id, $materia->id, 'primer_cuatrimestre');
             $promedioSegundo = Nota::promedioNota($alumno->id, $materia->id, 'segundo_cuatrimestre');
-            $promedioRecup = Nota::promedioNota($alumno->id, $materia->id, 'recuperatorio');
+            $promedioRecup = Nota::promedioNota($alumno->id, $materia->id, 'intensificacion');
             
             $promedioGeneral = collect([$promedioPrimero, $promedioSegundo, $promedioRecup])
                               ->filter()
@@ -239,8 +237,8 @@ class NotaController extends Controller
                 'alumno' => $alumno,
                 'primer_cuatrimestre' => $promedioPrimero ? number_format($promedioPrimero, 2) : '-',
                 'segundo_cuatrimestre' => $promedioSegundo ? number_format($promedioSegundo, 2) : '-',
-                'recuperatorio' => $promedioRecup ? number_format($promedioRecup, 2) : '-',
-                'general' => $promedioGeneral ? number_format($promedioGeneral, 2) : '-'
+                'intensificacion' => $promedioRecup ? number_format($promedioRecup, 2) : '-',
+                'general' => $promedioGeneral ? number_format($promedioGeneral, 2) : ''
             ];
         }
 

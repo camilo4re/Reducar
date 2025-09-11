@@ -10,11 +10,23 @@ a {
   text-decoration: none;
 }
 
+.icono-header a:link,
+.icono-header a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #007bff;
+}
+
 .content {
   margin-left: 65px;
 }
 
-
+.container {
+  margin: 10px;
+}
 
 header {
   background-color: white;
@@ -301,7 +313,7 @@ h2 {
 }
 /* /HORARIOS REDUCAR */
 
-/* HEADER TIPO GOOGLE CLASSROOM */
+/* NUEVO NAV */
 .header-centro {
   display: flex;
   justify-content: center; 
@@ -350,7 +362,7 @@ h2 {
 }
 
 
-/* /HEADER TIPO GOOGLE CLASSROOM */
+/* /NUEVO NAV */
 
 /* CALENDARIO REDUCAR */
 
@@ -417,61 +429,6 @@ h2 {
 
 /* /CALENDARIO REDUCAR */
 
-/* NOTIFICACIONES REDUCAR (P) */
-
-.notificaciones {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 20px;
-}
-
-.notificacion-nueva {
-  background: white;
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  margin-bottom: 20px;
-}
-
-.notificacion-nueva textarea {
-  width: 100%;
-  min-height: 80px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-family: inherit;
-  font-size: 14px;
-  resize: vertical;
-  box-sizing: border-box;
-}
-
-.acciones-noti {
-  text-align: right;
-  margin-top: 10px;
-}
-
-.notificaciones-lista {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.notificacion-publicada {
-  background: white;
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.1);
-  color: black;
-}
-
-.notificacion-fecha {
-  font-size: 12px;
-  color: gray;
-  margin-top: 5px;
-}
-
-
-/* /NOTIFICACIONES REDUCAR (P) */
 
 /* CALIFICACIONES (P) */
  .tabla-container {
@@ -625,72 +582,6 @@ button:hover {
 
 /* /ASISTENCIAS (P) */
 
-/* PERSONAS (A) */
-
-.contenedor {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 0 20px;
-}
-
-.bloque {
-  margin-bottom: 50px;
-  border-bottom: 1px solid #007c00;
-  padding-bottom: 20px;
-}
-
-h2 {
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 20px;
-}
-
-.encabezado-alumnos {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.lista-personas {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.persona {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 10px 0;
-  border-top: 1px solid #007c00;
-}
-
-.persona:first-child {
-  border-top: none;
-}
-
-.avatar {
-  width: 40px;
-  height: 40px;
-  background-color: #ccc;
-  border-radius: 50%;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 18px;
-  color: white;
-  text-transform: uppercase;
-}
-
-.nombre {
-  font-size: 16px;
-  font-weight: 500;
-  color: black;
-}
-
-/* /PERSONAS (A) */
 
 
 /* BOTONES CON ANIMACION */
@@ -788,13 +679,13 @@ h2 {
     .columna {
       min-width: 0;
       height: 100%;
-      transition: all 0.5s ease;
+      transition: all 1.5s ease;
       overflow-y: auto;
     }
     
     /* estados base */
     .izquierda {
-      width: 25%;
+      width: 24%;
       background: #f1f1f1;
       position: relative;
     }
@@ -806,55 +697,74 @@ h2 {
       border-right: 2px solid green;
       overflow-y: auto;
       flex-direction: column;
-      display: flex;                /* convierte en flex container */
-      justify-content: center;      /* centra horizontalmente */
-      align-items: center;          /* centra verticalmente */
+      display: flex;                
+      justify-content: center;      
+      align-items: center;          
     }
 
     .derecha {
-      width: 20%;
+      width: 22%;
       background: #f9f9f9;
       position: relative;
     }
 
-    /* Flechas */
-    .toggle-btn {
-      position: absolute;
-      top: 50%;
+    /* flechitas */
+    .botonestoggle .toggle-btn {
+      position: relative;
+      top: 20%;
       transform: translateY(-50%);
       background: green;
       color: white;
       border: none;
       cursor: pointer;
-      padding: 5px 10px;
-      transition: background 0.3s;
+      padding: 8px 12px;
+      transition: background 1.5s;
       z-index: 10;
     }
 
     .toggle-btn:hover {
-      background: darkgreen;
+      background: rgb(0, 71, 0);
     }
 
     .btn-left {
       right: 0;
-      border-radius: 0 5px 5px 0;
+      border-radius: 5px;
     }
 
     .btn-right {
       left: 0;
-      border-radius: 5px 0 0 5px;
+      border-radius: 5px;
     }
 
     /* estados expandido */
     .expand-left .izquierda {
-      width: 75%;
+      width: 100%;
+      transition: width 0.9s ease;
+    }
+    .expand-left .centro,
+    .expand-left .derecha {
+      width: 0;
+      overflow: hidden;
     }
 
 
     .expand-right .derecha {
-      width: 75%;
+      width: 100%;
+      transition: width 0.9s ease;
     }
 
+    .expand-right .centro,
+    .expand-right .izquierda {
+      width: 0;
+      overflow: hidden;
+    }
+    
+    .expand-left .izquierda {
+    transform: translateX(0);
+    }
+    .expand-right .derecha {
+    transform: translateX(0);
+    }
 
     /* /NUEVO INICIO DE PROFESORES */
 
@@ -862,7 +772,7 @@ h2 {
 
 
     .contnotis {
-      max-width: auto;
+      max-width: 1000px;
       margin: auto;
       padding: 20px;
       background: white;
@@ -908,7 +818,534 @@ h2 {
       gap: 10px;
     }
 
-
-
-
     /* /CONTNOTIS REDUCAR (P) */
+
+    /* FILTRO DIRECTIVO */
+.filtro-cursos {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 1.3s ease, transform 0.9s ease;
+}
+
+.filtro-cursos:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.filtro-cursos label {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.filtro-cursos select {
+  font-family: 'Poppins', sans-serif;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #f9f9f9;
+  cursor: pointer;
+  outline: none;
+  transition: border 0.3s ease, background 0.9s ease;
+}
+
+.filtro-cursos select:hover {
+  background: #fff;
+  border-color: #999;
+  transform:translate3d(0, 0, 10px);
+}
+
+.filtro-cursos select:focus {
+  border-color: #0034df;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(1, 54, 230, 0.685);
+}
+
+.filtro-cursos a {
+  font-size: 0.9rem;
+  color: #007bff;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background 0.9s ease, color 0.s ease;
+}
+
+.filtro-cursos a:hover {
+  background: rgba(0, 123, 255, 0.1);
+  color: #0003b3;
+}
+
+/* /FILTRO DIRECTIVO */
+
+/* RECORDATORIOS */
+#formRecordatorio {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+.container.expand-right #formRecordatorio {
+  display: flex;
+}
+.inputt {
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  align-items: center;
+  padding: 7px 15px;
+  background: #ffffff;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+.recordatorio {
+  background: white;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  border-left: 5px solid transparent;
+}
+
+.recordatorio[data-prioridad="rojo"] { border-left-color: #e74c3c; }
+.recordatorio[data-prioridad="naranja"] { border-left-color: #f39c12; }
+.recordatorio[data-prioridad="verde"] { border-left-color: #27ae60; }
+
+.recordatorio .detalles {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.recordatorio.expanded .detalles {
+  max-height: 500px; /* suficiente para todo el contenido */
+  opacity: 1;
+}
+
+.recordatorio .acciones {
+  display: flex;
+  gap: 5px;
+}
+
+.recordatorio .acciones button {
+  border: none;
+  border-radius: 5px;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  color: white;
+}
+
+.recordatorio .acciones button.eliminar { background: #e74c3c; }
+.recordatorio .acciones button.editar { background: #f39c12; }
+
+.recordatorio p {
+  margin: 0;
+}
+
+/* CALIFICACIONES */
+.oculto {
+  display: none;
+}
+
+.cabecera-trabajo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.cabecera-trabajo:hover {
+  background: #f1f1f1;
+}
+
+.flecha {
+  transition: transform 0.3s ease;
+}
+
+.flecha.girada {
+  transform: rotate(180deg);
+}
+
+.contnotis .cajas {
+padding: 10px;
+}
+
+.trabajos-arriba .acciones {
+    margin: 10px 10px 140px 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.trabajos-arriba{
+  display: flex;
+  justify-content: space-between;
+}
+
+.trabajos-arriba .demo-izquierda{
+  display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.demo-izquierda#espaciado {
+  gap: 10px;
+}
+
+.tabla-notas {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, opacity 0.4s ease;
+  opacity: 0;
+  margin-top: 5px; 
+  margin-left: 20px;
+}
+
+.tabla-notas.mostrar {
+  max-height: 600px; 
+  opacity: 1;
+}
+
+
+.tabla-notas table {
+  min-width: 600px;
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.tabla-notas th,
+.tabla-notas td {
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.tabla-notas th:first-child,
+.tabla-notas td:first-child {
+  width: 60%;
+  text-align: left;
+}
+
+.tabla-notas th:last-child,
+.tabla-notas td:last-child {
+  width: 40%;
+}
+
+
+/* Estilos para headers ordenables */
+#tablaPromedios thead th {
+    position: relative;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    user-select: none;
+    padding: 12px 8px;
+}
+
+#tablaPromedios thead th:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Estilos para columnas ordenadas */
+#tablaPromedios thead th.ordenado-asc {
+    background-color: #e8f5e8;
+    color: #2e7d32;
+}
+
+#tablaPromedios thead th.ordenado-desc {
+    background-color: #fff3e0;
+    color: #f57c00;
+}
+
+/* Iconos de ordenamiento */
+.icono-orden {
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 5px;
+    display: inline-block;
+}
+
+/* Animación suave para reordenamiento */
+#tablaPromedios tbody {
+    transition: all 0.3s ease;
+}
+
+#tablaPromedios tbody tr {
+    transition: all 0.2s ease;
+}
+
+/* Efecto hover en filas */
+#tablaPromedios tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    #tablaPromedios thead th {
+        padding: 8px 4px;
+        font-size: 12px;
+    }
+    
+    .icono-orden {
+        font-size: 12px;
+        margin-left: 2px;
+    }
+}
+
+/* Indicador visual adicional para columnas ordenables */
+#tablaPromedios thead th::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-bottom: 4px solid #ccc;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+#tablaPromedios thead th:hover::before {
+    opacity: 0.5;
+}
+
+#tablaPromedios thead th.ordenado-asc::before,
+#tablaPromedios thead th.ordenado-desc::before {
+    display: none;
+}
+
+/* Mejorar la apariencia de la tabla */
+#tablaPromedios {
+    border-collapse: collapse;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#tablaPromedios th,
+#tablaPromedios td {
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+#tablaPromedios thead {
+    background-color: #f8f9fa;
+}
+
+/* Destacar la primera columna (nombres) con alineación izquierda */
+#tablaPromedios td:first-child {
+    text-align: left;
+    font-weight: 500;
+}
+/* /CALIFICACIONES */
+
+
+
+    /* FILTRO DIRECTIVO */
+.filtro-cursos {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 1.3s ease, transform 0.9s ease;
+}
+
+.filtro-cursos:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.filtro-cursos label {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.filtro-cursos select {
+  font-family: 'Poppins', sans-serif;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #f9f9f9;
+  cursor: pointer;
+  outline: none;
+  transition: border 0.3s ease, background 0.9s ease;
+}
+
+.filtro-cursos select:hover {
+  background: #fff;
+  border-color: #999;
+  transform:translate3d(0, 0, 10px);
+}
+
+.filtro-cursos select:focus {
+  border-color: #0034df;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(1, 54, 230, 0.685);
+}
+
+.filtro-cursos a {
+  font-size: 0.9rem;
+  color: #007bff;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background 0.9s ease, color 0.s ease;
+}
+
+.filtro-cursos a:hover {
+  background: rgba(0, 123, 255, 0.1);
+  color: #0003b3;
+}
+
+/* /FILTRO DIRECTIVO */
+
+/* RECORDATORIOS */
+#formRecordatorio {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+.container.expand-right #formRecordatorio {
+  display: flex;
+}
+.inputt {
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  align-items: center;
+  padding: 7px 15px;
+  background: #ffffff;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+.recordatorio {
+  background: white;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  border-left: 5px solid transparent;
+}
+
+.recordatorio[data-prioridad="rojo"] { border-left-color: #e74c3c; }
+.recordatorio[data-prioridad="naranja"] { border-left-color: #f39c12; }
+.recordatorio[data-prioridad="verde"] { border-left-color: #27ae60; }
+
+.recordatorio .detalles {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.recordatorio.expanded .detalles {
+  max-height: 500px; /* suficiente para todo el contenido */
+  opacity: 1;
+}
+
+.recordatorio .acciones {
+  display: flex;
+  gap: 5px;
+}
+
+.recordatorio .acciones button {
+  border: none;
+  border-radius: 5px;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  color: white;
+}
+
+.recordatorio .acciones button.eliminar { background: #e74c3c; }
+.recordatorio .acciones button.editar { background: #f39c12; }
+
+.recordatorio p {
+  margin: 0;
+}
+/* camilardo */
+/* FIX TABLA ASISTENCIAS - pegar al final */
+.tabla-asistencias table{
+  table-layout: fixed !important;
+  width: 100% !important;
+  border-collapse: collapse !important;
+}
+
+/* Forzar comportamiento nativo de tabla (evita que algún rule convierta filas en flex/block) */
+.tabla-asistencias thead tr,
+.tabla-asistencias tbody tr { display: table-row !important; }
+.tabla-asistencias thead, .tabla-asistencias tbody { display: table-header-group; }
+
+/* Celdas como celdas */
+.tabla-asistencias th, .tabla-asistencias td {
+  display: table-cell !important;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+}
+
+/* Estilos para las "cajitas" dentro de las celdas */
+.tabla-asistencias td .asistencia-celda {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  padding: 0;
+  margin: 0 auto;
+  box-sizing: border-box;
+  border-radius: 6px;
+}
+
+/* Columna alumno y columna % fijas */
+.tabla-asistencias th:first-child,
+.tabla-asistencias td:first-child { width: 220px; min-width:220px; max-width:220px; text-align:left; padding-left:10px; }
+.tabla-asistencias th:last-child,
+.tabla-asistencias td:last-child  { width: 80px; min-width:80px; max-width:80px; }
+
+/* Evitar alturas gigantes en td (quita cualquier height fijo) */
+.tabla-asistencias td { height: auto !important; padding:6px !important; }

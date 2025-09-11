@@ -79,6 +79,46 @@
         <label style="color: black">Nombre:</label>
         
         <input type="text" name="nombre" value="{{ $materia->nombre }}">
+        <!-- Agregar después del input de nombre -->
+<div class="titulo-caja">
+    <label style="color: black">Horarios:</label>
+    <div id="horarios-container">
+        @forelse($materia->horarios as $index => $horario)
+            <div class="horario-item">
+                <select name="horarios[{{ $index }}][dia_semana]" required>
+                    <option value="">-- Seleccionar día --</option>
+                    <option value="1" {{ $horario->dia_semana == 1 ? 'selected' : '' }}>Lunes</option>
+                    <option value="2" {{ $horario->dia_semana == 2 ? 'selected' : '' }}>Martes</option>
+                    <option value="3" {{ $horario->dia_semana == 3 ? 'selected' : '' }}>Miércoles</option>
+                    <option value="4" {{ $horario->dia_semana == 4 ? 'selected' : '' }}>Jueves</option>
+                    <option value="5" {{ $horario->dia_semana == 5 ? 'selected' : '' }}>Viernes</option>
+                    <option value="6" {{ $horario->dia_semana == 6 ? 'selected' : '' }}>Sábado</option>
+                </select>
+                <input type="time" name="horarios[{{ $index }}][hora_inicio]" value="{{ $horario->hora_inicio }}" required>
+                <input type="time" name="horarios[{{ $index }}][hora_fin]" value="{{ $horario->hora_fin }}" required>
+                <button type="button" onclick="eliminarHorario(this)">Eliminar</button>
+            </div>
+        @empty
+            <div class="horario-item">
+                <select name="horarios[0][dia_semana]" required>
+                    <option value="">-- Seleccionar día --</option>
+                    <option value="1">Lunes</option>
+                    <option value="2">Martes</option>
+                    <option value="3">Miércoles</option>
+                    <option value="4">Jueves</option>
+                    <option value="5">Viernes</option>
+                    <option value="6">Sábado</option>
+                </select>
+                <input type="time" name="horarios[0][hora_inicio]" required>
+                <input type="time" name="horarios[0][hora_fin]" required>
+                <button type="button" onclick="eliminarHorario(this)">Eliminar</button>
+            </div>
+        @endforelse
+    </div>
+    <button type="button" onclick="agregarHorario()">+ Agregar otro horario</button>
+</div>
+
+<!-- Mismo JavaScript que en create -->
         </div>
         <div class="cajafooter">
         <button type="submit" class="boton editar">Actualizar</button>

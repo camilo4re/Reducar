@@ -33,4 +33,8 @@ class Materia extends Model
     {
         return $this->hasMany(Nota::class);
     }
+    public function horarios()
+{
+    return $this->hasMany(HorarioMateria::class);
+}
 }

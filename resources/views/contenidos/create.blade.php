@@ -89,7 +89,7 @@
 <!-- /NAV NUEVO -->
 
 <section class="notificaciones">
-  <h2>Crear Comunicado insano </h2>
+  <h2>Crear Comunicado</h2>
 
 
 <div class="contnotis">

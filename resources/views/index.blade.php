@@ -3,34 +3,39 @@
 <head>
   <title>REDUCAR</title>
   <link rel="stylesheet" href="{{asset('inicio.css')}}">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-  
+
 </head>
 
   <body class="background-fade">
 
     <header>
-      <div class="logo-del-titulo">
-      <img src="{{asset('imagenes/LOGOTEC3.png')}}" alt="Logo" class="logo">
+      <div class="superior">
+        <div class ="texto-animado">
+          <h1 class="typewriter-text" id="tituloAnimado"></h1>
+        </div>
+      
+        <div class="logo-del-titulo">
+          <img src="{{asset('imagenes/LOGOTECNICA3.png')}}" alt="Logo" class="logo">
+        </div>
+
+        <nav class="navegacion">
+          <a href="{{ route ('login') }}"><i class="fas fa-sign-in-alt"></i> Inicio de sesión</a>
+          <a href="{{ route ('register') }}"><i class="fas fa-user-plus"></i> Registrarme</a>
+        </nav>
       </div>
-  
-    <nav>
-    <a href="{{ route ('login') }}">Inicio de sesión</a>
-    <a href="{{ route ('register') }}">Registrarme</a>
-    </nav>
+
 
     <div class="barras">
-    <div class="barra-naranja"></div>
-    <div class="barra-verde"></div>
+      <div class="barra-naranja"></div>
+      <div class="barra-verde"></div>
     </div>
     </header>
 
       <div class="contenedor-principal">
       <section class="hero">
           <section class="info-destacada">
-              <div class="mensaje fade-in-section">
-              <h1 class="typewriter-text" id="tituloAnimado"></h1>
-              </div>
           </section>
 
           <div class="logo-central">

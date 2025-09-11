@@ -57,4 +57,8 @@ class User extends Authenticatable
     {
         return $value;
     }
+    public function asistencias()
+    {
+        return $this->hasMany(Asistencia::class);
+    }
 }

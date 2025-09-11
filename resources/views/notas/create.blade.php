@@ -92,33 +92,43 @@
 <!-- /NAV NUEVO -->
 
 
-    <div class="container">
-        
+
+    <section class="notificacion">
+      <h2> Crear Trabajo</h2>
+        <div class="contnotis">
         <form action="{{ route('notas.store', [$materia->id, $periodo]) }}" method="POST" >
             @csrf
-            
-            <div class="campo-grupo">
-                <label for="trabajo_titulo">
-                     Título del Trabajo 
-                </label>
-                <input type="text" 
-                       id="trabajo_titulo"  name="trabajo_titulo" value="{{ old('trabajo_titulo') }}" placeholder="Ej: Parcial 1, TP Integrador, Examen Final..." required>
+          <div class="trabajos-arriba"> 
+            <div class="demo-izquierda" id="espaciado">
+                <label for="trabajo_titulo"> Título </label>
+                <input class="inputt" type="text" id="trabajo_titulo"  name="trabajo_titulo" value="{{ old('trabajo_titulo') }}" placeholder="Titulo del trabajo" required>
                 @error('trabajo_titulo')
                     <div class="error-message">{{ $message }}</div>
                 @enderror
-            </div>
-
-            <div class="campo-grupo">
                 <label for="trabajo_descripcion">
-                    <i ></i> Descripción (opcional)
+                   Descripción (opcional)
                 </label>
-                <textarea id="trabajo_descripcion" 
+                <textarea class="inputt" id="trabajo_descripcion" 
                           name="trabajo_descripcion" 
                           rows="3" 
                           placeholder="Descripción adicional del trabajo...">{{ old('trabajo_descripcion') }}</textarea>
             </div>
-
+            <div class="acciones">
+                <button class="boton entrar" type="submit">
+                 Guardar Trabajo
+                </button>
+                
+                <a class="boton eliminar" href="{{ route('notas.periodo', [$materia->id, $periodo]) }}">
+                     Cancelar
+                </a>
+            </div>
+          </div>
             <h3> Notas de los Alumnos</h3>
+<div class="cajafooter">
+    <a class="cabecera-trabajo" onclick="toggleNotas(this)">
+      <i class="fa-solid fa-chevron-down flecha"></i>
+    </a>
+          <div class="tabla-notas">
             <table >
                 <thead>
                     <tr>
@@ -149,6 +159,8 @@
                     @endforeach
                 
             </table>
+          </div>
+        </div>
 
             @error('notas')
                 <div>
@@ -156,17 +168,20 @@
                 </div>
             @enderror
 
-            <div>
-                <button type="submit">
-                 Guardar Trabajo
-                </button>
-                <button>
-                <a href="{{ route('notas.periodo', [$materia->id, $periodo]) }}">
-                     Cancelar
-                </a></button>
-            </div>
-        </form>
+            </form>
         
     </div>
+    </section>
+
+    <script>
+function toggleNotas(element) {
+  const tabla = element.nextElementSibling;
+  const flecha = element.querySelector('.flecha');
+  
+  tabla.classList.toggle('mostrar');
+  flecha.classList.toggle('girada');
+}
+
+</script>
 </main>
 </body>

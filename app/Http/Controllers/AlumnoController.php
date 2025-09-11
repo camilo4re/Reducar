@@ -8,14 +8,5 @@ use App\Models\User;
 
 class AlumnoController extends Controller
 {
-    public function index()
-    {
-        $user = auth()->user();
-
-        if ($user->role !== 'alumno') {
-            abort('403'); // Acceso prohibido
-        }
-
-        return view('alumno.index');
-    }
+ //antes se mostraba la vista de alumno hasta que ahora la vista de alumno y profe son las mismas   
 }

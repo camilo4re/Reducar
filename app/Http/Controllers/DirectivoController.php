@@ -6,14 +6,5 @@ use Illuminate\Http\Request;
 
 class DirectivoController extends Controller
 {
-    public function index() 
-    {
-        $user = auth()->user();
-
-        if ($user->role !== 'directivo') {
-            abort(403); // Acceso prohibido
-        }
-
-        return view('directivo.directivoInicio');
-    }
+    // antes se mostraba la vista de directivo hasta que ahora la vista de directivo y profe son las mismas
 }

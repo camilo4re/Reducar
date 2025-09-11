@@ -74,43 +74,25 @@
 
 <!-- NAV NUEVO -->
 <nav class="header-centro">
-  <div class="icono-header active" data-tooltip="Notificaciones">
-    <i class="fa-solid fa-table-columns"></i>
+  <div class="icono-header" data-tooltip="Notificaciones">
+    <a href="{{ route('materias.show', $materia->id) }}"><i class="fa-solid fa-table-columns"></i></a>
   </div>
-  <div class="icono-header" data-tooltip="Personas">
-    <i class="fa-solid fa-users"></i>
+  <div class="icono-header active" data-tooltip="Promedios">
+    <a href="{{ route('notas.promedios', $materia->id) }}"><i class="fa-solid fa-users"></i></a>
   </div>
   <div class="icono-header" data-tooltip="Calificaciones">
-    <a href="{{ route('notas.index', $materia->id) }}"><i class="fa-solid fa-clipboard-list"></i></a>
+   <a href="{{ route('notas.index', $materia->id) }}"><i class="fa-solid fa-clipboard-list"></i></a>
   </div>
   <div class="icono-header" data-tooltip="Asistencias">
-    <i class="fa-solid fa-calendar-check"></i></a>
+    <a href="{{ route('asistencias.index', $materia->id) }}"><i class="fa-solid fa-calendar-check"></i></a>
   </div>
 </nav>
 <!-- /NAV NUEVO -->
-
-
-    <div>
+<div>
         
        
 
-        <!-- Filtros -->
-        <div>
-            <div>
-                <button onclick="filtrarTabla('todos')">
-                    <i class="fa-solid fa-users"></i> Todos
-                </button>
-                <button onclick="filtrarTabla('aprobados')">
-                     Aprobados (≥6)
-                </button>
-                <button onclick="filtrarTabla('desaprobados')">
-                     Desaprobados (<6)
-                </button>
-                <button onclick="filtrarTabla('sin-notas')">
-                     Sin Notas
-                </button>
-            </div>
-        </div>
+        
 
         <!-- Tabla de promedios -->
         <table id="tablaPromedios">
@@ -126,7 +108,7 @@
                          2° Cuatrimestre
                     </th>
                     <th>
-                         Recuperatorio
+                         intensificacion
                     </th>
                     <th>
                          Promedio General
@@ -159,7 +141,7 @@
                         </td>
                         <td>{{ $promedio['primer_cuatrimestre'] }}</td>
                         <td>{{ $promedio['segundo_cuatrimestre'] }}</td>
-                        <td>{{ $promedio['recuperatorio'] }}</td>
+                        <td>{{ $promedio['intensificacion'] }}</td>
                         <td>
                             <span class="{{ $claseGeneral }}">
                                 {{ $promedio['general'] }}
@@ -184,6 +166,172 @@
         </div>
     </div>
 </section>
+
+<script>
+// Variables para controlar el estado de ordenamiento
+let estadoOrdenamiento = {
+    columna: -1,
+    ascendente: false
+};
+
+// Función para ordenar tabla por columna
+function ordenarTabla(indiceColumna) {
+    const tabla = document.getElementById('tablaPromedios');
+    const tbody = tabla.querySelector('tbody');
+    const filas = Array.from(tbody.querySelectorAll('tr'));
+    
+    // Alternar entre descendente y ascendente si es la misma columna
+    if (estadoOrdenamiento.columna === indiceColumna) {
+        estadoOrdenamiento.ascendente = !estadoOrdenamiento.ascendente;
+    } else {
+        // Nueva columna, empezar con descendente (mayor a menor)
+        estadoOrdenamiento.columna = indiceColumna;
+        estadoOrdenamiento.ascendente = false;
+    }
+    
+    // Ordenar las filas
+    filas.sort((a, b) => {
+        let valorA, valorB;
+        
+        if (indiceColumna === 0) {
+            // Columna de nombres (alfabético)
+            valorA = a.cells[indiceColumna].textContent.trim().toLowerCase();
+            valorB = b.cells[indiceColumna].textContent.trim().toLowerCase();
+            
+            if (estadoOrdenamiento.ascendente) {
+                return valorA.localeCompare(valorB);
+            } else {
+                return valorB.localeCompare(valorA);
+            }
+        } else {
+            // Columnas numéricas
+            let textoA = a.cells[indiceColumna].textContent.trim();
+            let textoB = b.cells[indiceColumna].textContent.trim();
+            
+            // Convertir valores a números, tratando "-" como 0
+            valorA = textoA === '-' ? -1 : parseFloat(textoA.replace(',', '.'));
+            valorB = textoB === '-' ? -1 : parseFloat(textoB.replace(',', '.'));
+            
+            // Manejar valores NaN
+            if (isNaN(valorA)) valorA = -1;
+            if (isNaN(valorB)) valorB = -1;
+            
+            if (estadoOrdenamiento.ascendente) {
+                return valorA - valorB;
+            } else {
+                return valorB - valorA;
+            }
+        }
+    });
+    
+    // Reordenar las filas en el DOM
+    filas.forEach(fila => tbody.appendChild(fila));
+    
+    // Actualizar indicadores visuales
+    actualizarIndicadoresOrdenamiento(indiceColumna);
+}
+
+// Función para actualizar los indicadores visuales de ordenamiento
+function actualizarIndicadoresOrdenamiento(columnaActiva) {
+    const headers = document.querySelectorAll('#tablaPromedios thead th');
+    
+    headers.forEach((header, index) => {
+        // Remover indicadores previos
+        header.classList.remove('ordenado-asc', 'ordenado-desc');
+        
+        // Limpiar iconos previos
+        const icono = header.querySelector('.icono-orden');
+        if (icono) {
+            icono.remove();
+        }
+        
+        // Agregar indicador a la columna activa
+        if (index === columnaActiva) {
+            const iconoSpan = document.createElement('span');
+            iconoSpan.className = 'icono-orden';
+            
+            if (estadoOrdenamiento.ascendente) {
+                header.classList.add('ordenado-asc');
+                iconoSpan.innerHTML = ' ↑';
+            } else {
+                header.classList.add('ordenado-desc');
+                iconoSpan.innerHTML = ' ↓';
+            }
+            
+            header.appendChild(iconoSpan);
+        }
+    });
+}
+
+// Inicializar event listeners cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    const headers = document.querySelectorAll('#tablaPromedios thead th');
+    
+    headers.forEach((header, index) => {
+        // Hacer todas las columnas ordenables
+        header.style.cursor = 'pointer';
+        header.style.userSelect = 'none'; // Prevenir selección de texto
+        
+        // Agregar títulos descriptivos
+        switch(index) {
+            case 0:
+                header.title = 'Clic para ordenar por nombre (A-Z / Z-A)';
+                break;
+            case 1:
+                header.title = 'Clic para ordenar por 1° Cuatrimestre (Mayor-Menor / Menor-Mayor)';
+                break;
+            case 2:
+                header.title = 'Clic para ordenar por 2° Cuatrimestre (Mayor-Menor / Menor-Mayor)';
+                break;
+            case 3:
+                header.title = 'Clic para ordenar por Intensificación (Mayor-Menor / Menor-Mayor)';
+                break;
+            case 4:
+                header.title = 'Clic para ordenar por Promedio General (Mayor-Menor / Menor-Mayor)';
+                break;
+        }
+        
+        // Agregar event listener
+        header.addEventListener('click', () => {
+            ordenarTabla(index);
+        });
+        
+        // Efecto hover
+        header.addEventListener('mouseenter', () => {
+            if (estadoOrdenamiento.columna !== index) {
+                header.style.backgroundColor = 'rgba(0, 0, 0, 0.05)';
+            }
+        });
+        
+        header.addEventListener('mouseleave', () => {
+            if (estadoOrdenamiento.columna !== index) {
+                header.style.backgroundColor = '';
+            }
+        });
+    });
+    
+    // Ordenar inicialmente por Promedio General (mayor a menor)
+    ordenarTabla(4);
+});
+
+// Función adicional para resetear ordenamiento
+function resetearOrdenamiento() {
+    estadoOrdenamiento = {
+        columna: -1,
+        ascendente: false
+    };
+    
+    // Remover todos los indicadores
+    const headers = document.querySelectorAll('#tablaPromedios thead th');
+    headers.forEach(header => {
+        header.classList.remove('ordenado-asc', 'ordenado-desc');
+        const icono = header.querySelector('.icono-orden');
+        if (icono) {
+            icono.remove();
+        }
+    });
+}
+</script>
 
 </main>
 </body>

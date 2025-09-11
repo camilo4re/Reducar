@@ -11,6 +11,7 @@ use App\Http\Controllers\DirectivoController;
 use App\Http\Controllers\MateriaController;
 use App\Http\Controllers\ContenidoController;
 use App\Http\Controllers\NotaController;
+use App\Http\Controllers\AsistenciaController;
 
 Route::view("/", "index")->name("inicio");
 Route::view("nosotros", "about")->name("about");
@@ -68,7 +69,6 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
 
     // Index primero
-    Route::get('/materias/{materia}/contenidos', [ContenidoController::class, 'index'])->name('contenidos.index');
 
     // Rutas para profes y directivos (crud)
     Route::middleware('role:profesor,directivo')->group(function () {
@@ -87,28 +87,44 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::middleware('role:profesor,directivo')->group(function () {
         Route::get('/materias/{materia}/notas/{periodo}/{trabajo}/editar', [NotaController::class, 'edit'])
-            ->where(['periodo' => 'primer-cuatrimestre|segundo-cuatrimestre|intensificacion'])->name('notas.edit');
-            
-        Route::get('/materias/{materia}/notas/{periodo}/crear', [NotaController::class, 'create'])
-            ->where(['periodo' => 'primer-cuatrimestre|segundo-cuatrimestre|intensificacion'])->name('notas.create');
-      
-        Route::post('/materias/{materia}/notas/{periodo}', [NotaController::class, 'store'])
-            ->where(['periodo' => 'primer-cuatrimestre|segundo-cuatrimestre|intensificacion'])->name('notas.store');
+    ->where(['periodo' => 'primer_cuatrimestre|segundo_cuatrimestre|intensificacion'])->name('notas.edit');
 
-        Route::put('/materias/{materia}/notas/{periodo}/{trabajo}', [NotaController::class, 'update'])
-            ->where(['periodo' => 'primer-cuatrimestre|segundo-cuatrimestre|intensificacion'])->name('notas.update');
+Route::get('/materias/{materia}/notas/{periodo}/crear', [NotaController::class, 'create'])
+    ->where('periodo', 'primer_cuatrimestre|segundo_cuatrimestre|intensificacion')
+    ->name('notas.create');
 
-        Route::delete('/materias/{materia}/notas/{periodo}/{trabajo}', [NotaController::class, 'destroy'])
-            ->where(['periodo' => 'primer-cuatrimestre|segundo-cuatrimestre|intensificacion'])->name('notas.destroy');
+Route::post('/materias/{materia}/notas/{periodo}', [NotaController::class, 'store'])
+    ->where(['periodo' => 'primer_cuatrimestre|segundo_cuatrimestre|intensificacion'])->name('notas.store');
+
+Route::put('/materias/{materia}/notas/{periodo}/{trabajo}', [NotaController::class, 'update'])
+    ->where(['periodo' => 'primer_cuatrimestre|segundo_cuatrimestre|intensificacion'])->name('notas.update');
+
+Route::delete('/materias/{materia}/notas/{periodo}/{trabajo}', [NotaController::class, 'destroy'])
+    ->where(['periodo' => 'primer_cuatrimestre|segundo_cuatrimestre|intensificacion'])->name('notas.destroy');
+
+
     });
-
+Route::get('/materias/{materia}/notas/{periodo}', [NotaController::class, 'mostrarPeriodo'])
+    ->where(['periodo' => 'primer_cuatrimestre|segundo_cuatrimestre|intensificacion'])
+    ->name('notas.periodo');
     Route::get('/materias/{materia}/notas', [NotaController::class, 'index'])->name('notas.index');
-    
-    Route::get('/materias/{materia}/notas/{periodo}', [NotaController::class, 'mostrarPeriodo'])
-        ->where(['periodo' => 'primer-cuatrimestre|segundo-cuatrimestre|intensificacion'])
-        ->name('notas.periodo');
-    Route::get('/materias/{materia}/promedios', [NotaController::class, 'promediosAlumnos'])->name('notas.promedios');
+
+    Route::get('/materias/{materia}/promedios', [NotaController::class, 'promediosNotas'])->name('notas.promedios');
 });
+
+
+// Rutas de asistencias
+Route::middleware(['auth'])->group(function () {
+    Route::get('/materias/{materia}/asistencias', [AsistenciaController::class, 'index'])->name('asistencias.index');
+    Route::get('/materias/{materia}/asistencias/reporte', [AsistenciaController::class, 'reporte'])->name('asistencias.reporte');
+    
+    
+    Route::middleware('role:profesor,directivo')->group(function () {
+        Route::post('/materias/{materia}/asistencias/marcar', [AsistenciaController::class, 'marcar'])->name('asistencias.marcar');
+        Route::post('/materias/{materia}/asistencias/eliminar', [AsistenciaController::class, 'eliminar'])->name('asistencias.eliminar');
+    });
+});
+
 // Rutas de perfil y logout (todos los roles logueados)
 
     Route::get('/profile', function () {

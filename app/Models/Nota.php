@@ -39,7 +39,7 @@ class Nota extends Model
 
     public function scopeRecuperatorio($query)
     {
-        return $query->where('periodo', 'recuperatorio');
+        return $query->where('periodo', 'intensificacion');
     }
 
     // metodop trabajos por periodo y materia

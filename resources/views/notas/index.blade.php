@@ -74,41 +74,39 @@
 
 <!-- NAV NUEVO -->
 <nav class="header-centro">
-  <div class="icono-header active" data-tooltip="Notificaciones">
-    <i class="fa-solid fa-table-columns"></i>
+  <div class="icono-header" data-tooltip="Notificaciones">
+    <a href="{{ route('materias.show', $materia->id) }}"><i class="fa-solid fa-table-columns"></i></a>
   </div>
-  <div class="icono-header" data-tooltip="Personas">
-    <i class="fa-solid fa-users"></i>
+  <div class="icono-header" data-tooltip="Promedios">
+    <a href="{{ route('notas.promedios', $materia->id) }}"><i class="fa-solid fa-users"></i></a>
   </div>
-  <div class="icono-header" data-tooltip="Calificaciones">
+  <div class="icono-header active" data-tooltip="Calificaciones">
     <a href="{{ route('notas.index', $materia->id) }}"><i class="fa-solid fa-clipboard-list"></i></a>
   </div>
   <div class="icono-header" data-tooltip="Asistencias">
-    <i class="fa-solid fa-calendar-check"></i></a>
+    <a href="{{ route('asistencias.index', $materia->id) }}"><i class="fa-solid fa-calendar-check"></i></a>
   </div>
 </nav>
 <!-- /NAV NUEVO -->
     <h2>Sistema de Notas por Cuatrimestre</h2>
-    
     <div class="container">
+    <div class="contnotis">
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
         <!-- Tarjetas de los periodos -->
         <ul class="clases">
-            
+
             <!-- PRIMER CUATRIMESTRE -->
             <li class="cajas">
                 <div class="titulo-caja">
                     Primer Cuatrimestre
                 </div>
                 <div class="cajafooter">
-                     <button>
-                    <a href="{{ route('notas.periodo', [$materia->id, 'primer-cuatrimestre']) }}">
+                    <a class="boton entrar" href="{{ route('notas.periodo', [$materia->id, 'primer_cuatrimestre']) }}">
                         Ver Trabajos
                     </a>
-                </button>  
                 </div>
             </li>
 
@@ -118,35 +116,27 @@
                     Segundo Cuatrimestre
                 </div>
                 <div class="cajafooter">
-                    <button>
-                        <a href="{{ route('notas.periodo', [$materia->id, 'segundo-cuatrimestre']) }}">
-                            Ver Trabajos
-                        </a>
-                    </button>
+                    <a class="boton entrar" href="{{ route('notas.periodo', [$materia->id, 'segundo_cuatrimestre']) }}">
+                        Ver Trabajos
+                    </a>
                 </div>
             </li>
 
             <!-- RECUPERATORIO -->
             <li class="cajas">
                 <div class="titulo-caja">
-                    intensificacion
+                    Intensificacion
                 </div>
                 <div class="cajafooter">
-                    <button>
-                    <a href="{{ route('notas.periodo', [$materia->id, 'intensificacion']) }}">
+                    <a class="boton entrar" href="{{ route('notas.periodo', [$materia->id, 'intensificacion']) }}">
                         Ver Trabajos
                     </a>
-                    </button>
                 </div>
             </li>
-        <div>
-            <button>
-                <a href="{{ route('materias.show', $materia->id) }}" >Volver a la Materia</a>
-            </button>
-         </div>
         </ul>
-      
+
     </div>
+</div>
 </main>
 </body>
 </html>
