@@ -11,20 +11,33 @@
 <body>
 
 <button id="abrirMenu">☰</button>
-
 <nav id="menuLateral" class="cerrado">
     <button id="cerrarMenu">×</button>
     <ul>
-        <li><a href="{{ route('materias.index') }}">Inicio <i class="fa-solid fa-house"></i></a></li>
-        <li><a href="#">Horarios <i class="fa-solid fa-calendar"></i></a></li>
-        <li>
-            <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i>
-            </a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-            </form>
-        </li>
+            <li><a href="{{ route ('materias.index')}}">Inicio <i class="fa-solid fa-house"></i></a></li>
+
+    @if (auth()->user()->role === 'alumno')
+    <li><a href="{{ route('calendario.index') }}">Horarios <i class="fa-solid fa-calendar"></i></a></li>
+    @endif
+        @if (auth()->user()->role === 'alumno' || auth()->user()->role === 'profesor')
+    <li><a href="{{ route('perfil.show', Auth::user()->id) }}"> Mis Datos <i class="fa-solid fa-user"></i></a></li>
+        @endif
+    @if (Auth::user()->role === 'directivo')
+    <li><a href="{{ route('tokens.index') }}">Crear Usuarios <i class="fa-solid fa-ticket"></i></a></li>
+    <li><a href="{{ route('tokens.listar') }}">Lista de Codigos Creados <i class="fa-solid fa-list"></i></a></li>
+    <li><a href="{{ route('perfiles.index') }}">Perfiles de Usuarios<i class="fa-solid fa-user"></i></a></li>
+    @endif
+ 
+    <li>
+        <a href="#" 
+          onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+          Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i>
+        </a>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+    </li>
     </ul>
 </nav>
 
@@ -59,12 +72,13 @@
   </div>
 </nav>
 <!-- /NAV NUEVO -->
-
-    <div class="filtro-cursos">
+<div class="containerr">
+    <h2>Asistencias</h2>
+    <div class="contnotis">
+    <div class="filtro-cursos deasistencia">
     <form method="GET" action="{{ route('asistencias.index', $materia->id) }}">
-        <label for="month">Mes:</label>
+        <label for="month">Mes:     </label>
         <select name="month" id="month" onchange="this.form.submit()">
-            
             @php
                 $meses = [
                     1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril',
@@ -78,18 +92,13 @@
                 </option>
             @endforeach
         </select>
-        
-        
-
-        <a href="{{ route('asistencias.reporte', [$materia->id, 'year' => $year, 'month' => $month]) }}" class="boton">
-            Ver Reporte
-        </a>
+        <a href="{{ route('asistencias.reporte', [$materia->id, 'year' => $year, 'month' => $month]) }}" class="boton"> Ver Reporte</a>
     </form>
 </div>
 
     @if(auth()->user()->role === 'profesor' || auth()->user()->role === 'directivo')
-    <div class="tabla-container">
-        <div class="tabla-asistencias">
+    <div class="tabla-container deasistencia">
+        <div class="tabla-asistencias ">
             <table>
                 <thead>
                     <tr>
@@ -113,16 +122,16 @@
                                     @if(isset($data['asistencias'][$fecha]) && $data['asistencias'][$fecha])
                                         @switch($data['asistencias'][$fecha])
                                             @case('presente')
-                                                <span style="color: #007c00;">✓</span>
+                                                <span style="color: #007c00;"><i class="fas fa-check"></i></span>
                                                 @break
                                             @case('ausente')
-                                                <span style="color: #d32f2f;">✗</span>
+                                                <span style="color: #d32f2f;"><i class="fas fa-times"></i></span>
                                                 @break
                                             @case('tardanza')
-                                                <span style="color: #f39c12;">⏰</span>
+                                                <span style="color: #f39c12;"><i class="fas fa-clock"></i></span>
                                                 @break
                                             @case('justificada')
-                                                <span style="color: #2196f3;">J</span>
+                                                <span style="color: #2196f3;"><i class="fas fa-clipboard-check"></i></span>
                                                 @break
                                         @endswitch
                                     @else
@@ -142,18 +151,18 @@
     </div>
 
     <div id="popover" class="popover hidden">
-        <button onclick="marcarAsistencia('presente')">✓ Presente</button>
-        <button onclick="marcarAsistencia('ausente')">✗ Ausente</button>
-        <button onclick="marcarAsistencia('tardanza')">⏰ Tardanza</button>
-        <button onclick="marcarAsistencia('justificada')">J Justificada</button>
-        <button onclick="eliminarAsistencia()">🗑️ Limpiar</button>
+        <button onclick="marcarAsistencia('presente')"> Presente <i class="fas fa-check"></i></button>
+        <button onclick="marcarAsistencia('ausente')"> Ausente <i class="fas fa-times"></i></button>
+        <button onclick="marcarAsistencia('tardanza')"> Tardanza <i class="fas fa-clock"></i></button>
+        <button onclick="marcarAsistencia('justificada')"> Justificada <i class="fas fa-clipboard-check"></i></button>
+        <button onclick="eliminarAsistencia()"> Limpiar <i class="fas fa-trash"></i></button>
     </div>
 @endif
     @if (auth()->user()->role === 'alumno')
-        
-        <div class="tabla-container">
+
+        <div class="tabla-container ">
             <h2>Mis Asistencias</h2>
-            <div class="tabla-asistencias">
+            <div class="tabla-asistencias ">
                 @php 
                     $miAsistencia = null;
                     foreach($asistencias as $data) {
@@ -179,16 +188,16 @@
                                     <td>
                                         @switch($miAsistencia['asistencias'][$fecha])
                                             @case('presente')
-                                                <span style="color: #007c00;">✓ Presente</span>
+                                                <span style="color: #007c00;"><i class="fas fa-check"></i> Presente</span>
                                                 @break
                                             @case('ausente')
-                                                <span style="color: #d32f2f;">✗ Ausente</span>
+                                                <span style="color: #d32f2f;"><i class="fas fa-times"></i> Ausente</span>
                                                 @break
                                             @case('tardanza')
-                                                <span style="color: #f39c12;">⏰ Tardanza</span>
+                                                <span style="color: #f39c12;"><i class="fas fa-clock"></i> Tardanza</span>
                                                 @break
                                             @case('justificada')
-                                                <span style="color: #2196f3;">J Justificada</span>
+                                                <span style="color: #2196f3;"><i class="fas fa-clipboard-check"></i> Justificada</span>
                                                 @break
                                         @endswitch
                                     </td>
@@ -204,6 +213,8 @@
             </div>
         </div>
     @endif
+    </div>
+    </div>
 </main>
 
 <script>

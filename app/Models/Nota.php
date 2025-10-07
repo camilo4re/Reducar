@@ -14,8 +14,7 @@ class Nota extends Model
         'trabajo_descripcion',
         'valor'
     ];
-
-    // Relaciones
+ 
     public function alumno()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -25,8 +24,7 @@ class Nota extends Model
     {
         return $this->belongsTo(Materia::class);
     }
-
-    // Scopes para filtrar por periodo
+    
     public function scopePrimerCuatrimestre($query)
     {
         return $query->where('periodo', 'primer_cuatrimestre');
@@ -42,15 +40,7 @@ class Nota extends Model
         return $query->where('periodo', 'intensificacion');
     }
 
-    // metodop trabajos por periodo y materia
-    public static function trabajosUnicos($materia_id, $periodo)
-    {
-        return self::where('materia_id', $materia_id)->where('periodo', $periodo)->select('trabajo_titulo', 'trabajo_descripcion')->distinct()
-        ->get();
-    }
-
-    // promedio
-    public static function promedioNota($user_id, $materia_id, $periodo)
+     public static function promedioNota($user_id, $materia_id, $periodo)
     {
         return self::where('user_id', $user_id)->where('materia_id', $materia_id)->where('periodo', $periodo)
                    ->avg('valor'); //avg hace el promedio 

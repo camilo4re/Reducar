@@ -12,10 +12,12 @@ use App\Http\Controllers\MateriaController;
 use App\Http\Controllers\ContenidoController;
 use App\Http\Controllers\NotaController;
 use App\Http\Controllers\AsistenciaController;
+use App\Http\Controllers\TokenController;
+use App\Http\Controllers\UserProfileController;
 
 Route::view("/", "index")->name("inicio");
 Route::view("nosotros", "about")->name("about");
-
+Route::get('/calendario', [App\Http\Controllers\CalendarioController::class, 'index'])->name('calendario.index');
 /* rutas de profes */
 
     Route::middleware(['auth', 'role:profesor'])->group(function () {
@@ -29,12 +31,11 @@ Route::view("nosotros", "about")->name("about");
 });
 
 
+Route::view('pautas', 'pautas')->name('pautas');
+Route::view('autoridades', 'autoridades')->name('autoridades');
 
 
-/* rutas de directivos */
-    Route::middleware(['auth', 'role:directivo'])->group(function () {
-    Route::get('/directivo', [DirectivoController::class, 'index'])->name('directivo');
-});
+
 /* rutas de login */
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
@@ -67,8 +68,6 @@ Route::middleware(['auth'])->group(function () {
 
 // Rutas de contenidos
 Route::middleware(['auth'])->group(function () {
-
-    // Index primero
 
     // Rutas para profes y directivos (crud)
     Route::middleware('role:profesor,directivo')->group(function () {
@@ -138,3 +137,23 @@ Route::post('/logout', function (Request $request) {
     $request->session()->regenerateToken();
     return redirect('/');
 })->name('logout');
+
+// TOKENS 
+Route::middleware(['auth', 'role:directivo'])->group(function () {
+    Route::get('/tokens', [TokenController::class, 'index'])->name('tokens.index');
+    Route::post('/tokens', [TokenController::class, 'store'])->name('tokens.store');
+    Route::get('/tokens/lista', [TokenController::class, 'listarTokens'])->name('tokens.listar');
+    Route::post('/tokens/marcar-usado/{id}', [TokenController::class, 'marcarUsado'])->name('tokens.marcar-usado');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/perfil/crear', [UserProfileController::class, 'create'])->name('perfil.create');
+    Route::post('/perfil', [UserProfileController::class, 'store'])->name('perfil.store');
+    Route::get('/perfil', [UserProfileController::class, 'show'])->name('perfil.show');
+});
+
+Route::middleware(['auth', 'role:directivo'])->group(function () {
+    Route::get('/perfiles', [UserProfileController::class, 'index'])->name('perfiles.index');
+    Route::get('/perfiles/{user}', [UserProfileController::class, 'showAlumno'])->name('perfiles.show');
+    Route::post('/perfiles/{user}/reset', [UserProfileController::class, 'reset'])->name('perfiles.reset');
+});

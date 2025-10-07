@@ -16,14 +16,24 @@
     <button id="cerrarMenu">×</button>
     
     <ul>
-    <li><a href="{{ route ('materias.index')}}">Inicio <i class="fa-solid fa-house"></i></a></li>
-    <li><a href="nuevohorario.html">Horarios <i class="fa-solid fa-calendar"></i></a></li>
-    <!-- <li><a href="asistencias.html">Asistencias <i class="fa-solid fa-user-check"></i></a></li> -->
-     <!--<li><a href="#">Notificaciones <i class="fa-solid fa-bell"></i></a></li>-->
-   <li>
+            <li><a href="{{ route ('materias.index')}}">Inicio <i class="fa-solid fa-house"></i></a></li>
+
+    @if (auth()->user()->role === 'alumno')
+    <li><a href="{{ route('calendario.index') }}">Horarios <i class="fa-solid fa-calendar"></i></a></li>
+    @endif
+        @if (auth()->user()->role === 'alumno' || auth()->user()->role === 'profesor')
+    <li><a href="{{ route('perfil.show', Auth::user()->id) }}"> Mis Datos <i class="fa-solid fa-user"></i></a></li>
+        @endif
+    @if (Auth::user()->role === 'directivo')
+    <li><a href="{{ route('tokens.index') }}">Crear Usuarios <i class="fa-solid fa-ticket"></i></a></li>
+    <li><a href="{{ route('tokens.listar') }}">Lista de Codigos Creados <i class="fa-solid fa-list"></i></a></li>
+    <li><a href="{{ route('perfiles.index') }}">Perfiles de Usuarios<i class="fa-solid fa-user"></i></a></li>
+    @endif
+ 
+    <li>
         <a href="#" 
-           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-           Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i>
+          onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+          Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i>
         </a>
 
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -54,69 +64,58 @@
 
 <!-- HEADER REDUCAR -->
 <header>
-  <div class="header-superior">
-    <div class="titulo-izquierda">
-      <span class="titulo-principal">{{ $materia->nombre }}</span>
-      <span class="subtitulo"> {{ $materia->curso->año }} {{ $materia->curso->division }}</span> 
+    <div class="header-superior">
+        <div class="titulo-izquierda">
+            <span class="titulo-principal">{{ $materia->nombre }}</span>
+            <span class="subtitulo"> {{ $materia->curso->año }} {{ $materia->curso->division }}</span> 
+        </div>
+        <img src="/IMAGENES/LOGOTEC3.png" alt="Logo de la escuela" class="logo">
     </div>
-
-    <img src="/IMAGENES/LOGOTEC3.png" alt="Logo de la escuela" class="logo">
-
-  </div>
-
-  <div class="barras">
-    <div class="barra-naranja"></div>
-    <div class="barra-verde"></div>
-  </div>
+    <div class="barras">
+        <div class="barra-naranja"></div>
+        <div class="barra-verde"></div>
+    </div>
 </header>
 
 <!-- /HEADER REDUCAR -->
 
 <!-- NAV NUEVO -->
 <nav class="header-centro">
-  <div class="icono-header" data-tooltip="Notificaciones">
-    <a href="{{ route('materias.show', $materia->id) }}"><i class="fa-solid fa-table-columns"></i></a>
-  </div>
-  <div class="icono-header active" data-tooltip="Promedios">
-    <a href="{{ route('notas.promedios', $materia->id) }}"><i class="fa-solid fa-users"></i></a>
-  </div>
-  <div class="icono-header" data-tooltip="Calificaciones">
-   <a href="{{ route('notas.index', $materia->id) }}"><i class="fa-solid fa-clipboard-list"></i></a>
-  </div>
-  <div class="icono-header" data-tooltip="Asistencias">
-    <a href="{{ route('asistencias.index', $materia->id) }}"><i class="fa-solid fa-calendar-check"></i></a>
-  </div>
+    <div class="icono-header" data-tooltip="Notificaciones">
+        <a href="{{ route('materias.show', $materia->id) }}"><i class="fa-solid fa-table-columns"></i></a>
+    </div>
+    <div class="icono-header active" data-tooltip="Personas">
+        <a href="{{ route('notas.promedios', $materia->id) }}"><i class="fa-solid fa-users"></i></a>
+    </div>
+    <div class="icono-header" data-tooltip="Calificaciones">
+        <a href="{{ route('notas.index', $materia->id) }}"><i class="fa-solid fa-clipboard-list"></i></a>
+    </div>
+    <div class="icono-header" data-tooltip="Asistencias">
+        <a href="{{ route('asistencias.index', $materia->id) }}"><i class="fa-solid fa-calendar-check"></i></a>
+    </div>
 </nav>
 <!-- /NAV NUEVO -->
 <div>
         
-       
-
-        
-
+<div class="conteinerr">
+    <h2>Promedios</h2>
+    <div class="contnotis">
         <!-- Tabla de promedios -->
         <table id="tablaPromedios">
-            <thead>
-                <tr>
-                    <th>
-                         Alumno
-                    </th>
-                    <th>
-                         1° Cuatrimestre
-                    </th>
-                    <th>
-                         2° Cuatrimestre
-                    </th>
-                    <th>
-                         intensificacion
-                    </th>
-                    <th>
-                         Promedio General
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($promedios as $promedio)
+    <thead>
+        <tr>
+            <th>Alumno</th>
+            <th>1° Cuatrimestre</th>
+            <th>2° Cuatrimestre</th>
+            <th>Intensificación</th>
+            <th>Promedio General</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(Auth::user()->role === 'alumno')
+            {{-- Si es alumno, solo mostrar SUS notas --}}
+            @foreach($promedios as $promedio)
+                @if($promedio['alumno']->id === Auth::user()->id)
                     @php
                         $claseGeneral = 'promedio-sin-notas';
                         $estado = 'sin-notas';
@@ -148,27 +147,48 @@
                             </span>
                         </td>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-
-        <!-- Navegación -->
-        <div>
-            <button>
-            <a href="{{ route('notas.index', $materia->id) }}">
-                <i></i> Ver Notas por Periodo
-            </a>
-            </button>
-            <a href="{{ route('materias.show', $materia->id) }}" >
-                <i></i> Volver a la Materia
-            </a>
-            </button>
-        </div>
-    </div>
-</section>
+                @endif
+            @endforeach
+        @elseif(Auth::user()->role === 'profesor' || Auth::user()->role === 'directivo')
+            {{-- Si es profesor o directivo, mostrar TODOS los alumnos --}}
+            @foreach($promedios as $promedio)
+                @php
+                    $claseGeneral = 'promedio-sin-notas';
+                    $estado = 'sin-notas';
+                    if ($promedio['general'] !== '-') {
+                        $valor = floatval(str_replace(',', '.', $promedio['general']));
+                        if ($valor >= 8) {
+                            $claseGeneral = 'promedio-excelente';
+                            $estado = 'aprobados';
+                        } elseif ($valor >= 6) {
+                            $claseGeneral = 'promedio-bueno';
+                            $estado = 'aprobados';
+                        } else {
+                            $claseGeneral = 'promedio-regular';
+                            $estado = 'desaprobados';
+                        }
+                    }
+                @endphp
+                <tr data-estado="{{ $estado }}">
+                    <td>
+                        <i></i> 
+                        {{ $promedio['alumno']->name }}
+                    </td>
+                    <td>{{ $promedio['primer_cuatrimestre'] }}</td>
+                    <td>{{ $promedio['segundo_cuatrimestre'] }}</td>
+                    <td>{{ $promedio['intensificacion'] }}</td>
+                    <td>
+                        <span class="{{ $claseGeneral }}">
+                            {{ $promedio['general'] }}
+                        </span>
+                    </td>
+                </tr>
+            @endforeach
+        @endif
+    </tbody>
+</table>
 
 <script>
-// Variables para controlar el estado de ordenamiento
 let estadoOrdenamiento = {
     columna: -1,
     ascendente: false
@@ -299,13 +319,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Efecto hover
         header.addEventListener('mouseenter', () => {
             if (estadoOrdenamiento.columna !== index) {
-                header.style.backgroundColor = 'rgba(0, 0, 0, 0.05)';
             }
         });
         
         header.addEventListener('mouseleave', () => {
             if (estadoOrdenamiento.columna !== index) {
-                header.style.backgroundColor = '';
             }
         });
     });
@@ -314,23 +332,6 @@ document.addEventListener('DOMContentLoaded', function() {
     ordenarTabla(4);
 });
 
-// Función adicional para resetear ordenamiento
-function resetearOrdenamiento() {
-    estadoOrdenamiento = {
-        columna: -1,
-        ascendente: false
-    };
-    
-    // Remover todos los indicadores
-    const headers = document.querySelectorAll('#tablaPromedios thead th');
-    headers.forEach(header => {
-        header.classList.remove('ordenado-asc', 'ordenado-desc');
-        const icono = header.querySelector('.icono-orden');
-        if (icono) {
-            icono.remove();
-        }
-    });
-}
 </script>
 
 </main>

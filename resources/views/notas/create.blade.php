@@ -16,14 +16,24 @@
     <button id="cerrarMenu">×</button>
     
     <ul>
-    <li><a href="{{ route ('materias.index')}}">Inicio <i class="fa-solid fa-house"></i></a></li>
-    <li><a href="nuevohorario.html">Horarios <i class="fa-solid fa-calendar"></i></a></li>
-    <!-- <li><a href="asistencias.html">Asistencias <i class="fa-solid fa-user-check"></i></a></li> -->
-     <!--<li><a href="#">Notificaciones <i class="fa-solid fa-bell"></i></a></li>-->
-   <li>
+            <li><a href="{{ route ('materias.index')}}">Inicio <i class="fa-solid fa-house"></i></a></li>
+
+    @if (auth()->user()->role === 'alumno')
+    <li><a href="{{ route('calendario.index') }}">Horarios <i class="fa-solid fa-calendar"></i></a></li>
+    @endif
+        @if (auth()->user()->role === 'alumno' || auth()->user()->role === 'profesor')
+    <li><a href="{{ route('perfil.show', Auth::user()->id) }}"> Mis Datos <i class="fa-solid fa-user"></i></a></li>
+        @endif
+    @if (Auth::user()->role === 'directivo')
+    <li><a href="{{ route('tokens.index') }}">Crear Usuarios <i class="fa-solid fa-ticket"></i></a></li>
+    <li><a href="{{ route('tokens.listar') }}">Lista de Codigos Creados <i class="fa-solid fa-list"></i></a></li>
+    <li><a href="{{ route('perfiles.index') }}">Perfiles de Usuarios<i class="fa-solid fa-user"></i></a></li>
+    @endif
+ 
+    <li>
         <a href="#" 
-           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-           Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i>
+          onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+          Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i>
         </a>
 
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -74,21 +84,19 @@
 
 <!-- NAV NUEVO -->
 <nav class="header-centro">
-  <div class="icono-header active" data-tooltip="Notificaciones">
-    <i class="fa-solid fa-table-columns"></i>
+  <div class="icono-header" data-tooltip="Notificaciones">
+    <a href="{{ route('materias.show', $materia->id) }}"><i class="fa-solid fa-table-columns"></i></a>
   </div>
-  <div class="icono-header" data-tooltip="Personas">
-    <i class="fa-solid fa-users"></i>
+  <div class="icono-header" data-tooltip="Promedios">
+    <a href="{{ route('notas.promedios', $materia->id) }}"><i class="fa-solid fa-users"></i></a>
   </div>
-  <div class="icono-header" data-tooltip="Calificaciones">
+  <div class="icono-header active" data-tooltip="Calificaciones">
     <a href="{{ route('notas.index', $materia->id) }}"><i class="fa-solid fa-clipboard-list"></i></a>
   </div>
   <div class="icono-header" data-tooltip="Asistencias">
-    <i class="fa-solid fa-calendar-check"></i></a>
+    <a href="{{ route('asistencias.index', $materia->id) }}"><i class="fa-solid fa-calendar-check"></i></a>
   </div>
 </nav>
-
-
 <!-- /NAV NUEVO -->
 
 

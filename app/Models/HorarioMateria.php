@@ -12,7 +12,7 @@ class HorarioMateria extends Model
 
     public function materia()
     {
-        return $this->belongsTo(Materia::class);
+     return $this->belongsTo(Materia::class);
     }
     
     public function getNombreDiaAttribute()

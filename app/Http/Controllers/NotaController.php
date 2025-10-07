@@ -33,12 +33,13 @@ class NotaController extends Controller
     {
         $this->rutas($materia);
 
-        $trabajos = Nota::trabajosUnicos($materia->id, $periodo);
-        
-        $alumnos = User::where('role', 'alumno')
-                      ->where('curso_id', $materia->curso_id)->orderBy('name')->get();
+            $trabajos = Nota::where('materia_id', $materia->id)
+            ->where('periodo', $periodo)->select('trabajo_titulo', 'trabajo_descripcion')->distinct()
+            ->get();
 
-        // Para cada trabajo, obtener las notas de todos los alumnos
+        $alumnos = User::where('role', 'alumno')->where('curso_id', $materia->curso_id)->orderBy('name')->get();
+
+
         $trabajosNotas = [];
         foreach ($trabajos as $trabajo) {
             $notasDelTrabajo = [];
@@ -49,21 +50,21 @@ class NotaController extends Controller
                            ->where('trabajo_titulo', $trabajo->trabajo_titulo)
                            ->first();
                 
-                $notasDelTrabajo[$alumno->id] = $nota ? $nota->valor : null;
-            }
-            
-            $trabajosNotas[] = [
-                'trabajo' => $trabajo,
-                'notas' => $notasDelTrabajo
+                if ($nota) {
+                    $notasDelTrabajo[$alumno->id] = $nota->valor;
+                       } else {
+                  $notasDelTrabajo[$alumno->id] = null;
+                      }
+        }
+
+        $trabajosNotas[] = [
+            'trabajo' => $trabajo,
+            'notas' => $notasDelTrabajo
             ];
         }
 
         return view('notas.periodo', compact('materia', 'periodo', 'alumnos', 'trabajosNotas'));
     }
-
-    /**
-     * Crear nuevo trabajo en un periodo
-     */
     public function create(Materia $materia, $periodo)
     {
         $this->rutas($materia);
@@ -76,9 +77,6 @@ class NotaController extends Controller
         return view('notas.create', compact('materia', 'periodo', 'alumnos'));
     }
 
-    /**
-     * Guardar nuevo trabajo con notas
-     */
     public function store(Request $request, Materia $materia, $periodo)
     {
         $this->rutas($materia);
@@ -90,10 +88,8 @@ class NotaController extends Controller
             'notas.*' => 'nullable|numeric|min:1|max:10'
         ]);
 
-        // Crear las notas para cada alumno
         foreach ($request->notas as $alumno_id => $valor) {
             if ($valor !== null) {
-                // Verificar que el alumno pertenezca al curso
                 $alumno = User::find($alumno_id);
                 if ($alumno && $alumno->curso_id === $materia->curso_id) {
                     Nota::create([
@@ -111,14 +107,11 @@ class NotaController extends Controller
         return redirect()->route('notas.periodo', [$materia->id, $periodo]);
     }
 
-    /**
-     * Editar notas de un trabajo específico
-     */
+
     public function edit(Materia $materia, $periodo, $trabajo_titulo)
     {
         $this->rutas($materia);
 
-        // Obtener el trabajo
         $trabajo = Nota::where('materia_id', $materia->id)
                       ->where('periodo', $periodo)
                       ->where('trabajo_titulo', $trabajo_titulo)
@@ -128,7 +121,6 @@ class NotaController extends Controller
             abort(404);
         }
 
-        // Obtener alumnos y sus notas
         $alumnos = User::where('role', 'alumno')
                       ->where('curso_id', $materia->curso_id)
                       ->orderBy('name')
@@ -148,9 +140,6 @@ class NotaController extends Controller
         return view('notas.edit', compact('materia', 'periodo', 'trabajo', 'alumnos', 'notasActuales'));
     }
 
-    /**
-     * Actualizar notas de un trabajo
-     */
     public function update(Request $request, Materia $materia, $periodo, $trabajo_titulo)
     {
         $this->rutas($materia);
@@ -161,13 +150,11 @@ class NotaController extends Controller
             'notas.*' => 'nullable|numeric|min:1|max:10'
         ]);
 
-        // Actualizar descripción del trabajo
         Nota::where('materia_id', $materia->id)
             ->where('periodo', $periodo)
             ->where('trabajo_titulo', $trabajo_titulo)
             ->update(['trabajo_descripcion' => $request->trabajo_descripcion]);
 
-        // Actualizar notas
         foreach ($request->notas as $alumno_id => $valor) {
             $nota = Nota::where('materia_id', $materia->id)
                        ->where('user_id', $alumno_id)
@@ -182,7 +169,6 @@ class NotaController extends Controller
                     $nota->delete();
                 }
             } else if ($valor !== null) {
-                // Verificar que el alumno pertenezca al curso
                 $alumno = User::find($alumno_id);
                 if ($alumno && $alumno->curso_id === $materia->curso_id) {
                     Nota::create([

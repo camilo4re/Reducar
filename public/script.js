@@ -84,3 +84,30 @@ document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
         }
     });
 })
+
+/*pautas*/
+document.addEventListener('DOMContentLoaded', function() {
+  const acordeonBtns = document.querySelectorAll('.acordeon-btn');
+
+  acordeonBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const content = this.nextElementSibling;
+
+      // Alternar vista
+      if (content.style.display === 'block') {
+        content.style.display = 'none';
+      } else {
+        content.style.display = 'block';
+      }
+
+      // Cambiar icono de la flecha
+      const icon = this.querySelector('i');
+      if (icon) {
+        icon.classList.toggle('fa-chevron-down');
+        icon.classList.toggle('fa-chevron-up');
+      }
+    });
+  });
+});
+
+

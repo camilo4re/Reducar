@@ -42,13 +42,7 @@ class ContenidoController extends Controller
         return redirect()->route('materias.show', $materia->id);
     }
 
-    public function show(Materia $materia, Contenido $contenido)
-    {
-        return view('contenidos.show', [
-            'materia' => $materia,
-            'contenido' => $contenido
-        ]);
-    }
+   
 
     public function edit(Materia $materia, Contenido $contenido)
     {

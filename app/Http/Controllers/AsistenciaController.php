@@ -30,13 +30,11 @@ class AsistenciaController extends Controller
         $year = $request->get('year', date('Y'));
         $month = $request->get('month', date('m'));
 
-        // Traer alumnos del curso de la materia
         $alumnos = User::where('role', 'alumno')
                       ->where('curso_id', $materia->curso_id)
                       ->orderBy('name')
                       ->get();
 
-        // ✅ MODIFICADO: Pasar el materia_id al método
         $fechas = Asistencia::generarFechasDelMes($year, $month, $materia->id);
 
         $asistencias = [];
@@ -52,7 +50,6 @@ class AsistenciaController extends Controller
                 $asistenciasAlumno[$fecha] = $asistencia ? $asistencia->estado : null;
             }
 
-            // 👉 Guardamos indexado por el id del alumno
             $asistencias[$alumno->id] = [
                 'alumno' => $alumno,
                 'user_id' => $alumno->id,
@@ -121,7 +118,6 @@ class AsistenciaController extends Controller
         
         $user = Auth::user();
 
-        // Obtener alumnos del curso
         $alumnos = User::where('role', 'alumno')
                       ->where('curso_id', $materia->curso_id)
                       ->orderBy('name')
@@ -130,7 +126,6 @@ class AsistenciaController extends Controller
         $reportes = [];
         
         if ($user->role === 'alumno') {
-            // Para alumnos: Solo sus propios datos anuales
             $totalDias = Asistencia::where('user_id', $user->id)
                                   ->where('materia_id', $materia->id)
                                   ->whereYear('fecha', $year)
@@ -172,11 +167,9 @@ class AsistenciaController extends Controller
                 'porcentaje' => $porcentaje
             ]];
 
-            // 🎯 Vista específica para ALUMNOS
             return view('asistencias.reporte-alumno', compact('materia', 'reportes', 'year'));
             
         } else {
-            // Para profesores: Datos de todos los alumnos del año
             foreach ($alumnos as $alumno) {
                 $totalDias = Asistencia::where('user_id', $alumno->id)
                                       ->where('materia_id', $materia->id)
@@ -220,7 +213,6 @@ class AsistenciaController extends Controller
                 ];
             }
 
-            // 🎯 Vista específica para PROFESORES
             return view('asistencias.reporte', compact('materia', 'reportes', 'year', 'month'));
         }
     }

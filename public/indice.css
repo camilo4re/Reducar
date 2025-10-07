@@ -1,0 +1,54 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  background: #f4f4f4;
+}
+
+.indice-container {
+  display: flex;
+}
+
+/* Barra lateral */
+.indice-lateral {
+  width: 220px;
+  background: #222;
+  color: #fff;
+  min-height: 100vh;
+  padding-top: 20px;
+  position: fixed;
+}
+
+.indice-lateral ul {
+  list-style: none;
+  padding: 0;
+}
+
+.indice-lateral li {
+  margin: 15px 0;
+}
+
+.indice-lateral a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 15px;
+  display: block;
+  transition: background 0.3s;
+}
+
+.indice-lateral a:hover {
+  background: #444;
+}
+
+/* Contenido */
+.contenido {
+  margin-left: 240px;
+  padding: 20px;
+}
+
+.contenido section {
+  margin-bottom: 60px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}

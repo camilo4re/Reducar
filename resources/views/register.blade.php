@@ -6,16 +6,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 </head>
 <body class="background">
-    <header>
-        <img src="/IMAGENES/LOGOTEC3.png" alt="Logo de la escuela" class="logo">
-    </header>
+    
 
-    <div class="barras">
-        <div class="barra-naranja"></div>
-        <div class="barra-verde"></div>
-    </div>
+    
 
     <div class="formulario-contenedor">
+        <img src="{{asset('imagenes/LOGOTECNICA3.png')}}" alt="Logo" class="logo">
         <h1>Crea una cuenta</h1>
         <p>¿Ya estás registrado? Inicia sesión <a href="{{ route('login') }}">aquí</a></p>
 

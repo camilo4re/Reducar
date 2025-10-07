@@ -36,5 +36,5 @@ class Materia extends Model
     public function horarios()
 {
     return $this->hasMany(HorarioMateria::class);
-}
+}   
 }

@@ -81,12 +81,14 @@ class MateriaController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nombre' => 'required|string|max:255',
-            'horarios' => 'required|array|min:1',
-            'horarios.*.dia_semana' => 'required|integer|between:1,7',
-            'horarios.*.hora_inicio' => 'required|date_format:H:i',
-            'horarios.*.hora_fin' => 'required|date_format:H:i|after:horarios.*.hora_inicio',
-        ]);
+                'nombre' => 'required|string|max:255',
+                'horarios' => 'required|array|min:1',
+                'horarios.*.dia_semana' => 'required|integer|between:1,6',
+                'horarios.*.hora_inicio' => 'required',
+                'horarios.*.hora_fin' => 'required',
+            ]);
+
+        
 
         $materia = Materia::findOrFail($id);
         $materia->nombre = $request->nombre;

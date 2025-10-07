@@ -2,9 +2,13 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Materia 1 (Profesor)</title>
-    <link rel="stylesheet" href="{{ asset('profesor/estilospaginico.css') }}">
+    <title>Notificaciones</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="/IMAGENES/LOGOTECNICA3.png">
+    <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap' rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('profesor/estilospaginico.css') }}">
+    <link rel ="stylesheet" href="{{ asset('profesor/responsive.css') }}">
 </head>
 <body>
   <!-- MENU REDUCAR -->
@@ -14,14 +18,24 @@
     <button id="cerrarMenu">×</button>
     
     <ul>
-    <li><a href="{{ route ('materias.index')}}">Inicio <i class="fa-solid fa-house"></i></a></li>
-    <li><a href="nuevohorario.html">Horarios <i class="fa-solid fa-calendar"></i></a></li>
-    <!-- <li><a href="asistencias.html">Asistencias <i class="fa-solid fa-user-check"></i></a></li> -->
-     <!--<li><a href="#">Notificaciones <i class="fa-solid fa-bell"></i></a></li>-->
-   <li>
+            <li><a href="{{ route ('materias.index')}}">Inicio <i class="fa-solid fa-house"></i></a></li>
+
+    @if (auth()->user()->role === 'alumno')
+    <li><a href="{{ route('calendario.index') }}">Horarios <i class="fa-solid fa-calendar"></i></a></li>
+    @endif
+        @if (auth()->user()->role === 'alumno' || auth()->user()->role === 'profesor')
+    <li><a href="{{ route('perfil.show', Auth::user()->id) }}"> Mis Datos <i class="fa-solid fa-user"></i></a></li>
+        @endif
+    @if (Auth::user()->role === 'directivo')
+    <li><a href="{{ route('tokens.index') }}">Crear Usuarios <i class="fa-solid fa-ticket"></i></a></li>
+    <li><a href="{{ route('tokens.listar') }}">Lista de Codigos Creados <i class="fa-solid fa-list"></i></a></li>
+    <li><a href="{{ route('perfiles.index') }}">Perfiles de Usuarios<i class="fa-solid fa-user"></i></a></li>
+    @endif
+ 
+    <li>
         <a href="#" 
-           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-           Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i>
+          onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+          Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i>
         </a>
 
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
