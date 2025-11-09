@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", animarTexto);
 
     <!-- columna centro -->
 <div class="columna centro">
-    <h2>Materias ndeah</h2>
+    <h2>Materias</h2>
 
     {{-- Mostrar solo al directivo --}}
     @if(Auth::user()->role === 'directivo')
