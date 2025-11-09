@@ -98,14 +98,25 @@
   </div>
 </nav>
 <!-- /NAV NUEVO -->
+<<<<<<< HEAD
     <h2>Sistema de Notas por Cuatrimestre</h2>
     <div class="container">
     <div class="contnotis">
+=======
+        <!-- CALIFICACIONES -->
+    <div class="conteinerr">
+    <h2>Sistema de Notas por Cuatrimestre</h2>
+    <div class="contnotis" style="max-width: 740px;">
+>>>>>>> FRONTEND
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
+<<<<<<< HEAD
         <!-- Tarjetas de los periodos -->
+=======
+
+>>>>>>> FRONTEND
         <ul class="clases">
 
             <!-- PRIMER CUATRIMESTRE -->
@@ -146,6 +157,10 @@
         </ul>
 
     </div>
+<<<<<<< HEAD
+=======
+            <!-- /CALIFICACIONES -->
+>>>>>>> FRONTEND
 </div>
 </main>
 </body>

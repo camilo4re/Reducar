@@ -18,6 +18,7 @@
         <button id="cerrarMenu">×</button>
         
         <ul>
+<<<<<<< HEAD
             <li><a href="{{ route ('materias.index')}}">Inicio <i class="fa-solid fa-house"></i></a></li>
 
     @if (auth()->user()->role === 'alumno')
@@ -43,6 +44,21 @@
         </form>
     </li>
     </ul>
+=======
+            <li><a href="{{ route('materias.index')}}">Inicio <i class="fa-solid fa-house"></i></a></li>
+            <li><a href="{{ route('tokens.index') }}">Crear Usuarios <i class="fa-solid fa-ticket"></i></a></li>
+            <li><a href="{{ route('tokens.listar') }}">Lista de Usuarios Creados <i class="fa-solid fa-list"></i></a></li>
+            <li><a href="{{ route('perfiles.index') }}">Ver Perfiles <i class="fa-solid fa-address-book"></i></a></li>
+            <li>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </li>
+        </ul>
+>>>>>>> FRONTEND
     </nav>
     
     <script>
@@ -112,6 +128,7 @@
                     
                     <div style="margin: 20px 0;">
                         <label style="display: block; font-weight: 600; margin-bottom: 8px;">
+<<<<<<< HEAD
                             Curso <span style="color: red;">*</span>
                         </label>
                         <select name="curso_id" class="filtro-cursos" style="width: 100%;" required>
@@ -119,11 +136,21 @@
                             @foreach($cursos as $curso)
                                 <option value="{{ $curso->id }}" {{ old('curso_id') == $curso->id ? 'selected' : '' }}>
                                     {{ $curso->año }}º {{ $curso->division }}
+=======
+                            Rol <span style="color: red;">*</span>
+                        </label>
+                        <select name="role" id="selectRole" class="filtro-cursos" style="width: 100%;" required>
+                            <option value="">Seleccionar rol...</option>
+                            @foreach($roles as $rol)
+                                <option value="{{ $rol }}" {{ old('role') == $rol ? 'selected' : '' }}>
+                                    {{ ucfirst($rol) }}
+>>>>>>> FRONTEND
                                 </option>
                             @endforeach
                         </select>
                     </div>
 
+<<<<<<< HEAD
                     <div style="margin: 20px 0;">
                         <label style="display: block; font-weight: 600; margin-bottom: 8px;">
                             Rol <span style="color: red;">*</span>
@@ -133,6 +160,17 @@
                             @foreach($roles as $rol)
                                 <option value="{{ $rol }}" {{ old('role') == $rol ? 'selected' : '' }}>
                                     {{ ucfirst($rol) }}
+=======
+                    <div id="divCurso" style="margin: 20px 0;">
+                        <label style="display: block; font-weight: 600; margin-bottom: 8px;">
+                            Curso <span style="color: red;" id="requiredCurso">*</span>
+                        </label>
+                        <select name="curso_id" id="selectCurso" class="filtro-cursos" style="width: 100%;" required>
+                            <option value="">Seleccionar curso...</option>
+                            @foreach($cursos as $curso)
+                                <option value="{{ $curso->id }}" {{ old('curso_id') == $curso->id ? 'selected' : '' }}>
+                                    {{ $curso->año }}º {{ $curso->division }}
+>>>>>>> FRONTEND
                                 </option>
                             @endforeach
                         </select>
@@ -158,5 +196,37 @@
             </div>
         </div>
     </main>
+<<<<<<< HEAD
+=======
+
+    <script>
+        // Script para mostrar/ocultar curso segun el rol
+        const selectRole = document.getElementById('selectRole');
+        const divCurso = document.getElementById('divCurso');
+        const selectCurso = document.getElementById('selectCurso');
+        const requiredCurso = document.getElementById('requiredCurso');
+
+        selectRole.addEventListener('change', function() {
+            if (this.value === 'profesor' || this.value === 'directivo') {
+                // Ocultar y deshabilitar el select de curso
+                divCurso.style.display = 'none';
+                selectCurso.removeAttribute('required');
+                selectCurso.value = ''; // Limpiar seleccion
+                requiredCurso.style.display = 'none';
+            } else {
+                // Mostrar y habilitar el select de curso
+                divCurso.style.display = 'block';
+                selectCurso.setAttribute('required', 'required');
+                requiredCurso.style.display = 'inline';
+            }
+        });
+
+        // Ejecutar al cargar por si hay un rol pre-seleccionado
+        if (selectRole.value === 'profesor' || selectRole.value === 'directivo') {
+            divCurso.style.display = 'none';
+            selectCurso.removeAttribute('required');
+        }
+    </script>
+>>>>>>> FRONTEND
 </body>
 </html>

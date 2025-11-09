@@ -7,7 +7,11 @@
 </head>
 <body class="background">
     <div class="formulario-contenedor">
+<<<<<<< HEAD
          <img src="{{asset('imagenes/LOGOTECNICA3.png')}}" alt="Logo" class="logo">
+=======
+        <img src="{{asset('imagenes/LOGOTECNICA3.png')}}" alt="Logo" class="logo">
+>>>>>>> FRONTEND
         <h1>Crea una cuenta</h1>
         <p>¿Ya estás registrado? Inicia sesión <a href="{{ route('login') }}">aquí</a></p>
 

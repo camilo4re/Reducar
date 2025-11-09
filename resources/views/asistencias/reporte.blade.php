@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <title>Reporte de Asistencias - {{ $materia->nombre }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=5.0">
+<<<<<<< HEAD
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+=======
+>>>>>>> FRONTEND
     <link rel="icon" type="image/png" href="/IMAGENES/LOGOTECNICA3.png"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap' rel="stylesheet">
@@ -17,6 +20,7 @@
 <nav id="menuLateral" class="cerrado">
     <button id="cerrarMenu">×</button>
     <ul>
+<<<<<<< HEAD
             <li><a href="{{ route ('materias.index')}}">Inicio <i class="fa-solid fa-house"></i></a></li>
 
     @if (auth()->user()->role === 'alumno')
@@ -41,6 +45,28 @@
             @csrf
         </form>
     </li>
+=======
+        <li><a href="{{ route ('materias.index')}}">Inicio <i class="fa-solid fa-house"></i></a></li>
+        @if (auth()->user()->role === 'alumno')
+        <li><a href="{{ route('calendario.index') }}">Horarios <i class="fa-solid fa-calendar"></i></a></li>
+        @endif
+        @if (auth()->user()->role === 'alumno' || auth()->user()->role === 'profesor')
+        <li><a href="{{ route('perfil.show', Auth::user()->id) }}"> Mis Datos <i class="fa-solid fa-user"></i></a></li>
+        @endif
+        @if (Auth::user()->role === 'directivo')
+        <li><a href="{{ route('tokens.index') }}">Crear Usuarios <i class="fa-solid fa-ticket"></i></a></li>
+        <li><a href="{{ route('tokens.listar') }}">Lista de Codigos Creados <i class="fa-solid fa-list"></i></a></li>
+        <li><a href="{{ route('perfiles.index') }}">Perfiles de Usuarios<i class="fa-solid fa-user"></i></a></li>
+        @endif
+        <li>
+            <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i>
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+        </li>
+>>>>>>> FRONTEND
     </ul>
 </nav>
 
@@ -49,6 +75,7 @@
         <div class="header-superior">
             <div class="titulo-izquierda">
                 <span class="titulo-principal">{{ $materia->nombre }} - Reporte de Asistencias</span>
+<<<<<<< HEAD
                 <span class="subtitulo">{{ $materia->curso->año }} {{ $materia->curso->division }} - 
                     @if(isset($month))
                         {{ DateTime::createFromFormat('!m', $month)->format('F') }} {{ $year }}
@@ -56,6 +83,9 @@
                         Año {{ $year }}
                     @endif
                 </span>
+=======
+                <span class="subtitulo">{{ $materia->curso->año }} {{ $materia->curso->division }}</span>
+>>>>>>> FRONTEND
             </div>
             <img src="/IMAGENES/LOGOTEC3.png" alt="Logo de la escuela" class="logo">
         </div>
@@ -65,7 +95,10 @@
         </div>
     </header>
 
+<<<<<<< HEAD
     <!-- NAV NUEVO -->
+=======
+>>>>>>> FRONTEND
     <nav class="header-centro">
         <div class="icono-header" data-tooltip="Notificaciones">
             <a href="{{ route('materias.show', $materia->id) }}"><i class="fa-solid fa-table-columns"></i></a>
@@ -80,6 +113,7 @@
             <a href="{{ route('asistencias.index', $materia->id) }}"><i class="fa-solid fa-calendar-check"></i></a>
         </div>
     </nav>
+<<<<<<< HEAD
     <!-- /NAV NUEVO -->
 
     <!-- REPORTE DE ASISTENCIAS -->
@@ -96,6 +130,21 @@
 
         @if(count($reportes) > 0)
             <!-- Resumen General -->
+=======
+
+    <div class="containerr">
+        <div class="accioness">
+            <a href="{{ route('asistencias.index', [$materia->id, 'year' => $year]) }}" class="boton">
+                <i class="fa-solid fa-arrow-left"></i> Volver a Asistencias
+            </a>
+            <h2>Reporte de Asistencias</h2>
+            <button onclick="window.print()" class="boton editar">
+                <i class="fa-solid fa-print"></i> Imprimir
+            </button>
+        </div>
+
+        @if(count($reportes) > 0)
+>>>>>>> FRONTEND
             @php
                 $totalAlumnos = count($reportes);
                 $alumnosRegulares = collect($reportes)->where('porcentaje', '>=', 80)->count();
@@ -105,11 +154,18 @@
             @endphp
 
             <div class="contnotis">
+<<<<<<< HEAD
                 <div class="resumen-general">
                     <h2 class="resumen-titulo">Resumen General del Curso</h2>
 
                     <ul class="resumen-grid">
                         <li class="cajas stat-card stat-total">
+=======
+                <section class="resumen-general">
+                    <h2 class="resumen-titulo">Resumen General del Curso</h2>
+                    <ul class="resumen-grid">
+                        <li class="cajas stat-card">
+>>>>>>> FRONTEND
                             <div class="stat-content">
                                 <div class="stat-number">{{ $totalAlumnos }}</div>
                                 <div class="stat-label">Total Alumnos</div>
@@ -125,24 +181,37 @@
                         <li class="cajass stat-card riesgo">
                             <div class="stat-content">
                                 <div class="stat-number">{{ $alumnosEnRiesgo }}</div>
+<<<<<<< HEAD
                                 <div class="stat-label">En Riesgo </div>
+=======
+                                <div class="stat-label">En Riesgo</div>
+>>>>>>> FRONTEND
                                 <i class="fa-solid fa-exclamation"></i>
                             </div>
                         </li>
                         <li class="cajass stat-card irregulares">
                             <div class="stat-content">
                                 <div class="stat-number">{{ $alumnosIrregulares }}</div>
+<<<<<<< HEAD
                                 <div class="stat-label">Irregulares </div>
                                 <i class="fa-solid fa-times"></i>
                             </div>
                         </li>
                         <li class="cajas stat-card stat-promedio">
+=======
+                                <div class="stat-label">Irregulares</div>
+                                <i class="fa-solid fa-times"></i>
+                            </div>
+                        </li>
+                        <li class="cajas stat-card">
+>>>>>>> FRONTEND
                             <div class="stat-content">
                                 <div class="stat-number">{{ round($promedioGeneral, 1) }}%</div>
                                 <div class="stat-label">Promedio General</div>
                             </div>
                         </li>
                     </ul>
+<<<<<<< HEAD
                 </div>
 
                 <!-- Tabla de Alumnos -->
@@ -153,6 +222,18 @@
                             <tr>
                                     <th class="sortable" onclick="ordenarTabla('nombre')">
                                         Alumno <i class="fa-solid fa-sort"></i>
+=======
+                </section>
+
+                <section>
+                    <h2 class="resumen-titulo">Listado Detallado de Alumnos</h2>
+                    <div class="tabla-asistencias">
+                        <table id="tablaAlumnos">
+                            <thead>
+                                <tr>
+                                    <th class="sortable" onclick="ordenarTabla('nombre')">
+                                        Alumnos <i class="fa-solid fa-sort"></i>
+>>>>>>> FRONTEND
                                     </th>
                                     <th class="sortable" onclick="ordenarTabla('porcentaje')">
                                         % Asistencia <i class="fa-solid fa-sort"></i>
@@ -177,9 +258,13 @@
                             <tbody>
                                 @foreach($reportes as $reporte)
                                 <tr class="fila-alumno" data-nombre="{{ strtolower($reporte['alumno']->name) }}" data-porcentaje="{{ $reporte['porcentaje'] }}">
+<<<<<<< HEAD
                                     <td class="alumno-nombre">
                                         {{ $reporte['alumno']->name }}
                                     </td>
+=======
+                                    <td class="alumno-nombre">{{ $reporte['alumno']->name }}</td>
+>>>>>>> FRONTEND
                                     <td class="porcentaje-asistencia 
                                         @if($reporte['porcentaje'] >= 80) porcentaje-regular
                                         @elseif($reporte['porcentaje'] >= 70) porcentaje-riesgo
@@ -188,6 +273,7 @@
                                     </td>
                                     <td>
                                         @if($reporte['porcentaje'] >= 80)
+<<<<<<< HEAD
                                             <span class="estado-badge estado-regular">
                                                 REGULAR
                                             </span>
@@ -217,15 +303,35 @@
                                         {{ $reporte['total_dias'] }}
                                     </td>
                                     <td class="progreso-visual">
+=======
+                                            <span class="estado-badge estado-regular">REGULAR</span>
+                                        @elseif($reporte['porcentaje'] >= 70)
+                                            <span class="estado-badge estado-riesgo">RIESGO</span>
+                                        @else
+                                            <span class="estado-badge estado-irregular">IRREGULAR</span>
+                                        @endif
+                                    </td>
+                                    <td class="numero-presentes">{{ $reporte['presentes'] }}</td>
+                                    <td class="numero-ausentes">{{ $reporte['ausentes'] }}</td>
+                                    <td class="numero-tardanzas">{{ $reporte['tardanzas'] }}</td>
+                                    <td class="numero-justificadas">{{ $reporte['justificadas'] }}</td>
+                                    <td>{{ $reporte['total_dias'] }}</td>
+                                    <td>
+>>>>>>> FRONTEND
                                         <div class="progreso-container">
                                             <div class="progreso-barra 
                                                 @if($reporte['porcentaje'] >= 80) progreso-regular
                                                 @elseif($reporte['porcentaje'] >= 70) progreso-riesgo
                                                 @else progreso-irregular @endif"
+<<<<<<< HEAD
                                                 data-porcentaje="{{ $reporte['porcentaje'] }}"></div>
                                             <div class="progreso-texto">
                                                 {{ $reporte['porcentaje'] }}%
                                             </div>
+=======
+                                                style="width: {{ $reporte['porcentaje'] }}%"></div>
+                                            <div class="progreso-texto">{{ $reporte['porcentaje'] }}%</div>
+>>>>>>> FRONTEND
                                         </div>
                                     </td>
                                 </tr>
@@ -233,6 +339,7 @@
                             </tbody>
                         </table>
                     </div>
+<<<<<<< HEAD
                 
                 <!-- Gráfico de Distribución -->
                 <div class="distribucion-container">
@@ -300,6 +407,56 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Menú lateral
+=======
+                </section>
+
+                <section class="distribucion-container">
+                    <h2 class="resumen-titulo">Estadísticas por Estado</h2>
+                    <div class="reporte">
+                        <div class="distribucion-grid">
+                            <article class="distribucion-card distribucion-regulares">
+                                <h3>Alumnos Regulares</h3>
+                                <p class="distribucion-numero">{{ $alumnosRegulares }}/{{ $totalAlumnos }}</p>
+                                <p>{{ $totalAlumnos > 0 ? round(($alumnosRegulares / $totalAlumnos) * 100, 1) : 0 }}% del curso</p>
+                            </article>
+                            
+                            <article class="distribucion-card distribucion-riesgo">
+                                <h3>Alumnos en Riesgo</h3>
+                                <p class="distribucion-numero">{{ $alumnosEnRiesgo }}/{{ $totalAlumnos }}</p>
+                                <p>{{ $totalAlumnos > 0 ? round(($alumnosEnRiesgo / $totalAlumnos) * 100, 1) : 0 }}% del curso</p>
+                            </article>
+                            
+                            <article class="distribucion-card distribucion-irregulares">
+                                <h3>Alumnos Irregulares</h3>
+                                <p class="distribucion-numero">{{ $alumnosIrregulares }}/{{ $totalAlumnos }}</p>
+                                <p>{{ $totalAlumnos > 0 ? round(($alumnosIrregulares / $totalAlumnos) * 100, 1) : 0 }}% del curso</p>
+                            </article>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+        @else
+            <div class="contnotis">
+                <div class="sin-datos">
+                    <i class="fa-solid fa-users-slash sin-datos-icono"></i>
+                    <strong class="sin-datos-titulo">No hay registros de asistencia</strong>
+                    <p class="sin-datos-texto">Aún no existen registros de asistencia para este período.</p>
+                </div>
+            </div>
+        @endif
+    </div>
+
+    <footer class="footer-info">
+        <p>Reporte generado el {{ date('d/m/Y H:i') }} por {{ auth()->user()->name }}</p>
+        <p class="leyenda">Regular ≥80% | En Riesgo 70-79% | Irregular <70%</p>
+    </footer>
+</main>
+
+<script>
+let ordenAscendente = true;
+
+>>>>>>> FRONTEND
 const menu = document.getElementById('menuLateral');
 const abrir = document.getElementById('abrirMenu');
 const cerrar = document.getElementById('cerrarMenu');
@@ -314,6 +471,7 @@ cerrar.addEventListener('click', () => {
     abrir.classList.remove('oculto');
 });
 
+<<<<<<< HEAD
 // Búsqueda de alumnos
 document.getElementById('buscarAlumno').addEventListener('input', function() {
     filtrarTabla();
@@ -324,6 +482,8 @@ document.getElementById('filtrarEstado').addEventListener('change', function() {
     filtrarTabla();
 });
 
+=======
+>>>>>>> FRONTEND
 function ordenarTabla(campo) {
     const tbody = document.querySelector('#tablaAlumnos tbody');
     const filas = Array.from(document.querySelectorAll('.fila-alumno'));
@@ -367,10 +527,14 @@ function ordenarTabla(campo) {
         }
     });
     
+<<<<<<< HEAD
     // Reorganizar las filas
     filas.forEach(fila => tbody.appendChild(fila));
     
     // Cambiar orden para próxima vez
+=======
+    filas.forEach(fila => tbody.appendChild(fila));
+>>>>>>> FRONTEND
     ordenAscendente = !ordenAscendente;
 }
 </script>

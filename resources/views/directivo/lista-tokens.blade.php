@@ -128,11 +128,19 @@
                                 </td>
                                 <td style="text-transform: capitalize;">
                                     <span style="background: {{ $token->role === 'alumno' ? '#e3f2fd' : '#fff3e0' }}; 
+<<<<<<< HEAD
                                                  color: {{ $token->role === 'alumno' ? '#1976d2' : '#f57c00' }}; 
                                                  padding: 4px 10px; 
                                                  border-radius: 12px; 
                                                  font-size: 12px; 
                                                  font-weight: bold;">
+=======
+                                                color: {{ $token->role === 'alumno' ? '#1976d2' : '#f57c00' }}; 
+                                                padding: 4px 10px; 
+                                                border-radius: 12px; 
+                                                font-size: 12px; 
+                                                font-weight: bold;">
+>>>>>>> FRONTEND
                                         {{ $token->role }}
                                     </span>
                                 </td>
@@ -168,7 +176,11 @@
                 </div>
 
                 <!-- Resumen -->
+<<<<<<< HEAD
                 <div class="notis" style="margin-top: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+=======
+                <div class="notis" style="margin-top: 20px; background: linear-gradient(135deg, #17790b 0%, #0bc514 100%); color: white;">
+>>>>>>> FRONTEND
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; text-align: center;">
                         <div>
                             <strong style="font-size: 28px; display: block;">{{ $tokens->count() }}</strong>

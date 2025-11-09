@@ -57,14 +57,23 @@
 
   
   <div class="seccion-tecnica secciones">
+<<<<<<< HEAD
     <h2>📊 EL PANORAMA ACTUAL (2025)</h2>
+=======
+    <h2><i class="fa-chart-bar"></i> EL PANORAMA ACTUAL (2025)</h2>
+>>>>>>> FRONTEND
     <p>En Argentina existen más de 1.600 instituciones de educación técnica secundaria. La demanda de técnicos altamente capacitados crece día a día, especialmente en las áreas de Informática y Electromecánica, donde la necesidad de profesionales competentes es enorme.</p>
     <p>En la Técnica 3, nos enfocamos en brindar una formación integral que combine la teoría con experiencias prácticas en laboratorio, proyectos y ferias de ciencia, asegurando que cada estudiante esté preparado para enfrentar el mundo laboral desde el primer día.</p>
   </div>
 
+<<<<<<< HEAD
  
   <div class="seccion-tecnica secciones">
     <h2>💰 SALIDA LABORAL Y REMUNERACIÓN</h2>
+=======
+  <div class="seccion-tecnica secciones">
+    <h2> SALIDA LABORAL Y REMUNERACIÓN</h2>
+>>>>>>> FRONTEND
     <h3>Técnico en Informática</h3>
     <ul class="lista-ventajas">
       <li>Amplia demanda laboral en áreas de programación, redes, ciberseguridad, inteligencia artificial y desarrollo de software.</li>
@@ -82,7 +91,11 @@
 
   
   <div class="seccion-tecnica secciones">
+<<<<<<< HEAD
     <h2>🎯 ESPECIALIDADES Y OPORTUNIDADES</h2>
+=======
+    <h2> ESPECIALIDADES Y OPORTUNIDADES</h2>
+>>>>>>> FRONTEND
     <h3>Informática</h3>
     <ul class="lista-ventajas">
       <li>Desarrollo de software y aplicaciones móviles</li>
@@ -102,7 +115,11 @@
 
   
   <div class="seccion-tecnica secciones">
+<<<<<<< HEAD
     <h2>🔬 FERIAS DE CIENCIA Y PROYECTOS</h2>
+=======
+    <h2> FERIAS DE CIENCIA Y PROYECTOS</h2>
+>>>>>>> FRONTEND
     <p>Nuestros estudiantes participan activamente en ferias de ciencia y tecnología, presentando proyectos reales que reflejan su creatividad y conocimiento técnico:</p>
     <ul class="lista-ventajas">
       <li>Robótica aplicada: desde asistentes domésticos hasta soluciones industriales</li>
@@ -135,7 +152,11 @@
 
   
   <div class="seccion-tecnica secciones">
+<<<<<<< HEAD
     <h2>💼 PRÁCTICAS Y EXPERIENCIA LABORAL</h2>
+=======
+    <h2> PRÁCTICAS Y EXPERIENCIA LABORAL</h2>
+>>>>>>> FRONTEND
     <ul class="lista-ventajas">
       <li>Prácticas profesionalizantes en empresas reales desde los últimos años del secundario</li>
       <li>Red de contactos industriales para facilitar la inserción laboral</li>
@@ -145,7 +166,11 @@
   </div>
 
   <div class="seccion-tecnica secciones">
+<<<<<<< HEAD
     <h2>🎓 CONTINUIDAD ACADÉMICA</h2>
+=======
+    <h2> CONTINUIDAD ACADÉMICA</h2>
+>>>>>>> FRONTEND
     <ul class="lista-ventajas">
       <li>Tecnicaturas superiores</li>
       <li>Carreras universitarias afines, con materias acreditadas</li>
@@ -153,9 +178,14 @@
     </ul>
   </div>
 
+<<<<<<< HEAD
  
   <div class="seccion-tecnica secciones">
     <h2>🔥 EXPERIENCIAS Y ACTIVIDADES EXCLUSIVAS</h2>
+=======
+  <div class="seccion-tecnica secciones">
+    <h2> EXPERIENCIAS Y ACTIVIDADES EXCLUSIVAS</h2>
+>>>>>>> FRONTEND
     <ul class="lista-ventajas">
       <li>Laboratorios con equipamiento de última generación</li>
       <li>Talleres industriales reales</li>
@@ -167,7 +197,11 @@
 
   
   <div class="seccion-tecnica secciones">
+<<<<<<< HEAD
     <h2>🚀 POR QUÉ ELEGIR TÉCNICA 3</h2>
+=======
+    <h2> POR QUÉ ELEGIR TÉCNICA 3</h2>
+>>>>>>> FRONTEND
     <ul class="lista-ventajas">
       <li>Demanda laboral inmediata: empresas necesitan técnicos calificados</li>
       <li>Salarios competitivos desde el primer día</li>
@@ -179,7 +213,11 @@
 
 
   <div class="seccion-tecnica secciones">
+<<<<<<< HEAD
     <h2>🎯 LA DECISIÓN INTELIGENTE</h2>
+=======
+    <h2> LA DECISIÓN INTELIGENTE</h2>
+>>>>>>> FRONTEND
     <p>No es solo una escuela, es tu plataforma de lanzamiento hacia un futuro profesional exitoso. Al egresar de Técnica 3, obtendrás:</p>
     <ul class="lista-ventajas">
       <li>Título técnico reconocido</li>
@@ -193,7 +231,11 @@
 
 </div>
 
+<<<<<<< HEAD
 
+=======
+</div>
+>>>>>>> FRONTEND
 <!-- footer -->
 <footer class="footer-con-fondo visible">
   <div class="overlay">

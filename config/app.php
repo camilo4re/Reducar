@@ -66,7 +66,10 @@ return [
     */
 
     'timezone' => 'America/Argentina/Buenos_Aires',
+<<<<<<< HEAD
 
+=======
+>>>>>>> FRONTEND
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration

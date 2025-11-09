@@ -32,7 +32,11 @@
     <li><a href="{{ route('tokens.listar') }}">Lista de Codigos Creados <i class="fa-solid fa-list"></i></a></li>
     <li><a href="{{ route('perfiles.index') }}">Perfiles de Usuarios<i class="fa-solid fa-user"></i></a></li>
     @endif
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> FRONTEND
     <li>
         <a href="#" 
           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -127,13 +131,18 @@ document.addEventListener("DOMContentLoaded", animarTexto);
       <h2>Notificaciones</h2>
       <div class="contnotis">
         @if(Auth::user()->role === 'directivo')
+<<<<<<< HEAD
         <a class="boton">+ Nuevo comunicado</a>
+=======
+        <a class="boton"> + Nuevo comunicado</a>
+>>>>>>> FRONTEND
         @endif
         <ul class="listanotis">
 
                             <li class="notis">
                       <small>Publicado por: Directora (19/09/2025 15:07)</small>
                         <strong> Entrega de Mercaderia</strong>
+<<<<<<< HEAD
                           <p>Familias: 
 Anuncio Importante!!
 Lunes 22 de septiembre se realiza la entrega  de mercaderia.
@@ -148,10 +157,22 @@ Por favor respetar los horarios. Pueden venir a retirar en cualquiera de los tur
                             <input type="hidden" name="_token" value="RSAmPB3O3h3gw6tfhSAw2dgFYg2hlz0v9UEHLtpq" autocomplete="off">                            <input type="hidden" name="_method" value="DELETE">                            <button type="submit" class="boton eliminar">Eliminar</button>
                         </form>
                                               </div>
+=======
+                          <p>Familias: Anuncio Importante!! Lunes 22 de septiembre se realiza la entrega  de mercaderia. 9:40 a 11 hs /14 a 16 hs /18 a 21hs . Por favor respetar los horarios. Pueden venir a retirar en cualquiera de los turnos.</p>
+                          <div class="acciones">
+                              @if(Auth::user()->role === 'directivo')
+                          <a href="http://reducar.test/materias/8/contenidos/6/edit" class="boton editar">Editar</a>
+                        <form action="http://reducar.test/materias/8/contenidos/6" method="POST" style="display:inline;">
+                            <input type="hidden" name="_token" value="RSAmPB3O3h3gw6tfhSAw2dgFYg2hlz0v9UEHLtpq" autocomplete="off">                            <input type="hidden" name="_method" value="DELETE">                            <button type="submit" class="boton eliminar">Eliminar</button>
+                        </form>
+                        @endif
+                            </div>
+>>>>>>> FRONTEND
                 </li>
                             <li class="notis">
                       <small>Publicado por: Directora (15/09/2025 08:45)</small>
                         <strong> Dia del Estudiante</strong>
+<<<<<<< HEAD
                           <p>Familias :
                             El día martes 23/9 celebramos el día del estudiante y el día de la primavera. 
                             En el turno mañana asistirán solo los estudiantes de 1ero,2do y 3er año de ambos turnos, no tienen ni teoría ni taller solo asisten de 7:20 a 11:40hs a la recreación
@@ -163,6 +184,19 @@ Por favor respetar los horarios. Pueden venir a retirar en cualquiera de los tur
                             <input type="hidden" name="_token" value="RSAmPB3O3h3gw6tfhSAw2dgFYg2hlz0v9UEHLtpq" autocomplete="off">                            <input type="hidden" name="_method" value="DELETE">                            <button type="submit" class="boton eliminar">Eliminar</button>
                         </form>
                                               </div>
+=======
+                          <p>Familias :El día martes 23/9 celebramos el día del estudiante y el día de la primavera. En el turno mañana asistirán solo los estudiantes de 1ero,2do y 3er año de ambos turnos, no tienen ni teoría ni taller solo asisten de 7:20 a 11:40hs a la recreación. En el turno tarde de 13 a 17:20hs  asisten los estudiantes de 4to, 5to, 6to y 7mo año de ambas modalidades. En el turno vespertino si van a tener taller los estudiantes de ciclo superior.Cualquier inquietud nos pueden consultar.</p>
+                          
+                            <div class="acciones">
+                              @if(Auth::user()->role === 'directivo')
+                          <a href="http://reducar.test/materias/8/contenidos/6/edit" class="boton editar">Editar</a>
+                        <form action="http://reducar.test/materias/8/contenidos/6" method="POST" style="display:inline;">
+                            <input type="hidden" name="_token" value="RSAmPB3O3h3gw6tfhSAw2dgFYg2hlz0v9UEHLtpq" autocomplete="off">                            <input type="hidden" name="_method" value="DELETE">                            <button type="submit" class="boton eliminar">Eliminar</button>
+                        </form>
+                        @endif
+                            </div>
+                        
+>>>>>>> FRONTEND
                 </li>
 
                 <li class="notis">
@@ -170,12 +204,22 @@ Por favor respetar los horarios. Pueden venir a retirar en cualquiera de los tur
                         <strong> Expo-Tecnica 2025</strong>
                           <p>Familias y Estudiantes: Queriamos avisarles que la fecha de la Expo-Tecnica 2025 todavia no esta confirmada por problemas de agenda, pero podemos confirmarle que sera a mediados del 15 al 21 de Noviembre. Saludos!!.</p>
                           <div class="acciones">
+<<<<<<< HEAD
                                                     <a href="http://reducar.test/materias/8/contenidos/6/edit" class="boton editar">Editar</a>
 
                         <form action="http://reducar.test/materias/8/contenidos/6" method="POST" style="display:inline;">
                             <input type="hidden" name="_token" value="RSAmPB3O3h3gw6tfhSAw2dgFYg2hlz0v9UEHLtpq" autocomplete="off">                            <input type="hidden" name="_method" value="DELETE">                            <button type="submit" class="boton eliminar">Eliminar</button>
                         </form>
                                               </div>
+=======
+                              @if(Auth::user()->role === 'directivo')
+                          <a href="http://reducar.test/materias/8/contenidos/6/edit" class="boton editar">Editar</a>
+                        <form action="http://reducar.test/materias/8/contenidos/6" method="POST" style="display:inline;">
+                            <input type="hidden" name="_token" value="RSAmPB3O3h3gw6tfhSAw2dgFYg2hlz0v9UEHLtpq" autocomplete="off">                            <input type="hidden" name="_method" value="DELETE">                            <button type="submit" class="boton eliminar">Eliminar</button>
+                        </form>
+                        @endif
+                            </div>
+>>>>>>> FRONTEND
                 </li>
                     </ul>
       </div>
