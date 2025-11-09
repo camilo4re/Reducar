@@ -162,11 +162,11 @@
                                 @foreach($reportes as $reporte)
                                 <tr class="fila-alumno" data-nombre="{{ strtolower($reporte['alumno']->name) }}" data-porcentaje="{{ $reporte['porcentaje'] }}">
                                     <td class="alumno-nombre">{{ $reporte['alumno']->name }}</td>
-                                    <td class="porcentaje-asistencia 
+                                    <td class="
                                         @if($reporte['porcentaje'] >= 80) porcentaje-regular
                                         @elseif($reporte['porcentaje'] >= 70) porcentaje-riesgo
                                         @else porcentaje-irregular @endif">
-                                        {{ $reporte['porcentaje'] }}%
+                                        <strong>{{ $reporte['porcentaje'] }}%</strong>
                                     </td>
                                     <td>
                                         @if($reporte['porcentaje'] >= 80)

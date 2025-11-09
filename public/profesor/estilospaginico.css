@@ -435,24 +435,13 @@ table.calendario-table .materia-bloque.noche {
   margin: 20px auto;
 }
 
-.tabla-asistencias th,
-.tabla-asistencias td {
-  border: 2px solid #ddd;
-}
-
-.tabla-asistencias thead th {
-  color: white;
-}
-
 .tabla-asistencias tbody tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
 .tabla-asistencias th:first-child,
 .tabla-asistencias td:first-child { 
-  width: 220px;
   text-align: left; 
-  padding-left: 10px; 
 }
 
 .popover {
@@ -592,63 +581,36 @@ table.calendario-table .materia-bloque.noche {
   font-weight: 600;
 }
 
-.porcentaje-asistencia {
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.porcentaje-regular {
+.color-regular {
   color: #10b981;
 }
 
-.porcentaje-riesgo {
+.color-riesgo {
   color: #f59e0b;
 }
 
-.porcentaje-irregular {
+.color-irregular {
   color: #ef4444;
 }
 
-/* ESTADOS */
-.estado-badge {
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.estado-regular {
-  background: #15a23c;
-  color: white;
-}
-
-.estado-riesgo {
-  background: #f59e0b;
-  color: white;
-}
-
-.estado-irregular {
-  background: #ee2c2c;
-  color: white;
-}
 
 /* NUMEROS */
-.numero-presentes {
+.texto-presentes {
   color: #0b9164;
   font-weight: bold;
 }
 
-.numero-ausentes {
+.texto-ausentes {
   color: #ee2c2c;
   font-weight: bold;
 }
 
-.numero-tardanzas {
+.texto-tardanzas {
   color: #f59e0b;
   font-weight: bold;
 }
 
-.numero-justificadas {
+.texto-justificadas {
   color: #3b82f6;
   font-weight: bold;
 }
@@ -932,9 +894,6 @@ table.calendario-table .materia-bloque.noche {
   font-weight: bold;
 }
 
-
-
-
 /* CALIFICACIONES (P) */
 .tabla-container {
   overflow-x: auto;
@@ -1076,7 +1035,6 @@ padding: 10px;
   width: 40%;
 }
 
-/* Estilos para headers ordenables */
 #tablaPromedios thead th {
     position: relative;
     transition: background-color 0.2s ease;
@@ -1089,7 +1047,6 @@ padding: 10px;
     background-color: #045211;
 }
 
-/* Estilos para columnas ordenadas */
 #tablaPromedios thead th.ordenado-asc {
     background-color: #e8f5e8;
     color: #2e7d32;
@@ -1100,15 +1057,12 @@ padding: 10px;
     color: #f57c00;
 }
 
-/* Iconos de ordenamiento */
 .icono-orden {
     font-size: 14px;
     font-weight: bold;
     margin-left: 5px;
     display: inline-block;
 }
-
-/* Animación suave para reordenamiento */
 #tablaPromedios tbody {
     transition: all 0.3s ease;
 }
@@ -1117,21 +1071,6 @@ padding: 10px;
     transition: all 0.2s ease;
 }
 
-
-/* Estilos responsivos */
-@media (max-width: 768px) {
-    #tablaPromedios thead th {
-        padding: 8px 4px;
-        font-size: 12px;
-    }
-    
-    .icono-orden {
-        font-size: 12px;
-        margin-left: 2px;
-    }
-}
-
-/* Indicador visual adicional para columnas ordenables */
 #tablaPromedios thead th::before {
     content: "";
     position: absolute;
