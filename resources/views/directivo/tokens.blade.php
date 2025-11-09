@@ -18,31 +18,19 @@
         <button id="cerrarMenu">×</button>
         
         <ul>
-            <li><a href="{{ route ('materias.index')}}">Inicio <i class="fa-solid fa-house"></i></a></li>
-
-    @if (auth()->user()->role === 'alumno')
-    <li><a href="{{ route('calendario.index') }}">Horarios <i class="fa-solid fa-calendar"></i></a></li>
-    @endif
-        @if (auth()->user()->role === 'alumno' || auth()->user()->role === 'profesor')
-    <li><a href="{{ route('perfil.show', Auth::user()->id) }}"> Mis Datos <i class="fa-solid fa-user"></i></a></li>
-        @endif
-    @if (Auth::user()->role === 'directivo')
-    <li><a href="{{ route('tokens.index') }}">Crear Usuarios <i class="fa-solid fa-ticket"></i></a></li>
-    <li><a href="{{ route('tokens.listar') }}">Lista de Codigos Creados <i class="fa-solid fa-list"></i></a></li>
-    <li><a href="{{ route('perfiles.index') }}">Perfiles de Usuarios<i class="fa-solid fa-user"></i></a></li>
-    @endif
- 
-    <li>
-        <a href="#" 
-          onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-          Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i>
-        </a>
-
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-        </form>
-    </li>
-    </ul>
+            <li><a href="{{ route('materias.index')}}">Inicio <i class="fa-solid fa-house"></i></a></li>
+            <li><a href="{{ route('tokens.index') }}">Crear Usuarios <i class="fa-solid fa-ticket"></i></a></li>
+            <li><a href="{{ route('tokens.listar') }}">Lista de Usuarios Creados <i class="fa-solid fa-list"></i></a></li>
+            <li><a href="{{ route('perfiles.index') }}">Ver Perfiles <i class="fa-solid fa-address-book"></i></a></li>
+            <li>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </li>
+        </ul>
     </nav>
     
     <script>
@@ -112,27 +100,27 @@
                     
                     <div style="margin: 20px 0;">
                         <label style="display: block; font-weight: 600; margin-bottom: 8px;">
-                            Curso <span style="color: red;">*</span>
+                            Rol <span style="color: red;">*</span>
                         </label>
-                        <select name="curso_id" class="filtro-cursos" style="width: 100%;" required>
-                            <option value="">Seleccionar curso...</option>
-                            @foreach($cursos as $curso)
-                                <option value="{{ $curso->id }}" {{ old('curso_id') == $curso->id ? 'selected' : '' }}>
-                                    {{ $curso->año }}º {{ $curso->division }}
+                        <select name="role" id="selectRole" class="filtro-cursos" style="width: 100%;" required>
+                            <option value="">Seleccionar rol...</option>
+                            @foreach($roles as $rol)
+                                <option value="{{ $rol }}" {{ old('role') == $rol ? 'selected' : '' }}>
+                                    {{ ucfirst($rol) }}
                                 </option>
                             @endforeach
                         </select>
                     </div>
 
-                    <div style="margin: 20px 0;">
+                    <div id="divCurso" style="margin: 20px 0;">
                         <label style="display: block; font-weight: 600; margin-bottom: 8px;">
-                            Rol <span style="color: red;">*</span>
+                            Curso <span style="color: red;" id="requiredCurso">*</span>
                         </label>
-                        <select name="role" class="filtro-cursos" style="width: 100%;" required>
-                            <option value="">Seleccionar rol...</option>
-                            @foreach($roles as $rol)
-                                <option value="{{ $rol }}" {{ old('role') == $rol ? 'selected' : '' }}>
-                                    {{ ucfirst($rol) }}
+                        <select name="curso_id" id="selectCurso" class="filtro-cursos" style="width: 100%;" required>
+                            <option value="">Seleccionar curso...</option>
+                            @foreach($cursos as $curso)
+                                <option value="{{ $curso->id }}" {{ old('curso_id') == $curso->id ? 'selected' : '' }}>
+                                    {{ $curso->año }}º {{ $curso->division }}
                                 </option>
                             @endforeach
                         </select>
@@ -150,7 +138,7 @@
             <div class="notis" style="background: #e3f2fd; border-left: 5px solid #2196f3;">
                 <strong style="color: #1976d2;">ℹ️ Información importante:</strong>
                 <ul style="margin: 10px 0; padding-left: 20px; font-size: 13px; color: #555;">
-                    <li>El código generado será único y de un solo uso</li>
+                    <   li>El código generado será único y de un solo uso</li>
                     <li>El usuario deberá usar este código al registrarse</li>
                     <li>Se le asignará automáticamente el curso y rol seleccionados</li>
                     <li>Podés ver todos los códigos en "Lista de Usuarios Creados"</li>
@@ -158,5 +146,34 @@
             </div>
         </div>
     </main>
+
+    <script>
+        // Script para mostrar/ocultar curso segun el rol
+        const selectRole = document.getElementById('selectRole');
+        const divCurso = document.getElementById('divCurso');
+        const selectCurso = document.getElementById('selectCurso');
+        const requiredCurso = document.getElementById('requiredCurso');
+
+        selectRole.addEventListener('change', function() {
+            if (this.value === 'profesor' || this.value === 'directivo') {
+                // Ocultar y deshabilitar el select de curso
+                divCurso.style.display = 'none';
+                selectCurso.removeAttribute('required');
+                selectCurso.value = ''; // Limpiar seleccion
+                requiredCurso.style.display = 'none';
+            } else {
+                // Mostrar y habilitar el select de curso
+                divCurso.style.display = 'block';
+                selectCurso.setAttribute('required', 'required');
+                requiredCurso.style.display = 'inline';
+            }
+        });
+
+        // Ejecutar al cargar por si hay un rol pre-seleccionado
+        if (selectRole.value === 'profesor' || selectRole.value === 'directivo') {
+            divCurso.style.display = 'none';
+            selectCurso.removeAttribute('required');
+        }
+    </script>
 </body>
 </html>

@@ -116,72 +116,28 @@
             {{-- Si es alumno, solo mostrar SUS notas --}}
             @foreach($promedios as $promedio)
                 @if($promedio['alumno']->id === Auth::user()->id)
-                    @php
-                        $claseGeneral = 'promedio-sin-notas';
-                        $estado = 'sin-notas';
-                        if ($promedio['general'] !== '-') {
-                            $valor = floatval(str_replace(',', '.', $promedio['general']));
-                            if ($valor >= 8) {
-                                $claseGeneral = 'promedio-excelente';
-                                $estado = 'aprobados';
-                            } elseif ($valor >= 6) {
-                                $claseGeneral = 'promedio-bueno';
-                                $estado = 'aprobados';
-                            } else {
-                                $claseGeneral = 'promedio-regular';
-                                $estado = 'desaprobados';
-                            }
-                        }
-                    @endphp
-                    <tr data-estado="{{ $estado }}">
+                    <tr>
                         <td>
-                            <i></i> 
                             {{ $promedio['alumno']->name }}
                         </td>
                         <td>{{ $promedio['primer_cuatrimestre'] }}</td>
                         <td>{{ $promedio['segundo_cuatrimestre'] }}</td>
                         <td>{{ $promedio['intensificacion'] }}</td>
-                        <td>
-                            <span class="{{ $claseGeneral }}">
-                                {{ $promedio['general'] }}
-                            </span>
-                        </td>
+                        <td>{{ $promedio['general'] }}</td>
                     </tr>
                 @endif
             @endforeach
         @elseif(Auth::user()->role === 'profesor' || Auth::user()->role === 'directivo')
             {{-- Si es profesor o directivo, mostrar TODOS los alumnos --}}
             @foreach($promedios as $promedio)
-                @php
-                    $claseGeneral = 'promedio-sin-notas';
-                    $estado = 'sin-notas';
-                    if ($promedio['general'] !== '-') {
-                        $valor = floatval(str_replace(',', '.', $promedio['general']));
-                        if ($valor >= 8) {
-                            $claseGeneral = 'promedio-excelente';
-                            $estado = 'aprobados';
-                        } elseif ($valor >= 6) {
-                            $claseGeneral = 'promedio-bueno';
-                            $estado = 'aprobados';
-                        } else {
-                            $claseGeneral = 'promedio-regular';
-                            $estado = 'desaprobados';
-                        }
-                    }
-                @endphp
-                <tr data-estado="{{ $estado }}">
+                <tr>
                     <td>
-                        <i></i> 
                         {{ $promedio['alumno']->name }}
                     </td>
                     <td>{{ $promedio['primer_cuatrimestre'] }}</td>
                     <td>{{ $promedio['segundo_cuatrimestre'] }}</td>
                     <td>{{ $promedio['intensificacion'] }}</td>
-                    <td>
-                        <span class="{{ $claseGeneral }}">
-                            {{ $promedio['general'] }}
-                        </span>
-                    </td>
+                    <td>{{ $promedio['general'] }}</td>
                 </tr>
             @endforeach
         @endif
@@ -314,17 +270,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Agregar event listener
         header.addEventListener('click', () => {
             ordenarTabla(index);
-        });
-        
-        // Efecto hover
-        header.addEventListener('mouseenter', () => {
-            if (estadoOrdenamiento.columna !== index) {
-            }
-        });
-        
-        header.addEventListener('mouseleave', () => {
-            if (estadoOrdenamiento.columna !== index) {
-            }
         });
     });
     

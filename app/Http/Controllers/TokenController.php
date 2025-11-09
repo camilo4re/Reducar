@@ -21,7 +21,7 @@ class TokenController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'curso_id' => 'required|exists:cursos,id',
+            'curso_id' => 'nullable|exists:cursos,id',
             'role' => 'required|in:profesor,alumno'
         ]);
 

@@ -14,10 +14,5 @@ class HorarioMateria extends Model
     {
      return $this->belongsTo(Materia::class);
     }
-    
-    public function getNombreDiaAttribute()
-    {
-        $dias = ['', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
-        return $dias[$this->dia_semana];
-    }
+
 }

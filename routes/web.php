@@ -14,10 +14,11 @@ use App\Http\Controllers\NotaController;
 use App\Http\Controllers\AsistenciaController;
 use App\Http\Controllers\TokenController;
 use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\CalendarioController;
 
 Route::view("/", "index")->name("inicio");
 Route::view("nosotros", "about")->name("about");
-Route::get('/calendario', [App\Http\Controllers\CalendarioController::class, 'index'])->name('calendario.index');
+Route::get('/calendario', [CalendarioController::class, 'index'])->name('calendario.index');
 /* rutas de profes */
 
     Route::middleware(['auth', 'role:profesor'])->group(function () {

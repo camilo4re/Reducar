@@ -114,7 +114,7 @@ class NotaController extends Controller
 
         $trabajo = Nota::where('materia_id', $materia->id)
                       ->where('periodo', $periodo)
-                      ->where('trabajo_titulo', $trabajo_titulo)
+                 ->where('trabajo_titulo', $trabajo_titulo)
                       ->first();
 
         if (!$trabajo) {
@@ -123,16 +123,16 @@ class NotaController extends Controller
 
         $alumnos = User::where('role', 'alumno')
                       ->where('curso_id', $materia->curso_id)
-                      ->orderBy('name')
+               ->orderBy('name')
                       ->get();
 
         $notasActuales = [];
         foreach ($alumnos as $alumno) {
             $nota = Nota::where('materia_id', $materia->id)
-                       ->where('user_id', $alumno->id)
-                       ->where('periodo', $periodo)
-                       ->where('trabajo_titulo', $trabajo_titulo)
-                       ->first();
+                    ->where('user_id', $alumno->id)
+                ->where('periodo', $periodo)
+                 ->where('trabajo_titulo', $trabajo_titulo)
+                ->first();
             
             $notasActuales[$alumno->id] = $nota ? $nota->valor : null;
         }
@@ -146,12 +146,12 @@ class NotaController extends Controller
 
         $request->validate([
             'trabajo_descripcion' => 'nullable|string',
-            'notas' => 'required|array',
+          'notas' => 'required|array',
             'notas.*' => 'nullable|numeric|min:1|max:10'
         ]);
 
         Nota::where('materia_id', $materia->id)
-            ->where('periodo', $periodo)
+           ->where('periodo', $periodo)
             ->where('trabajo_titulo', $trabajo_titulo)
             ->update(['trabajo_descripcion' => $request->trabajo_descripcion]);
 
@@ -159,14 +159,14 @@ class NotaController extends Controller
             $nota = Nota::where('materia_id', $materia->id)
                        ->where('user_id', $alumno_id)
                        ->where('periodo', $periodo)
-                       ->where('trabajo_titulo', $trabajo_titulo)
+                      ->where('trabajo_titulo', $trabajo_titulo)
                        ->first();
 
             if ($nota) {
                 if ($valor !== null) {
                     $nota->update(['valor' => $valor]);
                 } else {
-                    $nota->delete();
+                  $nota->delete();
                 }
             } else if ($valor !== null) {
                 $alumno = User::find($alumno_id);
@@ -175,12 +175,12 @@ class NotaController extends Controller
                         'user_id' => $alumno_id,
                         'materia_id' => $materia->id,
                         'periodo' => $periodo,
-                        'trabajo_titulo' => $trabajo_titulo,
+                'trabajo_titulo' => $trabajo_titulo,
                         'trabajo_descripcion' => $request->trabajo_descripcion,
                         'valor' => $valor
                     ]);
                 }
-            }
+        }
         }
 
         return redirect()->route('notas.periodo', [$materia->id, $periodo]);

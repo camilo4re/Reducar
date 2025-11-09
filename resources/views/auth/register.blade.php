@@ -15,7 +15,7 @@
             @csrf
 
             <!-- Nombre -->
-            <label for="name">Nombre y Apellido</label>
+            <label for="name">Apellido y Nombre</label>
             <input type="text" name="name" id="name" value="{{ old('name') }}" required>
             @error('name')
                 <div class="error">{{ $message }}</div>
@@ -42,7 +42,7 @@
                 <div class="error">{{ $message }}</div>
             @enderror
 
-            <!-- Código de inscripción -->
+            <!-- Código de inscripcin -->
             <label for="code">Código de inscripción</label>
             <input type="text" name="code" id="code" value="{{ old('code') }}" required>
             @error('code')

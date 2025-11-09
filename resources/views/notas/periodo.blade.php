@@ -151,8 +151,8 @@
             Trabajos de intensificacion
          @else Trabajos del {{ str_replace('_', ' ', $periodo) }}</h2> <!-- std replace es como el .replace del js -->
          @endif</h2>
-        <div class="container">   
-            <div class="contnotis">
+        <div class="conteinerr">   
+            <div class="contnotis" style="max-width: 800px;">
                 <ul class="listanotis">
              @if(auth()->user()->role !== 'alumno')
             <a class="boton entrar" href="{{ route('notas.create', [$materia->id, $periodo]) }}">
@@ -238,7 +238,7 @@
 
         <!-- Navegación -->
                 <a class="boton" href="{{ route('notas.index', $materia->id) }}">
-                     Volver a Notas
+                    Volver a Notas
                 </a>
             </ul>
         </div>
