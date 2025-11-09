@@ -16,7 +16,7 @@ class RoleMiddleware
 
         $userRole = strtolower(auth()->user()->role);
         $rolesArray = array_map('strtolower', $roles);
-dd($rolesArray);
+
         if (!in_array($userRole, $rolesArray)) {
             abort(403, 'Acceso no autorizado.');
         }

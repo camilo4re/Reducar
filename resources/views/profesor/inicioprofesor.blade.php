@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Pagina Inicial (Profesores)</title>
-           <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap' rel="stylesheet">
     <link rel="stylesheet" href="{{ asset("profesor/estilospaginico.css") }}">
 </head>
 <body>
@@ -50,65 +49,17 @@
         abrir.classList.remove('oculto');
       });
     </script>
+    
     <!-- /MENU REDUCAR-->
 
-  <div class="container" id="container">
-    <!-- columna izquierda -->
-      <div class="columna izquierda">
-      <button class="toggle-btn btn-left" onclick="toggleLeft()">⮞</button>
-      <h2>Notificaciones</h2>
-      </div>
-    <!-- columna centro -->
-      <div class="columna centro">
-
-      
-  <li class="cajas">
-    <div class="titulo-caja"> Materia</div>
-    <div class="subtitulo-caja"> Profesor </div>
-    <div class="subsubtitulo-caja"> Curso </div>
-
-    <div class="cajafooter">
-        <a class="boton editar" href="#" >Editar</a>
-
-        <form action="#" method="POST" style="display:inline;" onsubmit="return confirm('¿Seguro que querés eliminar esta materia?');">
-
-          <button class="boton eliminar" type="submit" >Eliminar</button>
-        </form>
-
-      <a class="boton entrar" href="#">Entrar</a>
-    </div>
-  </li>
-
-      </div>
-    <!-- columna derecha -->
-    <div class="columna derecha">
-    <button class="toggle-btn btn-right" onclick="toggleRight()">⮜</button>
-    <h2>Horario Semanal</h2>
-    </div>
+    <!-- BOXS DE MATERIAS-->
+    <ul class="clases">
+      <li class="cajas">
+        <div class="titulo-caja">Materia 1</div>
+        <div class="subtitulo-caja">Curso 1</div>
+        <div class="cajafooter">
+          <a href="materia1p.html" class="boton">Entrar</a>
+        </div>            
+      </li>
+    </ul>    
     
-  </div>
-
-  <script>
-    const container = document.getElementById("container");
-
-    function toggleLeft() {
-      if (container.classList.contains("expand-left")) {
-        container.classList.remove("expand-left");
-      } else {
-        container.classList.remove("expand-right");
-        container.classList.add("expand-left");
-      }
-    }
-
-    function toggleRight() {
-      if (container.classList.contains("expand-right")) {
-        container.classList.remove("expand-right");
-      } else {
-        container.classList.remove("expand-left");
-        container.classList.add("expand-right");
-      }
-    }
-  </script>
-
-</body>
-</html>

@@ -3,135 +3,204 @@
 <head>
   <title>REDUCAR</title>
   <link rel="stylesheet" href="{{asset('inicio.css')}}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 </head>
 
-  <body class="background-fade">
-
-    <header>
-      <div class="logo-del-titulo">
-      <img src="{{asset('imagenes/LOGOTEC3.png')}}" alt="Logo" class="logo">
-      </div>
+<body class="background-fade">
+<!-- header -->
+<header>
+  <div class="superior">
+    <div class ="texto-animado">
+      <h1 class="typewriter-text" id="tituloAnimado"></h1>
+    </div>
   
-    <nav>
-    <a href="{{ route ('login') }}">Inicio de sesión</a>
-    <a href="{{ route ('register') }}">Registrarme</a>
-    </nav>
+    <div class="logo-del-titulo">
+      <img src="{{asset('imagenes/LOGOTECNICA3.png')}}" alt="Logo" class="logo">
+    </div>
 
-    <div class="barras">
+    <nav class="navegacion">
+      <a href="{{ route ('login') }}"><i class="fas fa-sign-in-alt"></i> Inicio de sesión</a>
+      <a href="{{ route ('register') }}"><i class="fas fa-user-plus"></i> Registrarme</a>
+    </nav>
+  </div>
+
+  <div class="barras">
     <div class="barra-naranja"></div>
     <div class="barra-verde"></div>
+  </div>
+</header>
+
+<div class="contenedor-principal">
+  <section class="hero">
+    <section class="info-destacada"></section>
+    <div class="logo-central">
+      <img src="{{asset('imagenes/LOGOTEC3NUEVO.png')}}" alt="Logo Central">
     </div>
-    </header>
+  </section>
+</div>
 
-      <div class="contenedor-principal">
-      <section class="hero">
-          <section class="info-destacada">
-              <div class="mensaje fade-in-section">
-              <h1 class="typewriter-text" id="tituloAnimado"></h1>
-              </div>
-          </section>
+<!-- cuerpo -->
+<div class="cuerpo">
 
-          <div class="logo-central">
-           <img src="{{asset('imagenes/LOGOTEC3NUEVO.png')}}" alt="Logo Central">
-          </div>
-      </section>
-      </div>
-   
-        <main class="contenido">
 
-        
-          <section class="fade-in-section info-destacada">
-            <div class="texto">
-            <h2>¿Quienes somos?</h2>
-            <p> La Escuela de Educación Secundaria N.º 3 de San Antonio de Padua es una institución comprometida con la formación integral de jóvenes, brindando una educación pública, gratuita y de calidad, con enfoque en los valores, el pensamiento crítico y la preparación para el mundo profesional y ciudadano. </p>
-            </div>
-              <div class="imagen">
-              <img src="{{asset('imagenes/DIV1.jpg')}}" alt="ejemplo1" class="section-image">
-              </div>
-          </section>
+<div class="seccion-tecnica secciones">
+  <h2>ESCUELA TÉCNICA 3: TU PASAPORTE HACIA EL FUTURO PROFESIONAL</h2>
+  <p>La Educación Técnico Profesional es, hoy más que nunca, la inversión más inteligente para tu futuro. En la Técnica 3, especializada en Informática y Electromecánica, formamos profesionales preparados para afrontar los desafíos del mundo laboral con conocimientos sólidos, experiencia práctica y una visión innovadora.</p>
+  
+  <!-- imágen -->
+  <div class="imagen-destacada">
+    <img src="{{asset('imagenes/PASILLO.jpg')}}" alt="Escuela pasillo">
+  </div>
+</div>
 
-        <section class="fade-in-section info-destacada">
-        <div class="texto">
-        <h2>¿Que ofrece?</h2>
-        <p> Nuestra propuesta educativa:
-        <li>Formación académica de calidad</li>
-        <li>Prácticas profesionalizantes</li>
-        <li>Participación en ferias, proyectos escolares y actividades interinstitucionales</li>
-        <li>Promoción de valores como el respeto, la responsabilidad, el trabajo en equipo y la solidaridad</li>
-        </p>
-          <p> Orientacion en las areas de:
-          <li>Electromecánica</li>
-          <li>Informática</li>
-          </p>
-        </div>
-          <div class="imagen">
-          <img src="{{asset('imagenes/PASILLO.jpg')}}" alt="Oferta Educativa" class="section-image">
-          </div>
-        </section>
 
-        <section class="fade-in-section info-destacada">
-        <div class="texto">
-        <h2>Perfil de Estudiantes</h2>
-        <p>La Educación Técnico Profesional brinda títulos técnicos en diferentes especialidades, siguiendo las normas nacionales y adaptándose a las necesidades de cada región.
-          Nuestra escuela, con muchos años de historia en San Antonio de Padua (Merlo), siempre se ha destacado por formar técnicos bien preparados, tanto en lo profesional como en lo humano, sabiendo que el conocimiento abre muchas puertas en la vida.
-        </p>
-        </div>
-        <div class="imagen">
-        <img src="{{asset('imagenes/PERFIL.jpg')}}" alt="Egresados" class="section-image">
-        </div>
-        </section>          
+  
+  <div class="seccion-tecnica secciones">
+    <h2><i class="fa-chart-bar"></i> EL PANORAMA ACTUAL (2025)</h2>
+    <p>En Argentina existen más de 1.600 instituciones de educación técnica secundaria. La demanda de técnicos altamente capacitados crece día a día, especialmente en las áreas de Informática y Electromecánica, donde la necesidad de profesionales competentes es enorme.</p>
+    <p>En la Técnica 3, nos enfocamos en brindar una formación integral que combine la teoría con experiencias prácticas en laboratorio, proyectos y ferias de ciencia, asegurando que cada estudiante esté preparado para enfrentar el mundo laboral desde el primer día.</p>
+  </div>
 
-        <section class="fade-in-section info-destacada">
-          <div class="texto">
-            <h2>TÉCNICO DE LA ESPECIALIDAD ELECTROMECÁNICA</h2>
-            <p>
-              <details>
-               <summary style="cursor: pointer; font-weight: bold;">CAPACIDADES</summary>
-                <li>PROYECTAR EQUIPOS E INSTALACIONES MECANICAS, ELECTROMECANICAS, DE SISTEMAS NEUMATICOS, OLEOHIDRAULICOS, CIRCUITOS ELÉCTRICOS Y DE CONTROL DE AUTOMATISMOS; HERRAMIENTAS Y DISPOSITIVOS.</li>
-                <li>REALIZAR LOS MANTENIMIENTOS, PREDICTIVO, PREVENTIVO, FUNCIONAL OPERATIVO Y CORRECTIVO DE COMPONENTES, EQUIPOS E INSTALACIONES ELECTROMECANICAS.</li>
-                <li>REALIZAR ENSAYOS DE MATERIALES Y ENSAYOS ELECTRICOS, MECÂNICOS Y ELECTROMECANICOS.</li>
-                <li>INSTALAR LINEAS DE CONSUMO Y DISTRIBUCIÓN DE ENERGIA ELECTRICA DE BAJA Y MEDIA TENSION.</li>
-                <li>MONTAR DISPOSITIVOS Y COMPONENTES DE EQUIPOS E INSTALACIONES MECANICAS ELÉCTRICAS, DE SISTEMAS NEUMATICOS, OLEOHIDRAULICOS Y ELECTROMECANICAS.
-                <li>GENERAR EMPRENDIMIENTOS.</li>
-            </p>
-              </details>
-          </div>
-            <div class="imagen">
-            <img src="{{asset('imagenes/ELECTROMECANICA.jpg')}}" alt="Imagen ELECTROMECANICA" class="section-image">
-            </div>
-        </section>
-        
-        <section class="fade-in-section info-destacada">
-        <div class="texto">
-        <h2>TÉCNICO EN INFORMÁTICA PERSONAL Y PROFESIONAL</h2>
-        <p>
-          <details>
-            <summary style="cursor: pointer; font-weight: bold;">CAPACIDADES</summary>
-          <li>INTERPRETAR CRITICAMENTE ESPECIFICACIONES FUNCIONALES QUE DEDE REALIZAR UN SOFTWARE, LAS INTERACCIONES CON USUARIOS Y OTROS SISTEMAS.</li>
-          <li>PLANIFICAR EL TRABAJO IDENTIFICANDO POSIBLES DIFICULTADES Y EN FUNCION DE LOS TIEMPOS PREVISTOS.</li>
-          <li>PRODUCIR PROGRAMAS, MODULOS O COMPONENTES DE SISTEMAS DE COMPUTACIÓN DE ACUERDO A LA TECNOLOGIA A UTILIZAR.</li>
-          <li>VERIFICAR EL PRODUCTO DESARROLLADO.</li>
-          <li>DEPURAR ESTRUCTURAS LOGICAS O CÓDIGOS DE PROGRAMA.</li>
-          <li>REALIZAR LA DOCUMENTACIÓN TÉCNICA Y DE USUARIO DE ACUERDO A LOS REQUERIMIENTOS FUNCIONALES Y TÉCNICOS DE LA APLICACIÓN.</li>
-          <li>REALIZAR EL TESTEO DEL SOFTWARE DE APLICACIÓN.</li>
-        </p>
-          </details>
-        </div>
-        <div class="imagen">
-        <img src="{{asset('imagenes/INFORMATICA.jpg')}}" alt="Imagen informática" class="section-image">
-        </div>
-        </section>
+  <div class="seccion-tecnica secciones">
+    <h2> SALIDA LABORAL Y REMUNERACIÓN</h2>
+    <h3>Técnico en Informática</h3>
+    <ul class="lista-ventajas">
+      <li>Amplia demanda laboral en áreas de programación, redes, ciberseguridad, inteligencia artificial y desarrollo de software.</li>
+      <li>Posibilidad de ingresar a empresas líderes desde el secundario o continuar con carreras universitarias afines.</li>
+      <li>Crecimiento profesional asegurado en un sector dinámico y en constante innovación.</li>
+    </ul>
 
-  </main>
-  <footer class="footer-con-fondo">
+    <h3>Técnico en Electromecánica</h3>
+    <ul class="lista-ventajas">
+      <li>Salarios competitivos: un técnico electromecánico puede alcanzar ingresos promedio muy por encima de la media nacional.</li>
+      <li>Versatilidad para trabajar en mantenimiento industrial, control de procesos, automatización, energías renovables y mecatrónica.</li>
+      <li>Capacidad de desempeñarse como profesional independiente o integrarse a equipos de alta especialización.</li>
+    </ul>
+  </div>
+
+  
+  <div class="seccion-tecnica secciones">
+    <h2> ESPECIALIDADES Y OPORTUNIDADES</h2>
+    <h3>Informática</h3>
+    <ul class="lista-ventajas">
+      <li>Desarrollo de software y aplicaciones móviles</li>
+      <li>Robótica y automatización</li>
+      <li>Redes y sistemas</li>
+      <li>Ciberseguridad</li>
+      <li>Inteligencia Artificial</li>
+    </ul>
+    <h3>Electromecánica</h3>
+    <ul class="lista-ventajas">
+      <li>Automatización industrial y robótica</li>
+      <li>Mantenimiento y control de procesos</li>
+      <li>Energías renovables</li>
+      <li>Mecatrónica y modelado por computadora</li>
+    </ul>
+  </div>
+
+  
+  <div class="seccion-tecnica secciones">
+    <h2> FERIAS DE CIENCIA Y PROYECTOS</h2>
+    <p>Nuestros estudiantes participan activamente en ferias de ciencia y tecnología, presentando proyectos reales que reflejan su creatividad y conocimiento técnico:</p>
+    <ul class="lista-ventajas">
+      <li>Robótica aplicada: desde asistentes domésticos hasta soluciones industriales</li>
+      <li>Aplicaciones móviles: herramientas que resuelven problemas concretos de la comunidad</li>
+      <li>Sistemas de automatización y eficiencia energética</li>
+      <li>Proyectos interdisciplinarios en impresión 3D, energía solar y mecatrónica</li>
+    </ul>
+
+    <!-- imágenes -->
+    <div class="galeria-ferias">
+  <!-- Tarjeta 1 -->
+  <div class="tarjeta-feria">
+    <img src="{{asset('imagenes/Feedo.jpeg')}}" alt="Proyecto Feedo"> Proeycto Feedo
+    <p class="descripcion">Alumnos de 7º 2ª que participaron en la competencia Remanso 2025.</p>
+  </div>
+
+  <!-- Tarjeta 2 -->
+  <div class="tarjeta-feria">
+    <img src="{{asset('imagenes/PERFIL.jpg')}}" alt="Electromecánica "> Electromecánica 2024
+    <p class="descripcion">Egresados del ciclo de Electromecánica participaron en la competencia Remanso 2024.</p>
+  </div>
+
+  <!-- Tarjeta 3 -->
+  <div class="tarjeta-feria">
+    <img src="{{asset('imagenes/Elisyum.jpeg')}}" alt="Proyecto Elisyum">Proyecto Elisyum
+    <p class="descripcion">Los alumnos de 7º 2ª participaron en la competencia Remanso 2025, obteniendo el 7º puesto.</p>
+  </div>
+</div>
+
+
+  
+  <div class="seccion-tecnica secciones">
+    <h2> PRÁCTICAS Y EXPERIENCIA LABORAL</h2>
+    <ul class="lista-ventajas">
+      <li>Prácticas profesionalizantes en empresas reales desde los últimos años del secundario</li>
+      <li>Red de contactos industriales para facilitar la inserción laboral</li>
+      <li>Experiencia concreta que otorga ventaja competitiva al egresar</li>
+      <li>Posibilidad de empleo inmediato al finalizar la formación</li>
+    </ul>
+  </div>
+
+  <div class="seccion-tecnica secciones">
+    <h2> CONTINUIDAD ACADÉMICA</h2>
+    <ul class="lista-ventajas">
+      <li>Tecnicaturas superiores</li>
+      <li>Carreras universitarias afines, con materias acreditadas</li>
+      <li>Cursos de especialización en áreas tecnológicas y de innovación</li>
+    </ul>
+  </div>
+
+  <div class="seccion-tecnica secciones">
+    <h2> EXPERIENCIAS Y ACTIVIDADES EXCLUSIVAS</h2>
+    <ul class="lista-ventajas">
+      <li>Laboratorios con equipamiento de última generación</li>
+      <li>Talleres industriales reales</li>
+      <li>Participación en olimpiadas técnicas nacionales</li>
+      <li>Intercambios y visitas a empresas del sector</li>
+      <li>Proyectos interdisciplinarios y competiciones STEAM</li>
+    </ul>
+  </div>
+
+  
+  <div class="seccion-tecnica secciones">
+    <h2> POR QUÉ ELEGIR TÉCNICA 3</h2>
+    <ul class="lista-ventajas">
+      <li>Demanda laboral inmediata: empresas necesitan técnicos calificados</li>
+      <li>Salarios competitivos desde el primer día</li>
+      <li>Crecimiento profesional asegurado, con posibilidad de roles de liderazgo</li>
+      <li>Emprendimiento: conocimientos para crear tu propia empresa</li>
+      <li>Futuro asegurado: en sectores estratégicos y en constante desarrollo</li>
+    </ul>
+  </div>
+
+
+  <div class="seccion-tecnica secciones">
+    <h2> LA DECISIÓN INTELIGENTE</h2>
+    <p>No es solo una escuela, es tu plataforma de lanzamiento hacia un futuro profesional exitoso. Al egresar de Técnica 3, obtendrás:</p>
+    <ul class="lista-ventajas">
+      <li>Título técnico reconocido</li>
+      <li>Experiencia práctica real</li>
+      <li>Contactos en la industria</li>
+      <li>Conocimientos actualizados</li>
+      <li>Capacidad de resolver problemas complejos</li>
+    </ul>
+    <p class="info-extra">Si querés un futuro seguro, innovador y lleno de oportunidades, Técnica 3 es tu camino. Tu carrera profesional comienza aquí.</p>
+  </div>
+
+</div>
+
+</div>
+<!-- footer -->
+<footer class="footer-con-fondo visible">
   <div class="overlay">
     <div class="footer-contenido">
       <div class="columna">
         <h4>Institución</h4>
-        <a href="#">Pautas Institucionales</a>
-        <a href="#">Autoridades</a>
-        <a href="#">Cooperadora</a>
+        <a href="{{asset('pautas')}}">Pautas Institucionales</a>
+        <a href="{{asset('autoridades')}}">Autoridades</a>
+        
       </div>
       <div class="columna">
         <h4>Contacto</h4>
@@ -145,7 +214,8 @@
       © 2025 Reducar - Todos los derechos reservados
     </div>
   </div>
-  </footer>
+</footer>
+
 <script src="{{ asset('script.js') }}"></script>
 </body>
 </html>

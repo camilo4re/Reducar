@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('registration_codes', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();  // El código de inscripción
-            $table->boolean('used')->default(false);  // Marca si el código ha sido usado
+            $table->string('code')->unique();  
+            $table->boolean('used')->default(false);  
             $table->timestamps();
         });
     }

@@ -14,7 +14,6 @@ return new class extends Migration
        Schema::create('materias', function (Blueprint $table) {
     $table->id();
     $table->string('nombre');
-
     $table->unsignedBigInteger('user_id'); // qn creó la materia
     $table->unsignedBigInteger('curso_id'); // a q curso pertenece
 

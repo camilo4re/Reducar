@@ -1,0 +1,310 @@
+html, body {
+  margin: 0;
+  font-family:'Montserrat', sans-serif;
+  height: 100%;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.hero {
+  height: 120vh;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.000000001) 60%, rgba(255, 255, 255, 2) 99%),
+    url('/IMAGENES/BACKDDDD.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;       
+  justify-content: flex-start;      
+  align-items: center;          
+  color: white;
+  text-align: center;
+  padding-top: 20vh;      
+}
+
+.contenido {
+  background-color: white;
+  padding: 80px 40px;
+  position: relative;
+  z-index: 10; 
+  box-shadow: 2px 6px 20px rgb(0, 0, 0);
+}
+
+/* el primer header (trasparente) */
+header {
+    background-color: transparent;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: normal; 
+    position: fixed;
+    width: 100%;
+    z-index: 1010;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+header .typewriter-text {
+    color: white;
+    transition: color 0.3s ease;
+}
+
+nav a {
+    color: white;
+    transition: color 0.3s ease;
+    align-items: center;
+}
+nav a {
+    position: relative;
+    overflow: hidden;
+}
+
+nav a:hover {
+    border-bottom: 3px solid white;
+}
+
+.barras {
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* el segundo header (scrolled) */
+header.scrolled {
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+header.scrolled .typewriter-text {
+    color: black;
+}
+
+header.scrolled nav a {
+    color: black;
+}
+
+header.scrolled nav a:hover {
+    color: green;
+      border-bottom: 3px solid green;
+}
+
+header.scrolled .barras {
+    opacity: 1;
+}
+
+.logo {
+    width: 50px;
+    margin: 10px 10px 15px 15px;
+}
+
+.barra-naranja {
+    background-color: #f45206;
+    height: 10px;
+    width: 100%;
+}
+
+.barra-verde {
+    background-color: #007c00;
+    height: 10px;
+    width: 100%;
+}
+
+.superior {
+    justify-content: space-between;
+}
+
+.logo-del-titulo {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.texto-animado {
+    justify-content: flex-start;
+    margin-top: 35px;
+    margin-left: 10px;
+    position: absolute;
+}
+
+.navegacion {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+nav {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+nav a {
+    margin-right: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+footer {
+    text-align: center;
+    padding: 8px 0;
+    background-color: #f45206;
+    color: white;
+    border-radius: 0;
+}
+
+.info-destacada {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.info-destacada .texto {
+    flex: 1 1 500px;
+    color: black;
+    margin-right: 40px;
+}
+
+.info-destacada h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.info-destacada p {
+    font-size: 1.6rem;
+    line-height: 1.2;
+}
+
+.info-destacada .imagen {
+    flex: 1 1 400px;
+    text-align: right;
+}
+
+.info-destacada .imagen img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.6s ease-out;
+    will-change: opacity, transform;
+}
+
+.fade-in-section.visible {
+    opacity: 1;
+    transform: none;
+}
+
+img {
+    z-index: 1000;
+}
+
+/* FOOTER CON FONDO */
+.footer-con-fondo {
+    background-image: url('/IMAGENES/footerfondo.jpg'); 
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    color: white;
+}
+
+.footer-con-fondo .overlay {
+    background-color: rgba(0, 0, 0, 0.6); 
+    padding: 60px 40px 20px;
+}
+
+.footer-contenido {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 40px;
+    text-align: left;
+}
+
+.footer-contenido .columna {
+    min-width: 180px;
+}
+
+.footer-contenido h4 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    border-bottom: 2px solid #f45206;
+    padding-bottom: 6px;
+}
+
+.footer-contenido a {
+    display: block;
+    color: #ddd;
+    margin: 4px 0;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-contenido a:hover {
+    color: #fff;
+}
+
+.footer-copy {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+/* /FOOTER CON FONDO */
+
+/*TITULO*/
+.typewriter-text {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 0;
+    border-right: 2px solid currentColor;
+    margin: 0 auto;
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: currentColor; }
+}
+
+/* /TITULO */
+
+details summary {
+    background-color: #f0f0f0;
+    padding: 8px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+details summary:hover {
+    background-color: #e0e0e0;
+}
+
+.logo-central {
+    margin-top: 1px; 
+    text-align: center;
+}
+
+.logo-central img {
+    width: 300px; 
+    max-width: 80%;
+    height: auto;
+    animation: fadeInLogo 2s ease-in-out;
+}
+
+@keyframes fadeInLogo {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}

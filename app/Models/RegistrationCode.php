@@ -2,10 +2,34 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class RegistrationCode extends Model
 {
-    protected $fillable = ['code', 'used'];
-    public $timestamps = false;
+    use HasFactory;
+
+    protected $fillable = [
+        'code',
+        'used',
+        'role',
+        'curso_id',
+    ];
+
+  
+    public function curso()
+    {
+        return $this->belongsTo(Curso::class);
+    }
+
+     public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    // Método auxiliar para verificar si se puede usar
+    public function usable()
+    {
+        return !$this->used && !$this->user_id;
+    }
 }

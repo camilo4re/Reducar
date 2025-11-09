@@ -7,7 +7,7 @@ const observer = new IntersectionObserver(entries => {
     }
   });
 }, {
-  threshold: 0.5
+  threshold: 0.9
 });
 
 sections.forEach(section => {
@@ -26,7 +26,7 @@ let j = 0;
 let escribiendo = true;
 const velocidadEscritura = 200;
 const velocidadBorrado = 100;
-const pausaEntreFrases = 1000;  
+const pausaEntreFrases = 500;  
 
 const titulo = document.getElementById("tituloAnimado");
 
@@ -55,3 +55,59 @@ function animarTexto() {
 }
 
 document.addEventListener("DOMContentLoaded", animarTexto);
+
+//NUEVO HEADER AL SCROLLEAR
+window.addEventListener('scroll', function() {
+    const header = document.querySelector('header');
+    const scrollPosition = window.scrollY;
+    
+    
+    if (scrollPosition > 100) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
+
+//EFECTO SCROLL SUAVE
+document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        
+        if (targetSection) {
+            targetSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+})
+
+/*pautas*/
+document.addEventListener('DOMContentLoaded', function() {
+  const acordeonBtns = document.querySelectorAll('.acordeon-btn');
+
+  acordeonBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const content = this.nextElementSibling;
+
+      // Alternar vista
+      if (content.style.display === 'block') {
+        content.style.display = 'none';
+      } else {
+        content.style.display = 'block';
+      }
+
+      // Cambiar icono de la flecha
+      const icon = this.querySelector('i');
+      if (icon) {
+        icon.classList.toggle('fa-chevron-down');
+        icon.classList.toggle('fa-chevron-up');
+      }
+    });
+  });
+});
+
+

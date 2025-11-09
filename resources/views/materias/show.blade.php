@@ -2,10 +2,13 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Materia 1 (Profesor)</title>
+    <title>Notificaciones</title>
+    <link rel="icon" type="image/x-icon" href="/IMAGENES/LOGOTECNICA3.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap' rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('profesor/estilospaginico.css') }}">
+    <link rel="stylesheet" href="{{ asset('profesor/responsive.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
@@ -16,14 +19,24 @@
     <button id="cerrarMenu">×</button>
     
     <ul>
-    <li><a href="{{ route ('materias.index') }}">Inicio <i class="fa-solid fa-house"></i></a></li>
-    <li><a href="nuevohorario.html">Horarios <i class="fa-solid fa-calendar"></i></a></li>
-    <!-- <li><a href="asistencias.html">Asistencias <i class="fa-solid fa-user-check"></i></a></li> -->
-     <!--<li><a href="#">Notificaciones <i class="fa-solid fa-bell"></i></a></li>-->
-   <li>
+            <li><a href="{{ route ('materias.index')}}">Inicio <i class="fa-solid fa-house"></i></a></li>
+
+    @if (auth()->user()->role === 'alumno')
+    <li><a href="{{ route('calendario.index') }}">Horarios <i class="fa-solid fa-calendar"></i></a></li>
+    @endif
+        @if (auth()->user()->role === 'alumno' || auth()->user()->role === 'profesor')
+    <li><a href="{{ route('perfil.show', Auth::user()->id) }}"> Mis Datos <i class="fa-solid fa-user"></i></a></li>
+        @endif
+    @if (Auth::user()->role === 'directivo')
+    <li><a href="{{ route('tokens.index') }}">Crear Usuarios <i class="fa-solid fa-ticket"></i></a></li>
+    <li><a href="{{ route('tokens.listar') }}">Lista de Codigos Creados <i class="fa-solid fa-list"></i></a></li>
+    <li><a href="{{ route('perfiles.index') }}">Perfiles de Usuarios<i class="fa-solid fa-user"></i></a></li>
+    @endif
+  
+    <li>
         <a href="#" 
-           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-           Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i>
+          onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+          Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i>
         </a>
 
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -75,37 +88,43 @@
 <!-- NAV NUEVO -->
 <nav class="header-centro">
   <div class="icono-header active" data-tooltip="Notificaciones">
-    <i class="fa-solid fa-table-columns"></i>
+    <a href="{{ route('materias.show', $materia->id) }}"><i class="fa-solid fa-table-columns"></i></a>
   </div>
-  <div class="icono-header" data-tooltip="Personas">
-    <i class="fa-solid fa-users"></i>
+  <div class="icono-header" data-tooltip="Promedios">
+    <a href="{{ route('notas.promedios', $materia->id) }}"><i class="fa-solid fa-users"></i></a>
   </div>
   <div class="icono-header" data-tooltip="Calificaciones">
-    <i class="fa-solid fa-clipboard-list"></i>
+    <a href="{{ route('notas.index', $materia->id) }}"><i class="fa-solid fa-clipboard-list"></i></a>
   </div>
   <div class="icono-header" data-tooltip="Asistencias">
-    <i class="fa-solid fa-calendar-check"></i>
+    <a href="{{ route('asistencias.index', $materia->id) }}"><i class="fa-solid fa-calendar-check"></i></a>
   </div>
 </nav>
 <!-- /NAV NUEVO -->
+
+<!-- NOTIFICACIONES REDUCAR-->
 <section class="notificaciones">
   <h2>Notificaciones </h2>
-
 
 <div class="contnotis">
 
     @if($materia->contenidos->isEmpty())
-       <a href="{{ route('contenidos.create', $materia->id) }}" class="boton">Nuevo comunicado</a>
         <p>No hay comunicados aún.</p>
+            @if (auth()->user()->role === 'profesor' || auth()->user()->role === 'directivo')
+                  <a href="{{ route('contenidos.create', $materia->id) }}" class="boton">Nuevo comunicado</a>
+            @endif
     @else
-        <ul class="listanotis">
-    @if(auth()->user()->role === 'profesor' || auth()->user()->role === 'directivo')
-        <a href="{{ route('contenidos.create', $materia->id) }}" class="boton">Nuevo comunicado</a>
+    @if (auth()->user()->role === 'profesor' || auth()->user()->role === 'directivo')
+                      <a href="{{ route('contenidos.create', $materia->id) }}" class="boton">Nuevo comunicado</a>
+
     @endif
+
+        <ul class="listanotis">
+
             @foreach($materia->contenidos->sortByDesc('created_at') as $contenido)
                 <li class="notis">
-                     <small>Publicado por: {{ $contenido->user->name }} ({{ $contenido->created_at->format('d/m/Y H:i') }})</small>
-                       <strong>{{ $contenido->titulo }}</strong>
+                    <small>Publicado por: {{ $contenido->user->name }} ({{ $contenido->created_at->format('d/m/Y H:i') }})</small>
+                      <strong>{{ $contenido->titulo }}</strong>
                           <p>{{ $contenido->descripcion }}</p>
                           <div class="acciones">
                         @if(auth()->id() === $contenido->user_id || auth()->user()->role === 'directivo')

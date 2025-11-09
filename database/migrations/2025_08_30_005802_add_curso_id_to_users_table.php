@@ -12,10 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('role', ['alumno', 'maestro', 'directivo'])->default('alumno');
+   $table->foreignId('curso_id')->nullable()->constrained('cursos');
         });
     }
-    
 
     /**
      * Reverse the migrations.
@@ -23,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('role');
+            //
         });
     }
 };

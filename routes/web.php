@@ -10,10 +10,14 @@ use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\DirectivoController;
 use App\Http\Controllers\MateriaController;
 use App\Http\Controllers\ContenidoController;
+use App\Http\Controllers\NotaController;
+use App\Http\Controllers\AsistenciaController;
+use App\Http\Controllers\TokenController;
+use App\Http\Controllers\UserProfileController;
 
 Route::view("/", "index")->name("inicio");
 Route::view("nosotros", "about")->name("about");
-
+Route::get('/calendario', [App\Http\Controllers\CalendarioController::class, 'index'])->name('calendario.index');
 /* rutas de profes */
 
     Route::middleware(['auth', 'role:profesor'])->group(function () {
@@ -27,12 +31,11 @@ Route::view("nosotros", "about")->name("about");
 });
 
 
+Route::view('pautas', 'pautas')->name('pautas');
+Route::view('autoridades', 'autoridades')->name('autoridades');
 
 
-/* rutas de directivos */
-    Route::middleware(['auth', 'role:directivo'])->group(function () {
-    Route::get('/directivo', [DirectivoController::class, 'index'])->name('directivo');
-});
+
 /* rutas de login */
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
@@ -44,32 +47,6 @@ Route::view("nosotros", "about")->name("about");
     Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
     Route::post('/register', [RegisteredUserController::class, 'store']);
 
-// Rutas de materias solo lectura (todos los roles logueados)
-Route::middleware(['auth'])->group(function () {
-    Route::get('/materias', [MateriaController::class, 'index'])->name('materias.index');
-    
-    // 👇 las fijas primero
-    Route::get('/materias/create', [MateriaController::class, 'create'])
-        ->middleware('role:profesor,directivo')
-        ->name('materias.create');
-    
-    Route::get('/materias/{id}/edit', [MateriaController::class, 'edit'])
-        ->middleware('role:profesor,directivo')
-        ->name('materias.edit');
-
-    // 👇 recién después la ruta con parámetro
-    Route::get('/materias/{materia}', [MateriaController::class, 'show'])->name('materias.show');
-    
-    Route::post('/materias', [MateriaController::class, 'store'])
-        ->middleware('role:profesor,directivo')
-        ->name('materias.store');
-    Route::put('/materias/{id}', [MateriaController::class, 'update'])
-        ->middleware('role:profesor,directivo')
-        ->name('materias.update');
-    Route::delete('/materias/{id}', [MateriaController::class, 'destroy'])
-        ->middleware('role:profesor,directivo')
-        ->name('materias.destroy');
-});
 
 // Rutas de materias solo para profes y directivos (escritura)
     Route::middleware(['auth', 'role:profesor,directivo'])->group(function () {
@@ -80,14 +57,19 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/materias/{id}', [MateriaController::class, 'destroy'])->name('materias.destroy');
 });
 
+// Rutas de materias solo lectura (todos los roles logueados)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/materias', [MateriaController::class, 'index'])->name('materias.index');
+    Route::get('/materias/{materia}', [MateriaController::class, 'show'])->name('materias.show');
+});
+
+
+
 
 // Rutas de contenidos
 Route::middleware(['auth'])->group(function () {
 
-    // Index primero
-    Route::get('/materias/{materia}/contenidos', [ContenidoController::class, 'index'])->name('contenidos.index');
-
-    // Rutas para profes y directivos (crear, editar, eliminar)
+    // Rutas para profes y directivos (crud)
     Route::middleware('role:profesor,directivo')->group(function () {
         Route::get('/materias/{materia}/contenidos/create', [ContenidoController::class, 'create'])->name('contenidos.create');
         Route::post('/materias/{materia}/contenidos', [ContenidoController::class, 'store'])->name('contenidos.store');
@@ -96,10 +78,53 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/materias/{materia}/contenidos/{contenido}', [ContenidoController::class, 'destroy'])->name('contenidos.destroy');
     });
 
-    // 👇 Recién al final, la ruta con parámetro genérico
     Route::get('/materias/{materia}/contenidos/{contenido}', [ContenidoController::class, 'show'])->name('contenidos.show');
 });
 
+
+// rutas de notas
+Route::middleware(['auth'])->group(function () {
+    Route::middleware('role:profesor,directivo')->group(function () {
+        Route::get('/materias/{materia}/notas/{periodo}/{trabajo}/editar', [NotaController::class, 'edit'])
+    ->where(['periodo' => 'primer_cuatrimestre|segundo_cuatrimestre|intensificacion'])->name('notas.edit');
+
+Route::get('/materias/{materia}/notas/{periodo}/crear', [NotaController::class, 'create'])
+    ->where('periodo', 'primer_cuatrimestre|segundo_cuatrimestre|intensificacion')
+    ->name('notas.create');
+
+Route::post('/materias/{materia}/notas/{periodo}', [NotaController::class, 'store'])
+    ->where(['periodo' => 'primer_cuatrimestre|segundo_cuatrimestre|intensificacion'])->name('notas.store');
+
+Route::put('/materias/{materia}/notas/{periodo}/{trabajo}', [NotaController::class, 'update'])
+    ->where(['periodo' => 'primer_cuatrimestre|segundo_cuatrimestre|intensificacion'])->name('notas.update');
+
+Route::delete('/materias/{materia}/notas/{periodo}/{trabajo}', [NotaController::class, 'destroy'])
+    ->where(['periodo' => 'primer_cuatrimestre|segundo_cuatrimestre|intensificacion'])->name('notas.destroy');
+
+
+    });
+Route::get('/materias/{materia}/notas/{periodo}', [NotaController::class, 'mostrarPeriodo'])
+    ->where(['periodo' => 'primer_cuatrimestre|segundo_cuatrimestre|intensificacion'])
+    ->name('notas.periodo');
+    Route::get('/materias/{materia}/notas', [NotaController::class, 'index'])->name('notas.index');
+
+    Route::get('/materias/{materia}/promedios', [NotaController::class, 'promediosNotas'])->name('notas.promedios');
+});
+
+
+// Rutas de asistencias
+Route::middleware(['auth'])->group(function () {
+    Route::get('/materias/{materia}/asistencias', [AsistenciaController::class, 'index'])->name('asistencias.index');
+    Route::get('/materias/{materia}/asistencias/reporte', [AsistenciaController::class, 'reporte'])->name('asistencias.reporte');
+    
+    
+    Route::middleware('role:profesor,directivo')->group(function () {
+        Route::post('/materias/{materia}/asistencias/marcar', [AsistenciaController::class, 'marcar'])->name('asistencias.marcar');
+        Route::post('/materias/{materia}/asistencias/eliminar', [AsistenciaController::class, 'eliminar'])->name('asistencias.eliminar');
+    });
+});
+
+// Rutas de perfil y logout (todos los roles logueados)
 
     Route::get('/profile', function () {
     return 'Página de edición de perfil';
@@ -112,3 +137,23 @@ Route::post('/logout', function (Request $request) {
     $request->session()->regenerateToken();
     return redirect('/');
 })->name('logout');
+
+// TOKENS 
+Route::middleware(['auth', 'role:directivo'])->group(function () {
+    Route::get('/tokens', [TokenController::class, 'index'])->name('tokens.index');
+    Route::post('/tokens', [TokenController::class, 'store'])->name('tokens.store');
+    Route::get('/tokens/lista', [TokenController::class, 'listarTokens'])->name('tokens.listar');
+    Route::post('/tokens/marcar-usado/{id}', [TokenController::class, 'marcarUsado'])->name('tokens.marcar-usado');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/perfil/crear', [UserProfileController::class, 'create'])->name('perfil.create');
+    Route::post('/perfil', [UserProfileController::class, 'store'])->name('perfil.store');
+    Route::get('/perfil', [UserProfileController::class, 'show'])->name('perfil.show');
+});
+
+Route::middleware(['auth', 'role:directivo'])->group(function () {
+    Route::get('/perfiles', [UserProfileController::class, 'index'])->name('perfiles.index');
+    Route::get('/perfiles/{user}', [UserProfileController::class, 'showAlumno'])->name('perfiles.show');
+    Route::post('/perfiles/{user}/reset', [UserProfileController::class, 'reset'])->name('perfiles.reset');
+});
