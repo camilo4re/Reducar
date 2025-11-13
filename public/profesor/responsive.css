@@ -275,7 +275,6 @@
         padding: 10px;
     }
 
-    
     /* HORARIOS RESPONSIVE */
     #horarios-container {
         width: 100%;
@@ -603,188 +602,186 @@
     }
 }
 
-   #columnaNotificaciones .contnotis {
-        padding: 15px;
-        min-height: auto;
-    }
+#columnaNotificaciones .contnotis {
+    padding: 15px;
+    min-height: auto;
+}
 
-    #columnaNotificaciones .notis {
-        padding: 12px;
-        margin: 8px 0;
-    }
+#columnaNotificaciones .notis {
+    padding: 12px;
+    margin: 8px 0;
+}
 
-    #columnaNotificaciones .inputt,
-    #columnaNotificaciones textarea.inputt {
-        width: 100%;
-        padding: 10px;
-        font-size: 14px;
-        box-sizing: border-box;
-    }
+#columnaNotificaciones .inputt,
+#columnaNotificaciones textarea.inputt {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
 
-    #columnaNotificaciones textarea.inputt {
-        min-height: 80px;
-        resize: vertical;
-    }
+#columnaNotificaciones textarea.inputt {
+    min-height: 80px;
+    resize: vertical;
+}
 
-    #columnaNotificaciones select.filtro-cursos {
-        width: 100%;
-        padding: 10px;
-        font-size: 14px;
-        box-sizing: border-box;
-    }
+#columnaNotificaciones select.filtro-cursos {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
 
-    #columnaNotificaciones button.boton {
-        width: 100%;
-        padding: 12px;
-        font-size: 14px;
-        margin-top: 5px;
-    }
+#columnaNotificaciones button.boton {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    margin-top: 5px;
+}
 
-    #columnaNotificaciones .notis strong {
-        font-size: 15px;
-        line-height: 1.4;
-    }
+#columnaNotificaciones .notis strong {
+    line-height: 1.4;
+}
 
-    #columnaNotificaciones .notis p {
-        font-size: 13px;
-        line-height: 1.5;
-        word-wrap: break-word;
-    }
+#columnaNotificaciones .notis p {
+    font-size: 13px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
 
-    #columnaNotificaciones .notis small {
-        font-size: 11px;
-    }
+#columnaNotificaciones .notis small {
+    font-size: 11px;
+}
 
-    #columnaNotificaciones .notis .acciones {
-        margin-top: 10px;
-        width: 100%;
-    }
+#columnaNotificaciones .notis .acciones {
+    margin-top: 10px;
+    width: 100%;
+}
 
-    #columnaNotificaciones .notis .acciones .boton.eliminar {
-        width: 100%;
-        text-align: center;
-        padding: 10px;
-        font-size: 13px;
-    }
+#columnaNotificaciones .notis .acciones .boton.eliminar {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    font-size: 13px;
+}
 
-    #columnaRecordatorios {
-        padding: 15px;
-    }
+#columnaRecordatorios {
+    padding: 15px;
+}
 
-    #columnaRecordatorios h2 {
-        font-size: 20px;
-        margin-bottom: 15px;
-    }
+#columnaRecordatorios h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
 
-    #columnaRecordatorios .contnotis {
-        padding: 15px;
-        min-height: auto;
-    }
+#columnaRecordatorios .contnotis {
+    padding: 15px;
+    min-height: auto;
+}
 
-    #columnaRecordatorios .notis {
-        padding: 12px;
-    }
+#columnaRecordatorios .notis {
+    padding: 12px;
+}
 
-    #columnaRecordatorios .inputt,
-    #columnaRecordatorios textarea.inputt {
-        width: 100%;
-        padding: 10px;
-        font-size: 14px;
-        box-sizing: border-box;
-    }
+#columnaRecordatorios .inputt,
+#columnaRecordatorios textarea.inputt {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
 
-    #columnaRecordatorios textarea.inputt {
-        min-height: 80px;
-        resize: vertical;
-    }
+#columnaRecordatorios textarea.inputt {
+    min-height: 80px;
+    resize: vertical;
+}
 
-    #columnaRecordatorios select {
-        width: 100%;
-        padding: 10px;
-        font-size: 14px;
-        box-sizing: border-box;
-    }
+#columnaRecordatorios select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
 
-    #columnaRecordatorios .boton-agregar {
-        width: 100%;
-        padding: 12px;
-        font-size: 14px;
-        margin-top: 5px;
-    }
+#columnaRecordatorios .boton.entrar {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    margin-top: 5px;
+}
 
-    .recordatorios-lista {
-        margin-top: 15px;
-        gap: 10px;
-    }
+.recordatorios-lista {
+    margin-top: 15px;
+    gap: 10px;
+}
 
-    .recordatorio {
-        padding: 12px;
-        margin-bottom: 10px;
-    }
+.recordatorio {
+    padding: 12px;
+    margin-bottom: 10px;
+}
 
-    .recordatorio h4 {
-        font-size: 15px;
-        margin-bottom: 8px;
-    }
+.recordatorio h4 {
+    font-size: 15px;
+    margin-bottom: 8px;
+}
 
-    .recordatorio p {
-        font-size: 13px;
-        margin: 8px 0;
-        line-height: 1.5;
-        word-wrap: break-word;
-    }
+.recordatorio p {
+    font-size: 13px;
+    margin: 8px 0;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
 
-    .recordatorio small {
-        font-size: 11px;
-    }
+.recordatorio small {
+    font-size: 11px;
+}
 
-    .recordatorio .boton.eliminar {
-        width: 100%;
-        padding: 8px 12px;
-        font-size: 12px;
-        margin-top: 10px;
-        float: none;
-    }
+.recordatorio .boton.eliminar {
+    padding: 8px 12px;
+    font-size: 12px;
+    margin-top: 10px;
+    float: none;
+}
 
-    .recordatorio-verde,
-    .recordatorio-naranja,
-    .recordatorio-rojo {
-        border-left-width: 4px;
-    }
+.recordatorio-verde,
+.recordatorio-naranja,
+.recordatorio-rojo {
+    border-left-width: 4px;
+}
 
-    .expand-left #columnaNotificaciones {
-        padding: 20px 15px;
-    }
+.expand-left #columnaNotificaciones {
+    padding: 20px 15px;
+}
 
-    .expand-right #columnaRecordatorios {
-        padding: 20px 15px;
-    }
+.expand-right #columnaRecordatorios {
+    padding: 20px 15px;
+}
 
-    .container.expand-left ul.listanotis {
-        padding: 0;
-    }
+.container.expand-left ul.listanotis {
+    padding: 0;
+}
 
-    .container.expand-left .notis {
-        margin: 10px 0;
-    }
+.container.expand-left .notis {
+    margin: 10px 0;
+}
 
-    .expand-left .notis form,
-    .expand-right .notis form {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
+.expand-left .notis form,
+.expand-right .notis form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
-    .contnotis,
-    .notis,
-    .recordatorio {
-        max-width: 100%;
-        overflow-x: hidden;
-    }
+.contnotis,
+.notis,
+.recordatorio {
+    max-width: 100%;
+    overflow-x: hidden;
+}
 
-    #columnaNotificaciones .notis p,
-    #columnaRecordatorios .recordatorio p {
-        overflow-wrap: break-word;
-        word-wrap: break-word;
-        hyphens: auto;
-    }
+#columnaNotificaciones .notis p,
+#columnaRecordatorios .recordatorio p {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+}
