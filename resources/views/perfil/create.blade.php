@@ -31,11 +31,11 @@
     <li><a href="{{ route('tokens.listar') }}">Lista de Codigos Creados <i class="fa-solid fa-list"></i></a></li>
     <li><a href="{{ route('perfiles.index') }}">Perfiles de Usuarios<i class="fa-solid fa-user"></i></a></li>
     @endif
- 
+
     <li>
         <a href="#" 
-          onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-          Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i>
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i>
         </a>
 
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

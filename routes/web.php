@@ -14,7 +14,15 @@ use App\Http\Controllers\NotaController;
 use App\Http\Controllers\AsistenciaController;
 use App\Http\Controllers\TokenController;
 use App\Http\Controllers\UserProfileController;
-use App\Http\Controllers\CalendarioController;
+use App\Http\Controllers\RecordatorioController;
+use App\Http\Controllers\NotificacionController;
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/recordatorios', [RecordatorioController::class, 'index'])->name('recordatorios.index');
+    Route::post('/recordatorios', [RecordatorioController::class, 'store'])->name('recordatorios.store');
+    Route::put('/recordatorios/{id}', [RecordatorioController::class, 'update'])->name('recordatorios.update');
+    Route::delete('/recordatorios/{id}', [RecordatorioController::class, 'destroy'])->name('recordatorios.destroy');
+});
 
 Route::view("/", "index")->name("inicio");
 Route::view("nosotros", "about")->name("about");
@@ -157,4 +165,9 @@ Route::middleware(['auth', 'role:directivo'])->group(function () {
     Route::get('/perfiles', [UserProfileController::class, 'index'])->name('perfiles.index');
     Route::get('/perfiles/{user}', [UserProfileController::class, 'showAlumno'])->name('perfiles.show');
     Route::post('/perfiles/{user}/reset', [UserProfileController::class, 'reset'])->name('perfiles.reset');
+});
+
+Route::middleware(['auth', 'role:directivo'])->group(function () {
+    Route::post('/notificaciones', [NotificacionController::class, 'store'])->name('notificaciones.store');
+    Route::delete('/notificaciones/{id}', [NotificacionController::class, 'destroy'])->name('notificaciones.destroy');
 });

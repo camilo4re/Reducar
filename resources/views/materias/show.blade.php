@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Notificaciones</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="/IMAGENES/LOGOTECNICA3.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap' rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('profesor/estilospaginico.css') }}">
-    <link rel ="stylesheet" href="{{ asset('profesor/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('profesor/responsive.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
@@ -32,7 +32,7 @@
     <li><a href="{{ route('tokens.listar') }}">Lista de Codigos Creados <i class="fa-solid fa-list"></i></a></li>
     <li><a href="{{ route('perfiles.index') }}">Perfiles de Usuarios<i class="fa-solid fa-user"></i></a></li>
     @endif
- 
+  
     <li>
         <a href="#" 
           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -86,8 +86,8 @@
 <!-- /HEADER REDUCAR -->
 
 <!-- NAV NUEVO -->
-<nav class="header-centro active">
-  <div class="icono-header" data-tooltip="Notificaciones">
+<nav class="header-centro">
+  <div class="icono-header active" data-tooltip="Notificaciones">
     <a href="{{ route('materias.show', $materia->id) }}"><i class="fa-solid fa-table-columns"></i></a>
   </div>
   <div class="icono-header" data-tooltip="Promedios">
@@ -101,9 +101,10 @@
   </div>
 </nav>
 <!-- /NAV NUEVO -->
+
+<!-- NOTIFICACIONES REDUCAR-->
 <section class="notificaciones">
   <h2>Notificaciones </h2>
-
 
 <div class="contnotis">
 
@@ -122,8 +123,8 @@
 
             @foreach($materia->contenidos->sortByDesc('created_at') as $contenido)
                 <li class="notis">
-                     <small>Publicado por: {{ $contenido->user->name }} ({{ $contenido->created_at->format('d/m/Y H:i') }})</small>
-                       <strong>{{ $contenido->titulo }}</strong>
+                    <small>Publicado por: {{ $contenido->user->name }} ({{ $contenido->created_at->format('d/m/Y H:i') }})</small>
+                      <strong>{{ $contenido->titulo }}</strong>
                           <p>{{ $contenido->descripcion }}</p>
                           <div class="acciones">
                         @if(auth()->id() === $contenido->user_id || auth()->user()->role === 'directivo')

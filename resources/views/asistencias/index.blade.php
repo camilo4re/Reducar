@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -45,7 +44,7 @@
     <header>
         <div class="header-superior">
             <div class="titulo-izquierda">
-                <span class="titulo-principal">{{ $materia->nombre }} - Asistencias</span>
+                <span class="titulo-principal">{{ $materia->nombre }}</span>
                 <span class="subtitulo">{{ $materia->curso->año }} {{ $materia->curso->division }}</span>
             </div>
             <img src="/IMAGENES/LOGOTEC3.png" alt="Logo de la escuela" class="logo">
@@ -225,19 +224,15 @@ function mostrarPopover(celda) {
     
     celdaActual = celda;
     const popover = document.getElementById('popover');
-    
     const rect = celda.getBoundingClientRect();
+    
     popover.style.left = (rect.left + window.scrollX) + 'px';
     popover.style.top = (rect.top + window.scrollY - 120) + 'px';
-    
     popover.classList.remove('hidden');
 }
 
 function marcarAsistencia(estado) {
     if (!celdaActual) return;
-    
-    const userId = celdaActual.dataset.user;
-    const fecha = celdaActual.dataset.fecha;
     
     fetch('{{ route("asistencias.marcar", $materia->id) }}', {
         method: 'POST',
@@ -246,16 +241,14 @@ function marcarAsistencia(estado) {
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
         body: JSON.stringify({
-            user_id: userId,
-            fecha: fecha,
+            user_id: celdaActual.dataset.user,
+            fecha: celdaActual.dataset.fecha,
             estado: estado
         })
     })
     .then(response => response.json())
     .then(data => {
-        if (data.success) {
-            location.reload();
-        }
+        if (data.success) location.reload();
     })
     .catch(error => console.error('Error:', error));
     
@@ -265,9 +258,6 @@ function marcarAsistencia(estado) {
 function eliminarAsistencia() {
     if (!celdaActual) return;
     
-    const userId = celdaActual.dataset.user;
-    const fecha = celdaActual.dataset.fecha;
-    
     fetch('{{ route("asistencias.eliminar", $materia->id) }}', {
         method: 'POST',
         headers: {
@@ -275,15 +265,13 @@ function eliminarAsistencia() {
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
         body: JSON.stringify({
-            user_id: userId,
-            fecha: fecha
+            user_id: celdaActual.dataset.user,
+            fecha: celdaActual.dataset.fecha
         })
     })
     .then(response => response.json())
     .then(data => {
-        if (data.success) {
-            location.reload();
-        }
+        if (data.success) location.reload();
     })
     .catch(error => console.error('Error:', error));
     

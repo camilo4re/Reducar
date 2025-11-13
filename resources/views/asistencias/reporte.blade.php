@@ -233,73 +233,54 @@
                             </tbody>
                         </table>
                     </div>
-                
-                <!-- Gráfico de Distribución -->
-                <div class="distribucion-container">
-                    <h2 class="resumen-titulo">Estadisticas por Estado</h2>
-                        <div class="reporte">
-                            <div class="distribucion-grid">
-                                <div class="distribucion-card distribucion-regulares">
-                                    <h3>Alumnos Regulares</h3>
-                                    <div class="distribucion-numero">{{ $alumnosRegulares }}/{{ $totalAlumnos }}</div>
-                                    <div class="distribucion-porcentaje">{{ $totalAlumnos > 0 ? round(($alumnosRegulares / $totalAlumnos) * 100, 1) : 0 }}% del curso</div>
-                                </div>
-                                
-                                <div class="distribucion-card distribucion-riesgo">
-                                    <h3>Alumnos en Riesgo</h3>
-                                    <div class="distribucion-numero">{{ $alumnosEnRiesgo }}/{{ $totalAlumnos }}</div>
-                                    <div class="distribucion-porcentaje">{{ $totalAlumnos > 0 ? round(($alumnosEnRiesgo / $totalAlumnos) * 100, 1) : 0 }}% del curso</div>
-                                </div>
-                                
-                                <div class="distribucion-card distribucion-irregulares">
-                                    <h3>Alumnos Irregulares</h3>
-                                    <div class="distribucion-numero">{{ $alumnosIrregulares }}/{{ $totalAlumnos }}</div>
-                                    <div class="distribucion-porcentaje">{{ $totalAlumnos > 0 ? round(($alumnosIrregulares / $totalAlumnos) * 100, 1) : 0 }}% del curso</div>
-                                </div>
-                            </div>
+                </section>
+
+                <section class="distribucion-container">
+                    <h2 class="resumen-titulo">Estadísticas por Estado</h2>
+                    <div class="reporte">
+                        <div class="distribucion-grid">
+                            <article class="distribucion-card distribucion-regulares">
+                                <h3>Alumnos Regulares</h3>
+                                <p class="distribucion-numero">{{ $alumnosRegulares }}/{{ $totalAlumnos }}</p>
+                                <p>{{ $totalAlumnos > 0 ? round(($alumnosRegulares / $totalAlumnos) * 100, 1) : 0 }}% del curso</p>
+                            </article>
+                            
+                            <article class="distribucion-card distribucion-riesgo">
+                                <h3>Alumnos en Riesgo</h3>
+                                <p class="distribucion-numero">{{ $alumnosEnRiesgo }}/{{ $totalAlumnos }}</p>
+                                <p>{{ $totalAlumnos > 0 ? round(($alumnosEnRiesgo / $totalAlumnos) * 100, 1) : 0 }}% del curso</p>
+                            </article>
+                            
+                            <article class="distribucion-card distribucion-irregulares">
+                                <h3>Alumnos Irregulares</h3>
+                                <p class="distribucion-numero">{{ $alumnosIrregulares }}/{{ $totalAlumnos }}</p>
+                                <p>{{ $totalAlumnos > 0 ? round(($alumnosIrregulares / $totalAlumnos) * 100, 1) : 0 }}% del curso</p>
+                            </article>
                         </div>
-                    
-                </div>
+                    </div>
+                </section>
             </div>
 
         @else
-            <div class="sin-datos-container">
-                <div class="contnotis">
-                    <div class="notis sin-datos">
-                        <i class="fa-solid fa-users-slash sin-datos-icono"></i>
-                        <strong class="sin-datos-titulo">No hay registros de asistencia</strong>
-                        <p class="sin-datos-texto">Aún no existen registros de asistencia para este período.</p>
-                    </div>
+            <div class="contnotis">
+                <div class="sin-datos">
+                    <i class="fa-solid fa-users-slash sin-datos-icono"></i>
+                    <strong class="sin-datos-titulo">No hay registros de asistencia</strong>
+                    <p class="sin-datos-texto">Aún no existen registros de asistencia para este período.</p>
                 </div>
             </div>
         @endif
-        </div>
-
-    <div class="footer-info">
-        <p>Reporte generado el {{ date('d/m/Y H:i') }} por {{ auth()->user()->name }}</p>
-        <p class="leyenda"> Regular ≥80% | En Riesgo 70-79% | Irregular <70% </p>
     </div>
+
+    <footer class="footer-info">
+        <p>Reporte generado el {{ date('d/m/Y H:i') }} por {{ auth()->user()->name }}</p>
+        <p class="leyenda">Regular ≥80% | En Riesgo 70-79% | Irregular <70%</p>
+    </footer>
 </main>
 
 <script>
-// Variables globales
 let ordenAscendente = true;
-let datosOriginales = [];
 
-// Inicialización
-document.addEventListener('DOMContentLoaded', function() {
-    // Guardar datos originales para filtros
-    const filas = document.querySelectorAll('.fila-alumno');
-    filas.forEach(fila => {
-        datosOriginales.push({
-            elemento: fila,
-            nombre: fila.dataset.nombre,
-            porcentaje: parseFloat(fila.dataset.porcentaje)
-        });
-    });
-});
-
-// Menú lateral
 const menu = document.getElementById('menuLateral');
 const abrir = document.getElementById('abrirMenu');
 const cerrar = document.getElementById('cerrarMenu');
@@ -312,16 +293,6 @@ abrir.addEventListener('click', () => {
 cerrar.addEventListener('click', () => {
     menu.classList.remove('abierto');
     abrir.classList.remove('oculto');
-});
-
-// Búsqueda de alumnos
-document.getElementById('buscarAlumno').addEventListener('input', function() {
-    filtrarTabla();
-});
-
-// Filtro por estado
-document.getElementById('filtrarEstado').addEventListener('change', function() {
-    filtrarTabla();
 });
 
 function ordenarTabla(campo) {
@@ -367,10 +338,7 @@ function ordenarTabla(campo) {
         }
     });
     
-    // Reorganizar las filas
     filas.forEach(fila => tbody.appendChild(fila));
-    
-    // Cambiar orden para próxima vez
     ordenAscendente = !ordenAscendente;
 }
 </script>

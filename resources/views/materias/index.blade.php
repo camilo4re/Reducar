@@ -32,7 +32,6 @@
     <li><a href="{{ route('tokens.listar') }}">Lista de Codigos Creados <i class="fa-solid fa-list"></i></a></li>
     <li><a href="{{ route('perfiles.index') }}">Perfiles de Usuarios<i class="fa-solid fa-user"></i></a></li>
     @endif
- 
     <li>
         <a href="#" 
           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -123,68 +122,51 @@ document.addEventListener("DOMContentLoaded", animarTexto);
 
 <div class="container" id="container">
     <!-- columna izquierda -->
-    <div class="columna izquierda" id="columnaNotificaciones">
-      <h2>Notificaciones</h2>
-      <div class="contnotis">
-        @if(Auth::user()->role === 'directivo')
-        <a class="boton">+ Nuevo comunicado</a>
-        @endif
-        <ul class="listanotis">
-
-                            <li class="notis">
-                      <small>Publicado por: Directora (19/09/2025 15:07)</small>
-                        <strong> Entrega de Mercaderia</strong>
-                          <p>Familias: 
-Anuncio Importante!!
-Lunes 22 de septiembre se realiza la entrega  de mercaderia.
-9:40 a 11 hs /
-14 a 16 hs /
-18 a 21hs .
-Por favor respetar los horarios. Pueden venir a retirar en cualquiera de los turnos.</p>
-                          <div class="acciones">
-                                                    <a href="http://reducar.test/materias/8/contenidos/7/edit" class="boton editar">Editar</a>
-
-                        <form action="http://reducar.test/materias/8/contenidos/7" method="POST" style="display:inline;">
-                            <input type="hidden" name="_token" value="RSAmPB3O3h3gw6tfhSAw2dgFYg2hlz0v9UEHLtpq" autocomplete="off">                            <input type="hidden" name="_method" value="DELETE">                            <button type="submit" class="boton eliminar">Eliminar</button>
-                        </form>
-                                              </div>
-                </li>
-                            <li class="notis">
-                      <small>Publicado por: Directora (15/09/2025 08:45)</small>
-                        <strong> Dia del Estudiante</strong>
-                          <p>Familias :
-                            El día martes 23/9 celebramos el día del estudiante y el día de la primavera. 
-                            En el turno mañana asistirán solo los estudiantes de 1ero,2do y 3er año de ambos turnos, no tienen ni teoría ni taller solo asisten de 7:20 a 11:40hs a la recreación
-                            En el turno tarde de 13 a 17:20hs  asisten los estudiantes de 4to, 5to, 6to y 7mo año de ambas modalidades. En el turno vespertino si van a tener taller los estudiantes de ciclo superior.Cualquier inquietud nos pueden consultar.</p>
-                          <div class="acciones">
-                                                    <a href="http://reducar.test/materias/8/contenidos/6/edit" class="boton editar">Editar</a>
-
-                        <form action="http://reducar.test/materias/8/contenidos/6" method="POST" style="display:inline;">
-                            <input type="hidden" name="_token" value="RSAmPB3O3h3gw6tfhSAw2dgFYg2hlz0v9UEHLtpq" autocomplete="off">                            <input type="hidden" name="_method" value="DELETE">                            <button type="submit" class="boton eliminar">Eliminar</button>
-                        </form>
-                                              </div>
-                </li>
-
-                <li class="notis">
-                      <small>Publicado por: Directora (15/09/2025 08:45)</small>
-                        <strong> Expo-Tecnica 2025</strong>
-                          <p>Familias y Estudiantes: Queriamos avisarles que la fecha de la Expo-Tecnica 2025 todavia no esta confirmada por problemas de agenda, pero podemos confirmarle que sera a mediados del 15 al 21 de Noviembre. Saludos!!.</p>
-                          <div class="acciones">
-                                                    <a href="http://reducar.test/materias/8/contenidos/6/edit" class="boton editar">Editar</a>
-
-                        <form action="http://reducar.test/materias/8/contenidos/6" method="POST" style="display:inline;">
-                            <input type="hidden" name="_token" value="RSAmPB3O3h3gw6tfhSAw2dgFYg2hlz0v9UEHLtpq" autocomplete="off">                            <input type="hidden" name="_method" value="DELETE">                            <button type="submit" class="boton eliminar">Eliminar</button>
-                        </form>
-                                              </div>
-                </li>
-                    </ul>
-      </div>
+<!-- columna izquierda -->
+<div class="columna izquierda" id="columnaNotificaciones">
+  <h2>Notificaciones</h2>
+  <div class="contnotis">
+    
+    @if(Auth::user()->role === 'directivo')
+    <div class="notis">
+      <form action="{{ route('notificaciones.store') }}" method="POST">
+        @csrf
+        <input class="inputt" type="text" name="titulo" placeholder="Título de la notificación" required>
+        <textarea class="inputt" name="contenido" placeholder="Contenido de la notificación" required></textarea>
+        <button class="boton" type="submit">Publicar Notificación</button>
+      </form>
     </div>
+    @endif
 
-  <div class="botonestoggle izq">
-    <button class="toggle-btn btn-left" onclick="toggleLeft()">⮞</button>
+    <ul class="listanotis">
+      @forelse($notificaciones as $notificacion)
+        <li class="notis">
+          <small>Publicado por: {{ $notificacion->user->name }} ({{ $notificacion->created_at->format('d/m/Y H:i') }})</small>
+          <strong>{{ $notificacion->titulo }}</strong>
+          <p>{{ $notificacion->contenido }}</p>
+          
+          @if(Auth::user()->role === 'directivo')
+          <div class="acciones">
+            <form action="{{ route('notificaciones.destroy', $notificacion->id) }}" method="POST" style="display:inline;">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="boton eliminar" onclick="return confirm('¿Eliminar esta notificación?')">Eliminar</button>
+            </form>
+          </div>
+          @endif
+        </li>
+      @empty
+        <li class="notis">
+          <p>No hay notificaciones disponibles.</p>
+        </li>
+      @endforelse
+    </ul>
   </div>
+</div>
 
+<div class="botonestoggle izq">
+  <button class="toggle-btn btn-left" onclick="toggleLeft()">⮞</button>
+</div>
     <!-- columna centro -->
 <div class="columna centro">
     <h2>Materias</h2>
@@ -251,102 +233,60 @@ Por favor respetar los horarios. Pueden venir a retirar en cualquiera de los tur
     <!-- columna derecha -->
 <div class="columna derecha" id="columnaRecordatorios">
   <h2>Recordatorios</h2>
+
   <div class="contnotis">
-  <div class="notis">
-  <form id="formRecordatorio" onsubmit="agregarRecordatorio(event)">
-    <input class="inputt" type="text" id="tituloNuevo" placeholder="Título del recordatorio" required>
-    <textarea class="inputt" id="descripcionNuevo" placeholder="Descripción"></textarea>
-    <input class="inputt" type="date" id="fechaNuevo">
-    <select class="filtro-cursos" id="prioridadNuevo" required>
-      <option value="verde">Baja</option>
-      <option value="naranja">Media</option>
-      <option value="rojo">Alta</option>
-    </select>
-    <button class="boton" type="submit">Agregar</button>
-  </form>
-  </div>
-  <div class="recordatorios-lista" id="listaRecordatorios"></div>
-</div>
+    <div class="notis">
+      <form action="{{ route('recordatorios.store') }}" method="POST">
+        @csrf
+        <input class="inputt" type="text" name="titulo" placeholder="Título del recordatorio" required>
 
-<script>
-  const listaRecordatorios = document.getElementById("listaRecordatorios");
+        <textarea class="inputt" name="descripcion" placeholder="Descripción"></textarea>
 
-// Cargar recordatorios desde LocalStorage
-let recordatorios = JSON.parse(localStorage.getItem("recordatorios")) || [];
+        <input class="inputt" type="date" name="fecha" required>
 
-function guardarLocalStorage() {
-  localStorage.setItem("recordatorios", JSON.stringify(recordatorios));
-}
+        <select class="filtro-cursos" name="prioridad" required>
+          <option value="verde">Baja</option>
+          <option value="naranja">Media</option>
+          <option value="rojo">Alta</option>
+        </select>
 
-// Mostrar recordatorios
-function mostrarRecordatorios() {
-  listaRecordatorios.innerHTML = "";
-  recordatorios.forEach((r, index) => {
-    const div = document.createElement("div");
-    div.classList.add("recordatorio");
-    div.setAttribute("data-prioridad", r.prioridad);
+        <button class="boton-agregar" type="submit">Agregar</button>
+      </form>
+    </div>
 
-    // Contenido básico: titulo y fecha (si no está expandido)
-    div.innerHTML = `
-      <h3 class="titulo">${r.titulo}</h3>
-      <div class="subsubtitulo">${r.fecha}</div>
-      <div class="detalles">
-        <p>${r.descripcion}</p>
-        <div class="acciones">
-          <a class="boton editar">Editar</a>
-          <a class="boton eliminar">Eliminar</a>
+    <div class="recordatorios-lista" id="listaRecordatorios">
+      @forelse ($recordatorios as $recordatorio)
+        <div class="recordatorio" style="border-left: 5px solid {{ $recordatorio->prioridad }}">
+          <h4>{{ $recordatorio->titulo }}</h4>
+          <p>{{ $recordatorio->descripcion }}</p>
+          <small>{{ \Carbon\Carbon::parse($recordatorio->fecha)->format('d/m/Y') }}</small>
+
+          <form action="{{ route('recordatorios.destroy', $recordatorio->id) }}" method="POST" style="display:inline;">
+            @csrf
+            @method('DELETE')
+            <button class="boton eliminar" type="submit">Eliminar</button>
+          </form>
         </div>
-      </div>
-    `;
-
-    // Click para expandir solo cuando la columna está expandida
-    div.addEventListener("click", function(e) {
-      if(e.target.tagName !== "BUTTON" && document.querySelector(".container").classList.contains("expand-right")) {
-        this.classList.toggle("expanded");
-      }
+      @empty
+        <p>No hay recordatorios.</p>
+      @endforelse
+    </div>
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const recordatorios = document.querySelectorAll('.recordatorio');
+    
+    recordatorios.forEach(recordatorio => {
+      recordatorio.addEventListener('click', function(e) {
+        
+        if(e.target.tagName !== 'BUTTON' && e.target.tagName !== 'FORM') {
+          this.classList.toggle('expanded');
+        }
+      });
     });
-
-    // Botones
-    div.querySelector(".eliminar").addEventListener("click", function(e){
-      e.stopPropagation();
-      recordatorios.splice(index,1);
-      guardarLocalStorage();
-      mostrarRecordatorios();
-    });
-
-    div.querySelector(".editar").addEventListener("click", function(e){
-      e.stopPropagation();
-      const nuevoTitulo = prompt("Editar título", r.titulo);
-      const nuevaDescripcion = prompt("Editar descripción", r.descripcion);
-      const nuevaFecha = prompt("Editar fecha (YYYY-MM-DD)", r.fecha);
-      if(nuevoTitulo) r.titulo = nuevoTitulo;
-      if(nuevaDescripcion) r.descripcion = nuevaDescripcion;
-      if(nuevaFecha) r.fecha = nuevaFecha;
-      guardarLocalStorage();
-      mostrarRecordatorios();
-    });
-
-    listaRecordatorios.appendChild(div);
   });
-}
-
-// Agregar nuevo recordatorio
-function agregarRecordatorio(event) {
-  event.preventDefault();
-  const titulo = document.getElementById("tituloNuevo").value;
-  const descripcion = document.getElementById("descripcionNuevo").value;
-  const fecha = document.getElementById("fechaNuevo").value;
-  const prioridad = document.getElementById("prioridadNuevo").value;
-
-  recordatorios.unshift({ titulo, descripcion, fecha, prioridad });
-  guardarLocalStorage();
-  mostrarRecordatorios();
-  document.getElementById("formRecordatorio").reset();
-}
-
-// Inicial
-mostrarRecordatorios();
-  </script>
+</script>
     </div>
 
   <script>

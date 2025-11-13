@@ -128,7 +128,7 @@
 
                     <div style="text-align: center; margin-top: 30px;">
                         <button type="submit" class="boton entrar" style="font-size: 16px; padding: 12px 40px;">
-                            🎯 Generar Código
+                         Generar Código
                         </button>
                     </div>
                 </form>
@@ -136,7 +136,7 @@
 
             <!-- Info adicional -->
             <div class="notis" style="background: #e3f2fd; border-left: 5px solid #2196f3;">
-                <strong style="color: #1976d2;">ℹ️ Información importante:</strong>
+                <strong style="color: #1976d2;">ℹ Información importante:</strong>
                 <ul style="margin: 10px 0; padding-left: 20px; font-size: 13px; color: #555;">
                     <   li>El código generado será único y de un solo uso</li>
                     <li>El usuario deberá usar este código al registrarse</li>

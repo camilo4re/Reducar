@@ -1,603 +1,790 @@
 @media screen and (max-width: 768px) {
-  
-  /* AJUSTES GENERALES */
-  body {
-    font-size: 12px;
-  }
-  
-  .content {
-    margin-left: 0;
-  }
-  
-  .containerr {
-    margin: 5px;
-  }
-  
-  /* HEADER RESPONSIVE */
-  header {
-      position: relative;
-      width: -webkit-fill-available;
-      z-index: 10;
-  }
-  header .header-superior {
-    justify-content: space-between;
-    margin-right: 10px;
-    margin-left: 42px;
-  }
+    /* AJUSTES GENERALES */
+    body {
+        font-size: 12px;
+    }
 
-  .titulo-izquierda {
-    padding: 15px;
-    align-items: flex-start;
-    justify-content: flex-start;
-  }
+    .content {
+        margin-left: 0;
+    }
 
-  #tituloAnimado{
-    font-size: 13px;
-  }
-  
-  .titulo-principal {
-    font-size: 16px;
-  }
-  
-  .subtitulo {
-    font-size: 12px;
-  }
-  
-  .logo {
-    width: 50px;
-    margin: 10px 0;
-  }
-  
-  /* MENU LATERAL RESPONSIVE */
-  #menuLateral {
-    transform: translateX(-100%); 
-    width: 240px;
-  }
-  
-  #menuLateral.abierto {
-    transform: translateX(0);
-  }
-  
-  #abrirMenu {
-    top: 15px;
-    left: 10px;
-    font-size: 28px;
-    position: absolute;
-  }
+    .containerr {
+        margin: 5px;
+    }
 
-  #cerrarMenu {
-    left: 15px;
-    font-size: 28px;
-  }
+    /* HEADER RESPONSIVE */
+    header {
+        position: relative;
+        width: -webkit-fill-available;
+        z-index: 10;
+    }
+    header .header-superior {
+        justify-content: space-between;
+        margin-right: 10px;
+        margin-left: 42px;
+    }
 
-  
-  /* COLUMNAS RESPONSIVE */
-  .container {
-    flex-direction: column;
-    height: auto;
-  }
-  
-  /* Ocultar columnas izquierda y derecha por defecto */
-  .izquierda,
-  .derecha {
-    display: none;
-    width: 0;
-    overflow: hidden;
-  }
-  
-  /* Solo mostrar columna central */
-  .centro {
-    width: 100%;
-    border: none;
-    min-height: auto;
-    display: grid;
-  }
-  
-  /* BOTONES TOGGLE RESPONSIVE */
-  .botonestoggle {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 100;
-    background-color: transparent;
-  }
-  
-  .botonestoggle.izq {
-    left: 0;
-  }
-  
-  .botonestoggle.der {
-    right: 0;
-  }
-  
-  .toggle-btn {
-    padding: 12px 8px;
-    font-size: 16px;
-    border-radius: 0 8px 8px 0;
-  }
-  
-  .btn-right {
-    border-radius: 8px 0 0 8px;
-  }
-  
-  /* ESTADOS EXPANDIDO MOBILE */
-  .expand-left .izquierda {
-    display: block;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    z-index: 99;
-    overflow-y: auto;
-  }
-  
-  .expand-left .centro,
-  .expand-left .derecha {
-    display: none;
-  }
-  
-  .expand-right .derecha {
-    display: block;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    z-index: 99;
-    overflow-y: auto;
-  }
-  
-  .expand-right .centro,
-  .expand-right .izquierda {
-    display: none;
-  }
-  
-  /* BOXS MATERIAS RESPONSIVE */
-  h2 {
-    margin-top: 20px;
-    margin-bottom: 5px;
-  }
+    .titulo-izquierda {
+        padding: 15px;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
 
-  .crear-materia {
-    margin: 5px 0;
-  }
-  ul.clases {
-    grid-template-columns: 1fr;
-    gap: 15px;
-    padding: 15px;
-  }
-  
-  li.cajas {
-    margin-bottom: 10px;
-  }
-  
-  .cajas-link {
-    height: auto;
-    min-height: 120px;
-    padding: 15px;
-  }
-  
-  .titulo-caja {
-    font-size: 18px;
-    padding: 5px;
-  }
-  
-  .subtitulo-caja {
-    font-size: 14px;
-    padding: 3px 5px;
-  }
-  
-  .subsubtitulo-caja {
-    font-size: 12px;
-    padding: 3px 5px;
-  }
-  
-  /* BOTONES RESPONSIVE */
-  .cajafooter {
-    gap: 10px;
-    padding: 10px;
-  }
-  
-  .boton {
-    padding: 8px 16px;
-    font-size: 12px;
-    width: 40%;
-    text-align: center;
-  }
+    #tituloAnimado {
+        font-size: 13px;
+    }
 
-  button.boton.eliminar{
-    width: 100%;
-  }
-  
-  button.boton.eliminar.chico,
-  button.boton.entrar.chico {
-    width: auto;
-    margin-top: 5px;
-  }
-  
-  /* NOTIFICACIONES RESPONSIVE */
-  .contnotis {
-    margin: 10px;
-    padding: 15px;
-  }
+    .titulo-principal {
+        font-size: 16px;
+    }
 
-  .contnotis a.boton {
-    margin-left: 5px;
-  }
-  
-  .notis {
-    padding: 8px;
-    margin: 8px 0;
-  }
-  
-  .notis strong {
-    font-size: 14px;
-  }
-  
-  .notis p {
-    font-size: 11px;
-  }
-  
-  .notis .acciones {
-    justify-content: flex-end;
-    gap: 5px;
-    margin: 4px 2px 4px auto;
-  }
-  .notis .acciones .boton {
-    padding: 6px 10px;
-    font-size: 9px;
-  }
+    .subtitulo {
+        font-size: 12px;
+    }
 
-  .notis .acciones button.boton {
-    width: calc(60% - 12px);
-  }
+    .logo {
+        width: 50px;
+        margin: 10px 0;
+    }
 
-  ul.listanotis {
-    padding: 0 5px 10px 5px;
-  }
-  
-  /* FILTROS RESPONSIVE */
-  .filtro-cursos {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-    padding: 12px;
-  }
-  
-  .filtro-cursos select {
-    width: 100%;
-    padding: 10px;
-  }
-  
-  /* RECORDATORIOS RESPONSIVE */
-  .recordatorio {
-    padding: 8px;
-    margin-bottom: 8px;
-  }
-  
-  .recordatorio .acciones {
-    flex-direction: column;
-    gap: 3px;
-  }
-  
-  .recordatorio .acciones button {
-    padding: 6px 10px;
-    font-size: 11px;
-  }
-  
-  #formRecordatorio {
-    gap: 6px;
-    margin-bottom: 10px;
-  }
-  
-  .inputt {
-    padding: 8px 12px;
-  }
-  
-  /* HORARIOS RESPONSIVE */
-  #horarios-container {
-    width: 100%;
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .horario-item {
-    margin-top: 20px;
-    margin-left: 10px;
-  }
-  
-  .cajasuperior {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
+    /* MENU LATERAL RESPONSIVE */
+    #menuLateral {
+        transform: translateX(-100%);
+        width: 240px;
+    }
 
+    #menuLateral.abierto {
+        transform: translateX(0);
+    }
 
-/* NUEVO NAV RESPONSIVE */  
-  .header-centro {
-    gap: 15px; 
-    padding: 8px 15px; 
-    margin: 0 auto; 
-    width: 50%; 
-    border-bottom-left-radius: 20px; 
-    border-bottom-right-radius: 20px;
-    justify-content: space-around; 
-    flex-wrap: wrap; 
-  }
-  
-  .icono-header {
-    font-size: 18px;
-    display: flex;
-    min-height: 30px;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .icono-header:hover::after {
-    bottom: auto;
-    top: -35px; 
-    font-size: 11px;
-    padding: 3px 6px;
-    z-index: 1000;
-  }
-  
-  
-/* HORARIOS */
+    #abrirMenu {
+        top: 15px;
+        left: 10px;
+        font-size: 28px;
+        position: absolute;
+    }
 
-  .tabla-horario {
-    max-height: 70vh;
-    overflow-y: auto;
-  }
-  
-  h2 {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .semana-control {
-    margin: 10px 0;
-  }
-  
-  /* ASISTENCIAS RESPONSIVE */
-  .tabla-asistencias {
-    padding: 15px 10px;
-    margin: 10px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  
-  .tabla-asistencias table {
-    min-width: 600px;
-    font-size: 11px;
-  }
-  
-  .tabla-asistencias th:first-child,
-  .tabla-asistencias td:first-child {
-    width: 150px;
-    min-width: 150px;
-    max-width: 150px;
-    position: sticky;
-    left: 0;
-    z-index: 2;
-    background: inherit;
-  }
-  
-  .tabla-asistencias th,
-  .tabla-asistencias td {
-    padding: 8px 4px;
-    border: 1px solid #ddd;
-  }
-  
-  .tabla-asistencias thead th {
-    padding: 10px 4px;
-    font-size: 11px;
-    position: sticky;
-    top: 0;
-    z-index: 3;
-  }
-  
-  .asistencia-celda {
-    width: 28px;
-    height: 28px;
-    min-width: 28px;
-    min-height: 28px;
-    font-size: 14px;
-    padding: 4px;
-  }
-  
-  .asistencia {
-    padding: 2px 4px;
-    font-size: 10px;
-    margin: 1px;
-  }
-  
-  .popover {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1001;
-    min-width: 200px;
-  }
-  
-  .popover button {
-    padding: 12px 16px;
-    font-size: 16px;
-    text-align: left;
-    width: 100%;
-  }
-  
-  /* REPORTES RESPONSIVE */
-  .resumen-general {
-    margin: 15px 10px;
-  }
-  
-  .resumen-grid {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .stat-content {
-    padding: 15px;
-    max-width: 100%;
-  }
-  
-  .stat-number {
-    font-size: 28px;
-  }
-  
-  .stat-label {
-    font-size: 14px;
-  }
-  
-  .distribucion-container {
-    margin: 15px 10px;
-  }
-  
-  .distribucion-grid {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-  
-  .distribucion-card {
-    padding: 15px;
-  }
-  
-  .distribucion-numero {
-    font-size: 24px;
-  }
-  
-  .estado-asistencia {
-    flex-direction: column;
-    text-align: center;
-    gap: 15px;
-    padding: 20px 15px;
-  }
-  
-  .estado-icono {
-    font-size: 36px;
-  }
-  
-  .estado-titulo {
-    font-size: 20px;
-  }
-  
-  .estado-mensaje {
-    font-size: 14px;
-  }
-  
-  .info-card {
-    padding: 15px;
-    margin: 0 10px;
-  }
-  
-  .info-titulo {
-    font-size: 18px;
-  }
-  
-  .progreso-visual {
-    width: 100px;
-  }
-  
-  .progreso-container {
-    height: 16px;
-  }
-  
-  .progreso-texto {
-    font-size: 10px;
-  }
-  
-  .deasistencia {
-    margin-bottom: 15px;
-  }
-  
-  .deasistencia form {
-    flex-direction: column;
-    gap: 8px;
-    align-items: stretch;
-  }
-  
-  .accioness {
-    flex-direction: column;
-    gap: 10px;
-    margin: 15px 10px;
-  }
-  
-  .reporte {
-    margin: 10px;
-    padding: 10px;
-    max-width: 100%;
-  }
-  
-  /* CALIFICACIONES RESPONSIVE */
-  .tabla-container {
-    margin: 10px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  
-  table {
-    min-width: 600px;
-    font-size: 11px;
-  }
-  
-  th, td {
-    padding: 6px 8px;
-  }
-  
-  th {
-    font-size: 11px;
-  }
-  
-  .trabajos-arriba {
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .trabajos-arriba .acciones {
-    margin: 10px;
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .demo-izquierda {
-    align-items: center;
-    text-align: center;
-  }
-  
-  .tabla-notas {
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-  
-  .tabla-notas table {
-    min-width: 400px;
-    font-size: 11px;
-  }
-  
-  .tabla-notas th,
-  .tabla-notas td {
-    padding: 6px 4px;
-  }
-  
-  .cabecera-trabajo {
-    padding: 8px;
-    margin: 0 10px;
-  }
-  
-  #tablaPromedios {
-    font-size: 11px;
-    min-width: 500px;
-  }
-  
-  #tablaPromedios th,
-  #tablaPromedios td {
-    padding: 6px 4px;
-  }
-  
-  #tablaPromedios thead th {
-    padding: 8px 4px;
-    font-size: 10px;
-  }
+    #cerrarMenu {
+        left: 15px;
+        font-size: 28px;
+    }
+
+    /* COLUMNAS RESPONSIVE */
+    .container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    /* Ocultar columnas izquierda y derecha por defecto */
+    .izquierda,
+    .derecha {
+        display: none;
+        width: 0;
+        overflow: hidden;
+    }
+
+    /* Solo mostrar columna central */
+    .centro {
+        width: 100%;
+        border: none;
+        min-height: auto;
+        display: grid;
+    }
+
+    /* BOTONES TOGGLE RESPONSIVE */
+    .botonestoggle {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 100;
+        background-color: transparent;
+    }
+
+    .botonestoggle.izq {
+        left: 0;
+    }
+
+    .botonestoggle.der {
+        right: 0;
+    }
+
+    .toggle-btn {
+        padding: 12px 8px;
+        font-size: 16px;
+        border-radius: 0 8px 8px 0;
+    }
+
+    .btn-right {
+        border-radius: 8px 0 0 8px;
+    }
+
+    /* ESTADOS EXPANDIDO MOBILE */
+    .expand-left .izquierda {
+        display: block;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 99;
+        overflow-y: auto;
+    }
+
+    .expand-left .centro,
+    .expand-left .derecha {
+        display: none;
+    }
+
+    .expand-right .derecha {
+        display: block;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        z-index: 99;
+        overflow-y: auto;
+    }
+
+    .expand-right .centro,
+    .expand-right .izquierda {
+        display: none;
+    }
+
+    /* BOXS MATERIAS RESPONSIVE */
+    h2 {
+        margin-top: 20px;
+        margin-bottom: 5px;
+    }
+
+    .crear-materia {
+        margin: 5px 0;
+    }
+    ul.clases {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    li.cajas {
+        margin-bottom: 10px;
+    }
+
+    .cajas-link {
+        height: auto;
+        min-height: 120px;
+        padding: 15px;
+    }
+
+    .titulo-caja {
+        font-size: 18px;
+        padding: 5px;
+    }
+
+    .subtitulo-caja {
+        font-size: 14px;
+        padding: 3px 5px;
+    }
+
+    .subsubtitulo-caja {
+        font-size: 12px;
+        padding: 3px 5px;
+    }
+
+    /* BOTONES RESPONSIVE */
+    .cajafooter {
+        gap: 10px;
+        padding: 10px;
+    }
+    /* MARTO */
+    .boton.entrar {
+        padding: 8px 16px;
+        font-size: 14px;
+        width: 100%;
+        text-align: center;
+    }
+    .boton.eliminar {
+        padding: 8px 16px;
+        font-size: 14px;
+        width: 91%;
+        text-align: center;
+    }
+    /* MARTO */
+    button.boton.eliminar {
+        width: 100%;
+    }
+
+    button.boton.eliminar.chico,
+    button.boton.entrar.chico {
+        width: auto;
+        margin-top: 5px;
+    }
+
+    /* NOTIFICACIONES RESPONSIVE */
+    .contnotis {
+        margin: 13px;
+        padding: 35px;
+    }
+
+    .contnotis a.boton {
+        margin-left: auto;
+    }
+
+    .notis {
+        padding: 8px;
+        margin: 8px 0;
+    }
+
+    .notis strong {
+        font-size: 14px;
+    }
+
+    .notis p {
+        font-size: 11px;
+    }
+
+    .notis .acciones {
+        justify-content: flex-end;
+        gap: 5px;
+        margin: 4px 2px 4px auto;
+    }
+
+    .notis .acciones .boton {
+        padding: 6px 10px;
+        font-size: 9px;
+    }
+    /* MARTO */
+    .notis .acciones button.boton {
+        width: calc(120% - 12px);
+    }
+
+    ul.listanotis {
+        padding: 0 5px 10px 5px;
+    }
+
+    /* FILTROS RESPONSIVE */
+    .filtro-cursos {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 12px;
+    }
+
+    .filtro-cursos select {
+        width: 100%;
+        padding: 10px;
+    }
+
+    
+    /* HORARIOS RESPONSIVE */
+    #horarios-container {
+        width: 100%;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .horario-item {
+        margin-top: 20px;
+        margin-left: 10px;
+    }
+
+    .cajasuperior {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* NUEVO NAV RESPONSIVE */
+    .header-centro {
+        gap: 15px;
+        padding: 8px 15px;
+        margin: 0 auto;
+        width: 50%;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    .icono-header {
+        font-size: 18px;
+        display: flex;
+        min-height: 30px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .icono-header:hover::after {
+        bottom: auto;
+        top: -35px;
+        font-size: 11px;
+        padding: 3px 6px;
+        z-index: 1000;
+    }
+
+    /* HORARIOS */
+
+    .tabla-horario {
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+
+    h2 {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .semana-control {
+        margin: 10px 0;
+    }
+
+    /* ASISTENCIAS RESPONSIVE */
+    .tabla-asistencias {
+        padding: 15px 10px;
+        margin: 10px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .tabla-asistencias table {
+        min-width: 600px;
+        font-size: 11px;
+    }
+
+    .tabla-asistencias th:first-child,
+    .tabla-asistencias td:first-child {
+        width: 150px;
+        min-width: 150px;
+        max-width: 150px;
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        background: inherit;
+    }
+
+    .tabla-asistencias th,
+    .tabla-asistencias td {
+        padding: 8px 4px;
+        border: 1px solid #ddd;
+    }
+
+    .tabla-asistencias thead th {
+        padding: 10px 4px;
+        font-size: 11px;
+        position: sticky;
+        top: 0;
+        z-index: 3;
+    }
+
+    .asistencia-celda {
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+        min-height: 28px;
+        font-size: 14px;
+        padding: 4px;
+    }
+
+    .asistencia {
+        padding: 2px 4px;
+        font-size: 10px;
+        margin: 1px;
+    }
+
+    .popover {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1001;
+        min-width: 200px;
+    }
+
+    .popover button {
+        padding: 12px 16px;
+        font-size: 16px;
+        text-align: left;
+        width: 100%;
+    }
+
+    /* REPORTES RESPONSIVE */
+    .resumen-general {
+        margin: 15px 10px;
+    }
+
+    .resumen-grid {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .stat-content {
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    .stat-number {
+        font-size: 28px;
+    }
+
+    .stat-label {
+        font-size: 14px;
+    }
+
+    .distribucion-container {
+        margin: 15px 10px;
+    }
+
+    .distribucion-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .distribucion-card {
+        padding: 15px;
+    }
+
+    .distribucion-numero {
+        font-size: 24px;
+    }
+
+    .estado-asistencia {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+        padding: 20px 15px;
+    }
+
+    .estado-icono {
+        font-size: 36px;
+    }
+
+    .estado-titulo {
+        font-size: 20px;
+    }
+
+    .estado-mensaje {
+        font-size: 14px;
+    }
+
+    .info-card {
+        padding: 15px;
+        margin: 0 10px;
+    }
+
+    .info-titulo {
+        font-size: 18px;
+    }
+
+    .progreso-visual {
+        width: 100px;
+    }
+
+    .progreso-container {
+        height: 16px;
+    }
+
+    .progreso-texto {
+        font-size: 10px;
+    }
+
+    .deasistencia {
+        margin-bottom: 15px;
+    }
+
+    .deasistencia form {
+        flex-direction: column;
+        gap: 8px;
+        align-items: stretch;
+    }
+
+    .accioness {
+        flex-direction: column;
+        gap: 10px;
+        margin: 15px 10px;
+    }
+
+    .reporte {
+        margin: 10px;
+        padding: 10px;
+        max-width: 100%;
+    }
+
+    /* CALIFICACIONES RESPONSIVE */
+    .tabla-container {
+        margin: 10px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        min-width: 600px;
+        font-size: 11px;
+    }
+
+    th,
+    td {
+        padding: 6px 8px;
+    }
+
+    th {
+        font-size: 11px;
+    }
+
+    .trabajos-arriba {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .trabajos-arriba .acciones {
+        margin: 10px;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .demo-izquierda {
+        align-items: center;
+        text-align: center;
+    }
+
+    .tabla-notas {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .tabla-notas table {
+        min-width: 400px;
+        font-size: 11px;
+    }
+
+    .tabla-notas th,
+    .tabla-notas td {
+        padding: 6px 4px;
+    }
+
+    .flechita {
+        padding: 8px;
+        margin: 0 10px;
+    }
+
+    #tablaPromedios {
+        font-size: 11px;
+        min-width: 300px;
+    }
+
+    #tablaPromedios th,
+    #tablaPromedios td {
+        padding: 6px 4px;
+    }
+
+    #tablaPromedios thead th {
+        padding: 8px 4px;
+        font-size: 10px;
+    }
+
+    /* MARTO */
+    .formulario-contenedorr {
+        background-color: #1a1a1a;
+        text-align: center;
+        width: auto;
+        padding: 66px;
+        margin: 240px 10px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        position: relative;
+    }
+    .formulario-contenedor {
+        background-color: #1a1a1a;
+        text-align: center;
+        width: auto;
+        padding: 66px;
+        margin: 89px 10px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        position: relative;
+    }
 }
+
+   #columnaNotificaciones .contnotis {
+        padding: 15px;
+        min-height: auto;
+    }
+
+    #columnaNotificaciones .notis {
+        padding: 12px;
+        margin: 8px 0;
+    }
+
+    #columnaNotificaciones .inputt,
+    #columnaNotificaciones textarea.inputt {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    #columnaNotificaciones textarea.inputt {
+        min-height: 80px;
+        resize: vertical;
+    }
+
+    #columnaNotificaciones select.filtro-cursos {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    #columnaNotificaciones button.boton {
+        width: 100%;
+        padding: 12px;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    #columnaNotificaciones .notis strong {
+        font-size: 15px;
+        line-height: 1.4;
+    }
+
+    #columnaNotificaciones .notis p {
+        font-size: 13px;
+        line-height: 1.5;
+        word-wrap: break-word;
+    }
+
+    #columnaNotificaciones .notis small {
+        font-size: 11px;
+    }
+
+    #columnaNotificaciones .notis .acciones {
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    #columnaNotificaciones .notis .acciones .boton.eliminar {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    #columnaRecordatorios {
+        padding: 15px;
+    }
+
+    #columnaRecordatorios h2 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    #columnaRecordatorios .contnotis {
+        padding: 15px;
+        min-height: auto;
+    }
+
+    #columnaRecordatorios .notis {
+        padding: 12px;
+    }
+
+    #columnaRecordatorios .inputt,
+    #columnaRecordatorios textarea.inputt {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    #columnaRecordatorios textarea.inputt {
+        min-height: 80px;
+        resize: vertical;
+    }
+
+    #columnaRecordatorios select {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    #columnaRecordatorios .boton-agregar {
+        width: 100%;
+        padding: 12px;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    .recordatorios-lista {
+        margin-top: 15px;
+        gap: 10px;
+    }
+
+    .recordatorio {
+        padding: 12px;
+        margin-bottom: 10px;
+    }
+
+    .recordatorio h4 {
+        font-size: 15px;
+        margin-bottom: 8px;
+    }
+
+    .recordatorio p {
+        font-size: 13px;
+        margin: 8px 0;
+        line-height: 1.5;
+        word-wrap: break-word;
+    }
+
+    .recordatorio small {
+        font-size: 11px;
+    }
+
+    .recordatorio .boton.eliminar {
+        width: 100%;
+        padding: 8px 12px;
+        font-size: 12px;
+        margin-top: 10px;
+        float: none;
+    }
+
+    .recordatorio-verde,
+    .recordatorio-naranja,
+    .recordatorio-rojo {
+        border-left-width: 4px;
+    }
+
+    .expand-left #columnaNotificaciones {
+        padding: 20px 15px;
+    }
+
+    .expand-right #columnaRecordatorios {
+        padding: 20px 15px;
+    }
+
+    .container.expand-left ul.listanotis {
+        padding: 0;
+    }
+
+    .container.expand-left .notis {
+        margin: 10px 0;
+    }
+
+    .expand-left .notis form,
+    .expand-right .notis form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .contnotis,
+    .notis,
+    .recordatorio {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    #columnaNotificaciones .notis p,
+    #columnaRecordatorios .recordatorio p {
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        hyphens: auto;
+    }
