@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap' rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('profesor/estilospaginico.css') }}">
+<link rel ="stylesheet" href="{{ asset('profesor/responsive.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
@@ -98,25 +100,14 @@
   </div>
 </nav>
 <!-- /NAV NUEVO -->
-<<<<<<< HEAD
-    <h2>Sistema de Notas por Cuatrimestre</h2>
-    <div class="container">
-    <div class="contnotis">
-=======
         <!-- CALIFICACIONES -->
     <div class="conteinerr">
     <h2>Sistema de Notas por Cuatrimestre</h2>
     <div class="contnotis" style="max-width: 740px;">
->>>>>>> FRONTEND
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
-<<<<<<< HEAD
-        <!-- Tarjetas de los periodos -->
-=======
-
->>>>>>> FRONTEND
         <ul class="clases">
 
             <!-- PRIMER CUATRIMESTRE -->
@@ -157,10 +148,7 @@
         </ul>
 
     </div>
-<<<<<<< HEAD
-=======
             <!-- /CALIFICACIONES -->
->>>>>>> FRONTEND
 </div>
 </main>
 </body>

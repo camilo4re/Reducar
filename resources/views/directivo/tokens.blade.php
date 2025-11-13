@@ -18,33 +18,6 @@
         <button id="cerrarMenu">×</button>
         
         <ul>
-<<<<<<< HEAD
-            <li><a href="{{ route ('materias.index')}}">Inicio <i class="fa-solid fa-house"></i></a></li>
-
-    @if (auth()->user()->role === 'alumno')
-    <li><a href="{{ route('calendario.index') }}">Horarios <i class="fa-solid fa-calendar"></i></a></li>
-    @endif
-        @if (auth()->user()->role === 'alumno' || auth()->user()->role === 'profesor')
-    <li><a href="{{ route('perfil.show', Auth::user()->id) }}"> Mis Datos <i class="fa-solid fa-user"></i></a></li>
-        @endif
-    @if (Auth::user()->role === 'directivo')
-    <li><a href="{{ route('tokens.index') }}">Crear Usuarios <i class="fa-solid fa-ticket"></i></a></li>
-    <li><a href="{{ route('tokens.listar') }}">Lista de Codigos Creados <i class="fa-solid fa-list"></i></a></li>
-    <li><a href="{{ route('perfiles.index') }}">Perfiles de Usuarios<i class="fa-solid fa-user"></i></a></li>
-    @endif
- 
-    <li>
-        <a href="#" 
-          onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-          Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i>
-        </a>
-
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-        </form>
-    </li>
-    </ul>
-=======
             <li><a href="{{ route('materias.index')}}">Inicio <i class="fa-solid fa-house"></i></a></li>
             <li><a href="{{ route('tokens.index') }}">Crear Usuarios <i class="fa-solid fa-ticket"></i></a></li>
             <li><a href="{{ route('tokens.listar') }}">Lista de Usuarios Creados <i class="fa-solid fa-list"></i></a></li>
@@ -58,7 +31,6 @@
                 </form>
             </li>
         </ul>
->>>>>>> FRONTEND
     </nav>
     
     <script>
@@ -128,15 +100,6 @@
                     
                     <div style="margin: 20px 0;">
                         <label style="display: block; font-weight: 600; margin-bottom: 8px;">
-<<<<<<< HEAD
-                            Curso <span style="color: red;">*</span>
-                        </label>
-                        <select name="curso_id" class="filtro-cursos" style="width: 100%;" required>
-                            <option value="">Seleccionar curso...</option>
-                            @foreach($cursos as $curso)
-                                <option value="{{ $curso->id }}" {{ old('curso_id') == $curso->id ? 'selected' : '' }}>
-                                    {{ $curso->año }}º {{ $curso->division }}
-=======
                             Rol <span style="color: red;">*</span>
                         </label>
                         <select name="role" id="selectRole" class="filtro-cursos" style="width: 100%;" required>
@@ -144,23 +107,11 @@
                             @foreach($roles as $rol)
                                 <option value="{{ $rol }}" {{ old('role') == $rol ? 'selected' : '' }}>
                                     {{ ucfirst($rol) }}
->>>>>>> FRONTEND
                                 </option>
                             @endforeach
                         </select>
                     </div>
 
-<<<<<<< HEAD
-                    <div style="margin: 20px 0;">
-                        <label style="display: block; font-weight: 600; margin-bottom: 8px;">
-                            Rol <span style="color: red;">*</span>
-                        </label>
-                        <select name="role" class="filtro-cursos" style="width: 100%;" required>
-                            <option value="">Seleccionar rol...</option>
-                            @foreach($roles as $rol)
-                                <option value="{{ $rol }}" {{ old('role') == $rol ? 'selected' : '' }}>
-                                    {{ ucfirst($rol) }}
-=======
                     <div id="divCurso" style="margin: 20px 0;">
                         <label style="display: block; font-weight: 600; margin-bottom: 8px;">
                             Curso <span style="color: red;" id="requiredCurso">*</span>
@@ -170,7 +121,6 @@
                             @foreach($cursos as $curso)
                                 <option value="{{ $curso->id }}" {{ old('curso_id') == $curso->id ? 'selected' : '' }}>
                                     {{ $curso->año }}º {{ $curso->division }}
->>>>>>> FRONTEND
                                 </option>
                             @endforeach
                         </select>
@@ -178,7 +128,7 @@
 
                     <div style="text-align: center; margin-top: 30px;">
                         <button type="submit" class="boton entrar" style="font-size: 16px; padding: 12px 40px;">
-                            🎯 Generar Código
+                         Generar Código
                         </button>
                     </div>
                 </form>
@@ -186,7 +136,7 @@
 
             <!-- Info adicional -->
             <div class="notis" style="background: #e3f2fd; border-left: 5px solid #2196f3;">
-                <strong style="color: #1976d2;">ℹ️ Información importante:</strong>
+                <strong style="color: #1976d2;">ℹ Información importante:</strong>
                 <ul style="margin: 10px 0; padding-left: 20px; font-size: 13px; color: #555;">
                     <li>El código generado será único y de un solo uso</li>
                     <li>El usuario deberá usar este código al registrarse</li>
@@ -196,8 +146,6 @@
             </div>
         </div>
     </main>
-<<<<<<< HEAD
-=======
 
     <script>
         // Script para mostrar/ocultar curso segun el rol
@@ -227,6 +175,5 @@
             selectCurso.removeAttribute('required');
         }
     </script>
->>>>>>> FRONTEND
 </body>
 </html>

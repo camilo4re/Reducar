@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\Models\Materia;
-use App\Models\HorarioMateria; // Agregar esto
+use App\Models\HorarioMateria;
 use App\Models\Curso;
+use App\Models\Recordatorio;
+use App\Models\Notificacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,12 +16,22 @@ class MateriaController extends Controller
         $user = Auth::user();
         $materias = [];
 
+        $recordatorios = Recordatorio::where('user_id', Auth::id())
+            ->orderBy('fecha', 'asc')
+            ->get();
+
+        $notificaciones = Notificacion::orderBy('created_at', 'desc')->get();
+
         if ($user->role === 'profesor') {
 
-            $materias = Materia::with('horarios')->where('user_id', $user->id)->get(); //relacion
+            $materias = Materia::with('horarios')->where('user_id', $user->id)->get();
+
+            return view('materias.index', compact('materias', 'recordatorios', 'notificaciones'));
 
         } elseif ($user->role === 'alumno') {
             $materias = Materia::with('horarios')->where('curso_id', auth()->user()->curso_id)->get();
+            
+            return view('materias.index', compact('materias', 'recordatorios', 'notificaciones'));
 
         } else { 
             $curso_id = $request->input('curso_id');
@@ -32,12 +44,11 @@ class MateriaController extends Controller
             $materias = $query->get();
             $cursos = Curso::orderBy('año')->orderBy('division')->get();
 
-            return view('materias.index', compact('materias', 'cursos', 'curso_id'));
+            return view('materias.index', compact('materias', 'cursos', 'curso_id', 'recordatorios', 'notificaciones'));
         }
-
-        return view('materias.index', ['materias' => $materias]);
     }
-     public function create()
+    
+    public function create()
     {
         $cursos = Curso::all();
         return view('materias.create', ['cursos' => $cursos]);
@@ -87,8 +98,6 @@ class MateriaController extends Controller
                 'horarios.*.hora_inicio' => 'required',
                 'horarios.*.hora_fin' => 'required',
             ]);
-
-        
 
         $materia = Materia::findOrFail($id);
         $materia->nombre = $request->nombre;
