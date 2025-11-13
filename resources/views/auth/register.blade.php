@@ -4,14 +4,12 @@
   <title>REGISTRO</title>
   <link rel="stylesheet" href="{{ asset("login.css") }}">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<link rel ="stylesheet" href="{{ asset('profesor/responsive.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body class="background">
     <div class="formulario-contenedor">
-<<<<<<< HEAD
-         <img src="{{asset('imagenes/LOGOTECNICA3.png')}}" alt="Logo" class="logo">
-=======
         <img src="{{asset('imagenes/LOGOTECNICA3.png')}}" alt="Logo" class="logo">
->>>>>>> FRONTEND
         <h1>Crea una cuenta</h1>
         <p>¿Ya estás registrado? Inicia sesión <a href="{{ route('login') }}">aquí</a></p>
 

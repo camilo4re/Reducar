@@ -5,6 +5,8 @@
     <title>Inicie Sesión</title>
     <link href="{{ asset('login.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel ="stylesheet" href="{{ asset('profesor/responsive.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body class="background">
