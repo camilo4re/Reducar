@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Models\Materia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
 
 class AsistenciaController extends Controller
 {
@@ -15,10 +14,10 @@ class AsistenciaController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->role === 'alumno' && $user->curso_id !== $materia->curso_id) {
+        if ($user->role == 'alumno' && $user->curso_id !== $materia->curso_id) {
             abort(403, 'No tienes acceso a las asistencias de esta materia.');
         }
-        if ($user->role === 'profesor' && $materia->user_id !== $user->id) {
+        if ($user->role == 'profesor' && $materia->user_id !== $user->id) {
             abort(403, 'No tienes acceso a las asistencias de esta materia.');
         }
     }
@@ -30,31 +29,28 @@ class AsistenciaController extends Controller
         $year = $request->get('year', date('Y'));
         $month = $request->get('month', date('m'));
 
-        $alumnos = User::where('role', 'alumno')
-                      ->where('curso_id', $materia->curso_id)
-                      ->orderBy('name')
-                      ->get();
+        $alumnos = User::where('role', 'alumno')->where('curso_id', $materia->curso_id)->orderBy('name')->get();
 
         $fechas = Asistencia::generarFechasDelMes($year, $month, $materia->id);
 
         $asistencias = [];
+        
         foreach ($alumnos as $alumno) {
             $asistenciasAlumno = [];
 
             foreach ($fechas as $fecha) {
-                $asistencia = Asistencia::where('user_id', $alumno->id)
-                                       ->where('materia_id', $materia->id)
-                                       ->where('fecha', $fecha)
-                                       ->first();
+                $asistencia = Asistencia::where('user_id', $alumno->id)->where('materia_id', $materia->id)->where('fecha', $fecha)->first();
                 
                 $asistenciasAlumno[$fecha] = $asistencia ? $asistencia->estado : null;
             }
+
+            $porcentaje = Asistencia::porcentajeAsistencia($alumno->id, $materia->id);
 
             $asistencias[$alumno->id] = [
                 'alumno' => $alumno,
                 'user_id' => $alumno->id,
                 'asistencias' => $asistenciasAlumno,
-                'porcentaje' => Asistencia::porcentajeAsistencia($alumno->id, $materia->id)
+                'porcentaje' => $porcentaje
             ];
         }
 
@@ -66,9 +62,9 @@ class AsistenciaController extends Controller
         $this->rutas($materia);
 
         $request->validate([
-            'user_id' => 'required|exists:users,id',
+            'user_id' => 'required',
             'fecha' => 'required|date',
-            'estado' => 'required|in:presente,ausente,tardanza,justificada'
+            'estado' => 'required'
         ]);
 
         $alumno = User::findOrFail($request->user_id);
@@ -84,12 +80,12 @@ class AsistenciaController extends Controller
                 'fecha' => $request->fecha
             ],
             [
-                'estado' => $request->estado,
-                'observaciones' => $request->observaciones
+                'estado' => $request->estado
             ]
         );
 
-        return response()->json(['success' => true]);
+        return redirect()->route('asistencias.index', ['materia' => $materia->id,'year' => date('Y', strtotime($request->fecha)),'month' => date('m', strtotime($request->fecha))
+            ]);
     }
 
     public function eliminar(Request $request, Materia $materia)
@@ -101,21 +97,23 @@ class AsistenciaController extends Controller
             'fecha' => 'required|date'
         ]);
 
-        Asistencia::where('user_id', $request->user_id)
-                  ->where('materia_id', $materia->id)
-                  ->where('fecha', $request->fecha)
-                  ->delete();
+        Asistencia::where('user_id', $request->user_id)->where('materia_id', $materia->id)->where('fecha', $request->fecha)->delete();
 
-        return response()->json(['success' => true]);
+        return redirect()
+            ->route('asistencias.index', [
+                'materia' => $materia->id,
+                'year' => date('Y', strtotime($request->fecha)),
+                'month' => date('m', strtotime($request->fecha))
+            ]);
     }
 
+    // Reporte de asistencias
     public function reporte(Materia $materia, Request $request)
     {
         $this->rutas($materia);
 
         $year = $request->get('year', date('Y'));
         $month = $request->get('month', date('m'));
-        
         $user = Auth::user();
 
         $alumnos = User::where('role', 'alumno')
@@ -125,38 +123,21 @@ class AsistenciaController extends Controller
 
         $reportes = [];
         
-        if ($user->role === 'alumno') {
-            $totalDias = Asistencia::where('user_id', $user->id)
-                                  ->where('materia_id', $materia->id)
-                                  ->whereYear('fecha', $year)
-                                  ->count();
+        if ($user->role == 'alumno') {
+            $totalDias = Asistencia::where('user_id', $user->id)->where('materia_id', $materia->id)->whereYear('fecha', $year)->count();
+            $presentes = Asistencia::where('user_id', $user->id)->where('materia_id', $materia->id)->whereYear('fecha', $year)->where('estado', 'presente')->count();
 
-            $presentes = Asistencia::where('user_id', $user->id)
-                                  ->where('materia_id', $materia->id)
-                                  ->whereYear('fecha', $year)
-                                  ->where('estado', 'presente')
-                                  ->count();
+            $ausentes = Asistencia::where('user_id', $user->id)->where('materia_id', $materia->id)->whereYear('fecha', $year)->where('estado', 'ausente')->count();
 
-            $ausentes = Asistencia::where('user_id', $user->id)
-                                 ->where('materia_id', $materia->id)
-                                 ->whereYear('fecha', $year)
-                                 ->where('estado', 'ausente')
-                                 ->count();
+            $tardanzas = Asistencia::where('user_id', $user->id)->where('materia_id', $materia->id)->whereYear('fecha', $year)->where('estado', 'tardanza')->count();
 
-            $tardanzas = Asistencia::where('user_id', $user->id)
-                                  ->where('materia_id', $materia->id)
-                                  ->whereYear('fecha', $year)
-                                  ->where('estado', 'tardanza')
-                                  ->count();
+            $justificadas = Asistencia::where('user_id', $user->id)->where('materia_id', $materia->id)->whereYear('fecha', $year)->where('estado', 'justificada')->count();
 
-            $justificadas = Asistencia::where('user_id', $user->id)
-                                     ->where('materia_id', $materia->id)
-                                     ->whereYear('fecha', $year)
-                                     ->where('estado', 'justificada')
-                                     ->count();
-
-            $porcentaje = $totalDias > 0 ? round((($presentes + $justificadas) / $totalDias) * 100, 1) : 100;
-
+            if ($totalDias > 0) {
+                                $porcentaje = round((($presentes + $justificadas) / $totalDias) * 100, 1);
+                            } else {
+                                $porcentaje = 100;
+                            }
             $reportes = [[
                 'alumno' => $user,
                 'total_dias' => $totalDias,
@@ -171,16 +152,9 @@ class AsistenciaController extends Controller
             
         } else {
             foreach ($alumnos as $alumno) {
-                $totalDias = Asistencia::where('user_id', $alumno->id)
-                                      ->where('materia_id', $materia->id)
-                                      ->whereYear('fecha', $year)
-                                      ->count();
+                $totalDias = Asistencia::where('user_id', $alumno->id)->where('materia_id', $materia->id)->whereYear('fecha', $year)->count();
 
-                $presentes = Asistencia::where('user_id', $alumno->id)
-                                      ->where('materia_id', $materia->id)
-                                      ->whereYear('fecha', $year)
-                                      ->where('estado', 'presente')
-                                      ->count();
+                $presentes = Asistencia::where('user_id', $alumno->id)->where('materia_id', $materia->id)->whereYear('fecha', $year)->where('estado', 'presente')->count();
 
                 $ausentes = Asistencia::where('user_id', $alumno->id)
                                      ->where('materia_id', $materia->id)
@@ -200,7 +174,11 @@ class AsistenciaController extends Controller
                                          ->where('estado', 'justificada')
                                          ->count();
 
-                $porcentaje = $totalDias > 0 ? round((($presentes + $justificadas) / $totalDias) * 100, 1) : 100;
+                if ($totalDias > 0) {
+                    $porcentaje = round((($presentes + $justificadas) / $totalDias) * 100, 1);
+                } else {
+                    $porcentaje = 100;
+                }
 
                 $reportes[] = [
                     'alumno' => $alumno,

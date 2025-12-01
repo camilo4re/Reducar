@@ -16,6 +16,7 @@ use App\Http\Controllers\TokenController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\RecordatorioController;
 use App\Http\Controllers\NotificacionController;
+use App\Http\Controllers\CalendarioController;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/recordatorios', [RecordatorioController::class, 'index'])->name('recordatorios.index');
@@ -26,7 +27,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::view("/", "index")->name("inicio");
 Route::view("nosotros", "about")->name("about");
-Route::get('/calendario', [CalendarioController::class, 'index'])->name('calendario.index');
+
 /* rutas de profes */
 
     Route::middleware(['auth', 'role:profesor'])->group(function () {
@@ -36,6 +37,7 @@ Route::get('/calendario', [CalendarioController::class, 'index'])->name('calenda
 /* rutas de alumnos */
 
     Route::middleware(['auth', 'role:alumno'])->group(function () {
+        Route::get('/calendario', [CalendarioController::class, 'index'])->name('calendario.index');
     Route::get('/alumno', [AlumnoController::class, 'index'])->name('alumno');
 });
 

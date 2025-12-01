@@ -97,7 +97,6 @@
 
     @if(auth()->user()->role === 'profesor' || auth()->user()->role === 'directivo')
     <div class="tabla-container deasistencia">
-        <div class="tabla-asistencias ">
             <table>
                 <thead>
                     <tr>
@@ -109,53 +108,43 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($asistencias as $userId => $data)
-                        <tr>
-                            <td><strong>{{ $data['alumno']->name }}</strong></td>
-                            @foreach($fechas as $fecha)
-                                <td class="asistencia-celda" 
-                                    data-user="{{ $userId }}" 
-                                    data-fecha="{{ $fecha }}" 
-                                    data-estado="{{ $data['asistencias'][$fecha] ?? '' }}"
-                                    onclick="mostrarPopover(this)">
-                                    @if(isset($data['asistencias'][$fecha]) && $data['asistencias'][$fecha])
-                                        @switch($data['asistencias'][$fecha])
-                                            @case('presente')
-                                                <span style="color: #007c00;"><i class="fas fa-check"></i></span>
-                                                @break
-                                            @case('ausente')
-                                                <span style="color: #d32f2f;"><i class="fas fa-times"></i></span>
-                                                @break
-                                            @case('tardanza')
-                                                <span style="color: #f39c12;"><i class="fas fa-clock"></i></span>
-                                                @break
-                                            @case('justificada')
-                                                <span style="color: #2196f3;"><i class="fas fa-clipboard-check"></i></span>
-                                                @break
-                                        @endswitch
-                                    @else
-                                        <span style="color: #ccc;">-</span>
-                                    @endif
-                                </td>
-                            @endforeach
-                            <td>
-                                <div class="barra-asistencia" style="width: {{ $data['porcentaje'] }}%"></div>
-                                {{ $data['porcentaje'] }}%
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
+    @foreach($asistencias as $userId => $data)
+        <tr>
+            <td><strong>{{ $data['alumno']->name }}</strong></td>
+            @foreach($fechas as $fecha)
+                <!-- IMPORTANTE: Ahora el onclick recibe userId y fecha como parámetros -->
+                <td class="asistencia-celda" 
+                    onclick="mostrarPopover(this, {{ $userId }}, '{{ $fecha }}')">
+                    @if(isset($data['asistencias'][$fecha]) && $data['asistencias'][$fecha])
+                        @switch($data['asistencias'][$fecha])
+                            @case('presente')
+                                <span style="color: #007c00;"><i class="fas fa-check"></i></span>
+                                @break
+                            @case('ausente')
+                                <span style="color: #d32f2f;"><i class="fas fa-times"></i></span>
+                                @break
+                            @case('tardanza')
+                                <span style="color: #f39c12;"><i class="fas fa-clock"></i></span>
+                                @break
+                            @case('justificada')
+                                <span style="color: #2196f3;"><i class="fas fa-clipboard-check"></i></span>
+                                @break
+                        @endswitch
+                    @else
+                        <span style="color: #cd2d2d;">-</span>
+                    @endif
+                </td>
+            @endforeach
+            <td>
+                <div class="barra-asistencia" style="width: {{ $data['porcentaje'] }}%"></div>
+                {{ $data['porcentaje'] }}%
+            </td>
+        </tr>
+    @endforeach
+</tbody>
             </table>
-        </div>
     </div>
 
-    <div id="popover" class="popover hidden">
-        <button onclick="marcarAsistencia('presente')"> Presente <i class="fas fa-check"></i></button>
-        <button onclick="marcarAsistencia('ausente')"> Ausente <i class="fas fa-times"></i></button>
-        <button onclick="marcarAsistencia('tardanza')"> Tardanza <i class="fas fa-clock"></i></button>
-        <button onclick="marcarAsistencia('justificada')"> Justificada <i class="fas fa-clipboard-check"></i></button>
-        <button onclick="eliminarAsistencia()"> Limpiar <i class="fas fa-trash"></i></button>
-    </div>
 @endif
     @if (auth()->user()->role === 'alumno')
 
@@ -216,74 +205,104 @@
     </div>
 </main>
 
-<script>
-let celdaActual = null;
 
-function mostrarPopover(celda) {
+<div id="popover" class="popover hidden">
+    <!-- Formulario para PRESENTE -->
+    <form method="POST" action="{{ route('asistencias.marcar', $materia->id) }}" style="display: inline;">
+        @csrf
+        <input type="hidden" name="user_id" id="popover-user-id">
+        <input type="hidden" name="fecha" id="popover-fecha">
+        <input type="hidden" name="year" value="{{ $year }}">
+        <input type="hidden" name="month" value="{{ $month }}">
+        <input type="hidden" name="estado" value="presente">
+        <button type="submit"> Presente <i class="fas fa-check"></i></button>
+    </form>
+
+    <!-- Formulario para AUSENTE -->
+    <form method="POST" action="{{ route('asistencias.marcar', $materia->id) }}" style="display: inline;">
+        @csrf
+        <input type="hidden" name="user_id" id="popover-user-id-2">
+        <input type="hidden" name="fecha" id="popover-fecha-2">
+        <input type="hidden" name="year" value="{{ $year }}">
+        <input type="hidden" name="month" value="{{ $month }}">
+        <input type="hidden" name="estado" value="ausente">
+        <button type="submit"> Ausente <i class="fas fa-times"></i></button>
+    </form>
+
+    <!-- Formulario para TARDANZA -->
+    <form method="POST" action="{{ route('asistencias.marcar', $materia->id) }}" style="display: inline;">
+        @csrf
+        <input type="hidden" name="user_id" id="popover-user-id-3">
+        <input type="hidden" name="fecha" id="popover-fecha-3">
+        <input type="hidden" name="year" value="{{ $year }}">
+        <input type="hidden" name="month" value="{{ $month }}">
+        <input type="hidden" name="estado" value="tardanza">
+        <button type="submit"> Tardanza <i class="fas fa-clock"></i></button>
+    </form>
+
+    <!-- Formulario para JUSTIFICADA -->
+    <form method="POST" action="{{ route('asistencias.marcar', $materia->id) }}" style="display: inline;">
+        @csrf
+        <input type="hidden" name="user_id" id="popover-user-id-4">
+        <input type="hidden" name="fecha" id="popover-fecha-4">
+        <input type="hidden" name="year" value="{{ $year }}">
+        <input type="hidden" name="month" value="{{ $month }}">
+        <input type="hidden" name="estado" value="justificada">
+        <button type="submit"> Justificada <i class="fas fa-clipboard-check"></i></button>
+    </form>
+
+    <!-- Formulario para ELIMINAR -->
+    <form method="POST" action="{{ route('asistencias.eliminar', $materia->id) }}" style="display: inline;">
+        @csrf
+        <input type="hidden" name="user_id" id="popover-user-id-5">
+        <input type="hidden" name="fecha" id="popover-fecha-5">
+        <input type="hidden" name="year" value="{{ $year }}">
+        <input type="hidden" name="month" value="{{ $month }}">
+        <button type="submit"> Limpiar <i class="fas fa-trash"></i></button>
+    </form>
+</div>
+
+<script>
+// Mostrar el popover y llenar los campos
+function mostrarPopover(celda, userId, fecha) {
+    // Si es alumno, no hacer nada
     if ({{ auth()->user()->role === 'alumno' ? 'true' : 'false' }}) return;
     
-    celdaActual = celda;
     const popover = document.getElementById('popover');
     const rect = celda.getBoundingClientRect();
     
+    // Posicionar el popover arriba de la celda
     popover.style.left = (rect.left + window.scrollX) + 'px';
     popover.style.top = (rect.top + window.scrollY - 120) + 'px';
+    
+    // Llenar TODOS los inputs hidden con user_id y fecha
+    document.getElementById('popover-user-id').value = userId;
+    document.getElementById('popover-fecha').value = fecha;
+    
+    document.getElementById('popover-user-id-2').value = userId;
+    document.getElementById('popover-fecha-2').value = fecha;
+    
+    document.getElementById('popover-user-id-3').value = userId;
+    document.getElementById('popover-fecha-3').value = fecha;
+    
+    document.getElementById('popover-user-id-4').value = userId;
+    document.getElementById('popover-fecha-4').value = fecha;
+    
+    document.getElementById('popover-user-id-5').value = userId;
+    document.getElementById('popover-fecha-5').value = fecha;
+    
+    // Mostrar el popover
     popover.classList.remove('hidden');
 }
 
-function marcarAsistencia(estado) {
-    if (!celdaActual) return;
-    
-    fetch('{{ route("asistencias.marcar", $materia->id) }}', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        },
-        body: JSON.stringify({
-            user_id: celdaActual.dataset.user,
-            fecha: celdaActual.dataset.fecha,
-            estado: estado
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) location.reload();
-    })
-    .catch(error => console.error('Error:', error));
-    
-    document.getElementById('popover').classList.add('hidden');
-}
-
-function eliminarAsistencia() {
-    if (!celdaActual) return;
-    
-    fetch('{{ route("asistencias.eliminar", $materia->id) }}', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        },
-        body: JSON.stringify({
-            user_id: celdaActual.dataset.user,
-            fecha: celdaActual.dataset.fecha
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) location.reload();
-    })
-    .catch(error => console.error('Error:', error));
-    
-    document.getElementById('popover').classList.add('hidden');
-}
-
+// Ocultar el popover cuando haces click fuera
 document.addEventListener('click', function(e) {
     if (!e.target.closest('.asistencia-celda') && !e.target.closest('#popover')) {
         document.getElementById('popover').classList.add('hidden');
     }
 });
 
+// Menú lateral (este código ya lo tienes)
 const menu = document.getElementById('menuLateral');
 const abrir = document.getElementById('abrirMenu');
 const cerrar = document.getElementById('cerrarMenu');
@@ -297,7 +316,7 @@ cerrar.addEventListener('click', () => {
     menu.classList.remove('abierto');
     abrir.classList.remove('oculto');
 });
-</script>
+</script>   
 
 </body>
 </html>

@@ -12,11 +12,9 @@ class NotaController extends Controller
 {
     public function rutas(Materia $materia){
         $user = Auth::user();
-        // tuve que hacer condicionales para saber si el usuario o profesor que quiere entrar a las notas de la materia pertenece a la misma
-
-        if ($user->role === 'alumno' && $user->curso_id !== $materia->curso_id) {
+        if ($user->role == 'alumno' && $user->curso_id !== $materia->curso_id) {
             abort(403, 'No tienes acceso a las notas de esta materia.');}
-        if ($user->role === 'profesor' && $materia->user_id !== $user->id) {
+        if ($user->role == 'profesor' && $materia->user_id !== $user->id) {
             abort(403, 'No tienes acceso a las notas de esta materia.');}
     }
 
@@ -91,7 +89,7 @@ class NotaController extends Controller
         foreach ($request->notas as $alumno_id => $valor) {
             if ($valor !== null) {
                 $alumno = User::find($alumno_id);
-                if ($alumno && $alumno->curso_id === $materia->curso_id) {
+                if ($alumno && $alumno->curso_id == $materia->curso_id) {
                     Nota::create([
                         'user_id' => $alumno_id,
                         'materia_id' => $materia->id,
@@ -134,8 +132,12 @@ class NotaController extends Controller
                  ->where('trabajo_titulo', $trabajo_titulo)
                 ->first();
             
-            $notasActuales[$alumno->id] = $nota ? $nota->valor : null;
-        }
+                if ($nota) {
+                    $notasActuales[$alumno->id] = $nota->valor;
+                } else {
+                    $notasActuales[$alumno->id] = null;
+                }       
+     }
 
         return view('notas.edit', compact('materia', 'periodo', 'trabajo', 'alumnos', 'notasActuales'));
     }
@@ -170,7 +172,7 @@ class NotaController extends Controller
                 }
             } else if ($valor !== null) {
                 $alumno = User::find($alumno_id);
-                if ($alumno && $alumno->curso_id === $materia->curso_id) {
+                if ($alumno && $alumno->curso_id == $materia->curso_id) {
                     Nota::create([
                         'user_id' => $alumno_id,
                         'materia_id' => $materia->id,

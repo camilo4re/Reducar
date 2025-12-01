@@ -11,7 +11,6 @@ class TokenController extends Controller
 {
     public function index()
     {
-        // Obtener cursos de la BD
         $cursos = Curso::all();
         $roles = ['profesor', 'alumno'];
 
@@ -25,12 +24,10 @@ class TokenController extends Controller
             'role' => 'required|in:profesor,alumno'
         ]);
 
-        // Generar código único
         do {
             $tokenCode = strtoupper(Str::random(8));
         } while (RegistrationCode::where('code', $tokenCode)->exists());
 
-        // Crear el token
         $token = RegistrationCode::create([
             'code' => $tokenCode,
             'curso_id' => $request->curso_id,

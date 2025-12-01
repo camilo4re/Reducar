@@ -117,9 +117,9 @@
                         </thead>
                         <tbody>
                             @foreach($tokens as $token)
-                            <tr style="{{ $token->used ? 'opacity: 0.6;' : '' }}">
+                            <tr>
                                 <td>
-                                    <code style="background: #f0f0f0; padding: 5px 10px; border-radius: 5px; font-weight: bold; letter-spacing: 1px;">
+                                    <code >
                                         {{ $token->code }}
                                     </code>
                                 </td>
@@ -128,10 +128,10 @@
                                             {{ $token->curso->año }}º {{ $token->curso->division }}
                                         @else
                                         
-                                            <span style="color: #888;">Sin Curso Asignado</span>
+                                            <span>Sin Curso Asignado</span>
                                         @endif
                                 </td>
-                                <td style="text-transform: capitalize;">
+                                <td>
                                     <span style="background: {{ $token->role === 'alumno' ? '#e3f2fd' : '#fff3e0' }}; 
                                                 color: {{ $token->role === 'alumno' ? '#1976d2' : '#f57c00' }}; 
                                                 padding: 4px 10px; 
@@ -143,11 +143,11 @@
                                 </td>
                                 <td style="text-align: center;">
                                     @if($token->used)
-                                        <span style="background: #ffebee; color: #c62828; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: bold;">
+                                        <span>
                                             ✓ Usado
                                         </span>
                                     @else
-                                        <span style="background: #e8f5e9; color: #2e7d32; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: bold;">
+                                        <span >
                                             ◉ Disponible
                                         </span>
                                     @endif
@@ -157,7 +157,7 @@
                                     @if(!$token->used)
                                         <form action="{{ route('tokens.marcar-usado', $token->id) }}" method="POST" style="display: inline;">
                                             @csrf
-                                            <button type="submit" class="boton eliminar" style="font-size: 11px; padding: 5px 10px;" 
+                                            <button type="submit" class="boton eliminar"  
                                                     onclick="return confirm('¿Seguro que querés marcar este código como usado?')">
                                                 Marcar Usado
                                             </button>

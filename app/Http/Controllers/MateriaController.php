@@ -29,7 +29,7 @@ class MateriaController extends Controller
             return view('materias.index', compact('materias', 'recordatorios', 'notificaciones'));
 
         } elseif ($user->role === 'alumno') {
-            $materias = Materia::with('horarios')->where('curso_id', auth()->user()->curso_id)->get();
+            $materias = Materia::with('horarios')->where('curso_id', $user->curso_id)->get();
             
             return view('materias.index', compact('materias', 'recordatorios', 'notificaciones'));
 
@@ -51,7 +51,7 @@ class MateriaController extends Controller
     public function create()
     {
         $cursos = Curso::all();
-        return view('materias.create', ['cursos' => $cursos]);
+        return view('materias.create', compact('cursos'));
     }
 
     public function store(Request $request)
@@ -60,7 +60,7 @@ class MateriaController extends Controller
             'nombre' => 'required|string|max:255',
             'curso_id' => 'required|exists:cursos,id',
             'horarios' => 'required|array|min:1',
-            'horarios.*.dia_semana' => 'required|integer|between:1,7',
+            'horarios.*.dia_semana' => 'required|integer|between:1,5',
             'horarios.*.hora_inicio' => 'required|date_format:H:i',
             'horarios.*.hora_fin' => 'required|date_format:H:i|after:horarios.*.hora_inicio',
         ]);

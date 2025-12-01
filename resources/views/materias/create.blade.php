@@ -34,13 +34,13 @@
     <ul>
             <li><a href="{{ route ('materias.index')}}">Inicio <i class="fa-solid fa-house"></i></a></li>
 
-    @if (auth()->user()->role === 'alumno')
+    @if (auth()->user()->role == 'alumno')
     <li><a href="{{ route('calendario.index') }}">Horarios <i class="fa-solid fa-calendar"></i></a></li>
     @endif
-        @if (auth()->user()->role === 'alumno' || auth()->user()->role === 'profesor')
+        @if (auth()->user()->role == 'alumno' || auth()->user()->role == 'profesor')
     <li><a href="{{ route('perfil.show', Auth::user()->id) }}"> Mis Datos <i class="fa-solid fa-user"></i></a></li>
         @endif
-    @if (Auth::user()->role === 'directivo')
+    @if (Auth::user()->role == 'directivo')
     <li><a href="{{ route('tokens.index') }}">Crear Usuarios <i class="fa-solid fa-ticket"></i></a></li>
     <li><a href="{{ route('tokens.listar') }}">Lista de Codigos Creados <i class="fa-solid fa-list"></i></a></li>
     <li><a href="{{ route('perfiles.index') }}">Perfiles de Usuarios<i class="fa-solid fa-user"></i></a></li>

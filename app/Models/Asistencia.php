@@ -20,6 +20,7 @@ class Asistencia extends Model
         'fecha' => 'date'
     ];
 
+
     public function alumno()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -30,73 +31,66 @@ class Asistencia extends Model
         return $this->belongsTo(Materia::class);
     }
 
-    public static function estadosDisponibles()
-    {
-        return [
-            'presente' => 'Presente',
-            'ausente' => 'Ausente', 
-            'tardanza' => 'Tardanza',
-            'justificada' => 'Justificada'
-        ];
-    }
-
     public static function porcentajeAsistencia($user_id, $materia_id)
     {
+        // Contar todas las asistencias del alumno en esa materia
         $total = self::where('user_id', $user_id)
                      ->where('materia_id', $materia_id)
                      ->count();
 
-        if ($total == 0) return 0;
+        // Si no tiene ninguna asistencia, devolver 0
+        if ($total == 0) {
+            return 0;
+        }
 
+        // Contar cuántas veces estuvo presente o justificado
         $presentes = self::where('user_id', $user_id)
                         ->where('materia_id', $materia_id)
                         ->whereIn('estado', ['presente', 'justificada'])
                         ->count();
 
-        return round(($presentes / $total) * 100, 1);
+        // Calcular el porcentaje
+        $porcentaje = ($presentes / $total) * 100;
+        
+        // Redondear a 1 decimal
+        return round($porcentaje, 1);
     }
 
-    public static function generarFechasDelMes($year = null, $month = null, $materia_id = null)
+    // Generar las fechas del mes según el horario de la materia
+    public static function generarFechasDelMes($year, $month, $materia_id)
     {
+        // Si no vienen el año o mes, usar el actual
         $year = $year ?: date('Y');
         $month = $month ?: date('m');
         
-        $fechas = [];
-        $diasEnMes = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-        
-        if (!$materia_id) {
-            for ($dia = 1; $dia <= $diasEnMes; $dia++) {
-                $fecha = Carbon::createFromDate($year, $month, $dia);
-                if ($fecha->isWeekday()) {
-                    $fechas[] = $fecha->format('Y-m-d');
-                }
-            }
-            return $fechas;
-        }
-
+        // Buscar qué días de la semana tiene clase esta materia
         $diasConHorario = HorarioMateria::where('materia_id', $materia_id)
                                 ->pluck('dia_semana')
                                 ->unique()
                                 ->toArray();
 
+        // Si no hay horario configurado, devolver array vacío
         if (empty($diasConHorario)) {
             return []; 
         }
 
+        // Calcular cuántos días tiene el mes
+        $diasEnMes = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        
+        $fechas = [];
+
+        // Recorrer cada día del mes
         for ($dia = 1; $dia <= $diasEnMes; $dia++) {
+            // Crear la fecha
             $fecha = Carbon::createFromDate($year, $month, $dia);
             
-
+            // Si ese día de la semana tiene clase, agregarlo
+            // $fecha->dayOfWeek devuelve: 0=domingo, 1=lunes, 2=martes, etc.
             if (in_array($fecha->dayOfWeek, $diasConHorario)) {
                 $fechas[] = $fecha->format('Y-m-d');
             }
         }
         
         return $fechas;
-    }
-
-    public function asistencias()
-    {
-        return $this->hasMany(Asistencia::class);
     }
 }

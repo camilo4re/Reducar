@@ -13,10 +13,7 @@ class ContenidoController extends Controller
     {
         $contenidos = $materia->contenidos()->with('user')->latest()->get();
 
-        return view('materias.show', [
-            'materia' => $materia,
-            'contenidos' => $contenidos
-        ]);
+        return view('materias.show', compact('materia', 'contenidos'));
     }
 
     public function create(Materia $materia)
