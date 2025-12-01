@@ -3,6 +3,9 @@
 <head>
   <title>REDUCAR</title>
   <link rel="stylesheet" href="{{asset('inicio.css')}}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="{{asset('imagenes/LOGOTECNICA3.png')}}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 </head>
@@ -57,7 +60,7 @@
 
   
   <div class="seccion-tecnica secciones">
-    <h2>📊 EL PANORAMA ACTUAL (2025)</h2>
+    <h2> EL PANORAMA ACTUAL (2025)</h2>
     <p>En Argentina existen más de 1.600 instituciones de educación técnica secundaria. La demanda de técnicos altamente capacitados crece día a día, especialmente en las áreas de Informática y Electromecánica, donde la necesidad de profesionales competentes es enorme.</p>
     <p>En la Técnica 3, nos enfocamos en brindar una formación integral que combine la teoría con experiencias prácticas en laboratorio, proyectos y ferias de ciencia, asegurando que cada estudiante esté preparado para enfrentar el mundo laboral desde el primer día.</p>
   </div>
@@ -114,7 +117,7 @@
     <div class="galeria-ferias">
   <!-- Tarjeta 1 -->
   <div class="tarjeta-feria">
-    <img src="{{asset('imagenes/Feedo.jpeg')}}" alt="Proyecto Feedo"> Proeycto Feedo
+    <img src="{{asset('imagenes/Feedo.jpg')}}" alt="Proyecto Feedo"> Proeycto Feedo
     <p class="descripcion">Alumnos de 7º 2ª que participaron en la competencia Remanso 2025.</p>
   </div>
 
@@ -126,12 +129,12 @@
 
   <!-- Tarjeta 3 -->
   <div class="tarjeta-feria">
-    <img src="{{asset('imagenes/Elisyum.jpeg')}}" alt="Proyecto Elisyum">Proyecto Elisyum
+    <img src="{{asset('imagenes/Elisyum.jpg')}}" alt="Proyecto Elisyum">Proyecto Elisyum
     <p class="descripcion">Los alumnos de 7º 2ª participaron en la competencia Remanso 2025, obteniendo el 7º puesto.</p>
   </div>
 </div>
 
-
+  </div>
   
   <div class="seccion-tecnica secciones">
     <h2> PRÁCTICAS Y EXPERIENCIA LABORAL</h2>
@@ -189,7 +192,6 @@
     <p class="info-extra">Si querés un futuro seguro, innovador y lleno de oportunidades, Técnica 3 es tu camino. Tu carrera profesional comienza aquí.</p>
   </div>
 
-</div>
 
 </div>
 <!-- footer -->

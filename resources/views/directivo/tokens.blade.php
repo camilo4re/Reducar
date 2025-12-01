@@ -16,7 +16,6 @@
 
     <nav id="menuLateral" class="cerrado">
         <button id="cerrarMenu">×</button>
-        
         <ul>
             <li><a href="{{ route('materias.index')}}">Inicio <i class="fa-solid fa-house"></i></a></li>
             <li><a href="{{ route('tokens.index') }}">Crear Usuarios <i class="fa-solid fa-ticket"></i></a></li>
@@ -50,7 +49,6 @@
     </script>
 
     <main class="content">
-        <!-- HEADER REDUCAR -->
         <header>
             <div class="header-superior">
                 <div class="titulo-izquierda">
@@ -67,42 +65,39 @@
             </div>
         </header>
 
-        <!-- Alertas -->
         @if(session('success'))
-            <div class="contnotis" style="max-width: 800px; margin: 20px auto;">
-                <div class="notis" style="background: #e8f5e9; border-left: 5px solid #007c00;">
-                    <strong style="color: #007c00;">✓ {{ session('success') }}</strong>
+            <div class="contnotis contnotis-success">
+                <div class="notis notis-success">
+                    <strong>✓ {{ session('success') }}</strong>
                 </div>
             </div>
         @endif
 
         @if($errors->any())
-            <div class="contnotis" style="max-width: 800px; margin: 20px auto;">
-                <div class="notis" style="background: #fee; border-left: 5px solid #e74c3c;">
+            <div class="contnotis contnotis-error">
+                <div class="notis notis-error">
                     <strong>Errores:</strong>
-                    <ul style="margin: 10px 0; padding-left: 20px;">
+                    <ul>
                         @foreach($errors->all() as $error)
-                            <li style="color: #e74c3c;">{{ $error }}</li>
+                            <li>{{ $error }}</li>
                         @endforeach
                     </ul>
                 </div>
             </div>
         @endif
 
-        <div class="contnotis" style="max-width: 700px;">
+        <div class="contnotis cont-generar">
             <div class="notis">
-                <strong style="font-size: 18px; color: #007c00; margin-bottom: 20px; display: block;">
+                <strong class="titulo-form">
                     Completá los datos para generar un código de registro
                 </strong>
 
                 <form action="{{ route('tokens.store') }}" method="POST">
                     @csrf
                     
-                    <div style="margin: 20px 0;">
-                        <label style="display: block; font-weight: 600; margin-bottom: 8px;">
-                            Rol <span style="color: red;">*</span>
-                        </label>
-                        <select name="role" id="selectRole" class="filtro-cursos" style="width: 100%;" required>
+                    <div class="campo-form">
+                        <label>Rol <span class="req">*</span></label>
+                        <select name="role" id="selectRole" class="filtro-cursos" required>
                             <option value="">Seleccionar rol...</option>
                             @foreach($roles as $rol)
                                 <option value="{{ $rol }}" {{ old('role') == $rol ? 'selected' : '' }}>
@@ -112,11 +107,9 @@
                         </select>
                     </div>
 
-                    <div id="divCurso" style="margin: 20px 0;">
-                        <label style="display: block; font-weight: 600; margin-bottom: 8px;">
-                            Curso <span style="color: red;" id="requiredCurso">*</span>
-                        </label>
-                        <select name="curso_id" id="selectCurso" class="filtro-cursos" style="width: 100%;" required>
+                    <div id="divCurso" class="campo-form">
+                        <label>Curso <span class="req" id="requiredCurso">*</span></label>
+                        <select name="curso_id" id="selectCurso" class="filtro-cursos" required>
                             <option value="">Seleccionar curso...</option>
                             @foreach($cursos as $curso)
                                 <option value="{{ $curso->id }}" {{ old('curso_id') == $curso->id ? 'selected' : '' }}>
@@ -126,19 +119,18 @@
                         </select>
                     </div>
 
-                    <div style="text-align: center; margin-top: 30px;">
-                        <button type="submit" class="boton entrar" style="font-size: 16px; padding: 12px 40px;">
-                         Generar Código
+                    <div class="boton-centrado">
+                        <button type="submit" class="boton entrar">
+                            Generar Código
                         </button>
                     </div>
                 </form>
             </div>
 
-            <!-- Info adicional -->
-            <div class="notis" style="background: #e3f2fd; border-left: 5px solid #2196f3;">
-                <strong style="color: #1976d2;">ℹ Información importante:</strong>
-                <ul style="margin: 10px 0; padding-left: 20px; font-size: 13px; color: #555;">
-                    <   li>El código generado será único y de un solo uso</li>
+            <div class="notis info">
+                <strong><i></i> Información importante:</strong>
+                <ul>
+                    <li>El código generado será único y de un solo uso</li>
                     <li>El usuario deberá usar este código al registrarse</li>
                     <li>Se le asignará automáticamente el curso y rol seleccionados</li>
                     <li>Podés ver todos los códigos en "Lista de Usuarios Creados"</li>
@@ -148,7 +140,6 @@
     </main>
 
     <script>
-        // Script para mostrar/ocultar curso segun el rol
         const selectRole = document.getElementById('selectRole');
         const divCurso = document.getElementById('divCurso');
         const selectCurso = document.getElementById('selectCurso');
@@ -156,20 +147,17 @@
 
         selectRole.addEventListener('change', function() {
             if (this.value === 'profesor' || this.value === 'directivo') {
-                // Ocultar y deshabilitar el select de curso
                 divCurso.style.display = 'none';
                 selectCurso.removeAttribute('required');
-                selectCurso.value = ''; // Limpiar seleccion
+                selectCurso.value = '';
                 requiredCurso.style.display = 'none';
             } else {
-                // Mostrar y habilitar el select de curso
                 divCurso.style.display = 'block';
                 selectCurso.setAttribute('required', 'required');
                 requiredCurso.style.display = 'inline';
             }
         });
 
-        // Ejecutar al cargar por si hay un rol pre-seleccionado
         if (selectRole.value === 'profesor' || selectRole.value === 'directivo') {
             divCurso.style.display = 'none';
             selectCurso.removeAttribute('required');
