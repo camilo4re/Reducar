@@ -43,6 +43,6 @@ class Nota extends Model
      public static function promedioNota($user_id, $materia_id, $periodo)
     {
         return self::where('user_id', $user_id)->where('materia_id', $materia_id)->where('periodo', $periodo)
-                   ->avg('valor'); //avg hace el promedio 
+                   ->avg('valor');
     }
 }

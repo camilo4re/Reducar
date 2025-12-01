@@ -126,21 +126,20 @@
         const div = document.createElement('div');
         div.className = 'titulo-caja horario-item';
         div.innerHTML = `
-            <select class="filtro-cursos" name="horarios[${horarioIndex}][dia_semana]" required>
-                <option value=""> Seleccionar día </option>
-                <option value="1">Lunes</option>
-                <option value="2">Martes</option>
-                <option value="3">Miércoles</option>
-                <option value="4">Jueves</option>
-                <option value="5">Viernes</option>
-                <option value="6">Sábado</option>
-            </select>
-        <label>de:</label>
-                <input class="inputt" type="time" name="horarios[0][hora_inicio]" required>
-        <label>a:</label>
-                <input class="inputt" type="time" name="horarios[0][hora_fin]" required>
-            <button class="boton eliminar chico" type="button" onclick="eliminarHorario(this)">Eliminar</button>
-        `;
+    <select class="filtro-cursos" name="horarios[${horarioIndex}][dia_semana]" required>
+        <option value=""> Seleccionar día </option>
+        <option value="1">Lunes</option>
+        <option value="2">Martes</option>
+        <option value="3">mierdcoles</option>
+        <option value="4">Jueves</option>
+        <option value="5">Viernes</option>
+    </select>
+    <label>de:</label>
+    <input class="inputt" type="time" name="horarios[${horarioIndex}][hora_inicio]" required>
+    <label>a:</label>
+    <input class="inputt" type="time" name="horarios[${horarioIndex}][hora_fin]" required>
+    <button class="boton eliminar chico" type="button" onclick="eliminarHorario(this)">Eliminar</button>
+`;
         container.appendChild(div);
         horarioIndex++;
     }

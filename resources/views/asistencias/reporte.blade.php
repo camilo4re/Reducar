@@ -52,7 +52,7 @@
                 <span class="subtitulo">{{ $materia->curso->año }} {{ $materia->curso->division }} - 
                     @if(isset($month))
                         {{ DateTime::createFromFormat('!m', $month)->format('F') }} {{ $year }}
-                    @else
+                   @else
                         Año {{ $year }}
                     @endif
                 </span>
@@ -95,7 +95,7 @@
     </div>
 
         @if(count($reportes) > 0)
-            <!-- Resumen General -->
+         <!-- Resumen General -->
             @php
                 $totalAlumnos = count($reportes);
                 $alumnosRegulares = collect($reportes)->where('porcentaje', '>=', 80)->count();
@@ -124,7 +124,7 @@
                         </li>
                         <li class="cajass stat-card riesgo">
                             <div class="stat-content">
-                                <div class="stat-number">{{ $alumnosEnRiesgo }}</div>
+                             <div class="stat-number">{{ $alumnosEnRiesgo }}</div>
                                 <div class="stat-label">En Riesgo </div>
                                 <i class="fa-solid fa-exclamation"></i>
                             </div>
@@ -143,7 +143,7 @@
                             </div>
                         </li>
                     </ul>
-                </div>
+             </div>
 
                 <!-- Tabla de Alumnos -->
                 <h2 class="resumen-titulo">Listado Detallado de Alumnos</h2>
@@ -165,7 +165,7 @@
                                         Faltas <i class="fa-solid fa-sort"></i>
                                     </th>
                                     <th class="sortable" onclick="ordenarTabla('tardanzas')">
-                                        Tardanzas <i class="fa-solid fa-sort"></i>
+                                     Tardanzas <i class="fa-solid fa-sort"></i>
                                     </th>
                                     <th class="sortable" onclick="ordenarTabla('justificadas')">
                                         Justificadas <i class="fa-solid fa-sort"></i>
@@ -188,7 +188,7 @@
                                     </td>
                                     <td>
                                         @if($reporte['porcentaje'] >= 80)
-                                            <span class="estado-badge estado-regular">
+                                         <span class="estado-badge estado-regular">
                                                 REGULAR
                                             </span>
                                         @elseif($reporte['porcentaje'] >= 70)
@@ -213,7 +213,7 @@
                                     <td class="numero-justificadas">
                                         {{ $reporte['justificadas'] }}
                                     </td>
-                                    <td class="total-clases">
+                                 <td class="total-clases">
                                         {{ $reporte['total_dias'] }}
                                     </td>
                                     <td class="progreso-visual">
@@ -238,7 +238,7 @@
                 <section class="distribucion-container">
                     <h2 class="resumen-titulo">Estadísticas por Estado</h2>
                     <div class="reporte">
-                        <div class="distribucion-grid">
+                     <div class="distribucion-grid">
                             <article class="distribucion-card distribucion-regulares">
                                 <h3>Alumnos Regulares</h3>
                                 <p class="distribucion-numero">{{ $alumnosRegulares }}/{{ $totalAlumnos }}</p>
@@ -257,7 +257,7 @@
                                 <p>{{ $totalAlumnos > 0 ? round(($alumnosIrregulares / $totalAlumnos) * 100, 1) : 0 }}% del curso</p>
                             </article>
                         </div>
-                    </div>
+                 </div>
                 </section>
             </div>
 
@@ -273,8 +273,8 @@
     </div>
 
     <footer class="footer-info">
-        <p>Reporte generado el {{ date('d/m/Y H:i') }} por {{ auth()->user()->name }}</p>
-        <p class="leyenda">Regular ≥80% | En Riesgo 70-79% | Irregular <70%</p>
+      <p>Reporte generado el {{ date('d/m/Y H:i') }} por {{ auth()->user()->name }}</p>
+        <p class="leyenda">Regular ≥80% | En Riesgo 70-79% | Irregular menor a 70%</p>
     </footer>
 </main>
 
@@ -321,7 +321,7 @@ function ordenarTabla(campo) {
                 break;
             case 'tardanzas':
                 valorA = parseInt(a.children[5].textContent);
-                valorB = parseInt(b.children[5].textContent);
+               valorB = parseInt(b.children[5].textContent);
                 break;
             case 'justificadas':
                 valorA = parseInt(a.children[6].textContent);

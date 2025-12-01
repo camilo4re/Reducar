@@ -9,25 +9,21 @@ use Illuminate\Support\Facades\Auth;
 
 class UserProfileController extends Controller
 {
-    // Mostrar formulario para completar perfil
     public function create()
     {
         $user = Auth::user();
 
-        // Si ya tiene perfil, redirige a mostrarlo
         if ($user->profile) {
             return redirect()->route('perfil.show');
         }
 
-        return view('perfil.create'); // <-- Asegúrate de que la carpeta sea "perfil"
+        return view('perfil.create'); 
     }
 
-    // Guardar perfil
     public function store(Request $request)
     {
         $user = Auth::user();
 
-        // Si ya tiene perfil bloqueado, no permitir
         $existing = UserProfile::where('user_id', $user->id)->first();
         if ($existing && $existing->bloqueado) {
             return redirect()->back()->withErrors('Tus datos ya están cargados y no se pueden editar. Contactá a un directivo.');
@@ -56,7 +52,6 @@ class UserProfileController extends Controller
             'numero_emergencia.required' => 'El número de emergencia es obligatorio.',
         ]);
 
-        // Crear o actualizar perfil
         $profile = UserProfile::updateOrCreate(
             ['user_id' => $user->id],
             [
@@ -75,13 +70,11 @@ class UserProfileController extends Controller
             ]
         );
 
-        // Bloquear edición
         $profile->update(['bloqueado' => true]);
 
         return redirect()->route('perfil.show')->with('success', 'Datos guardados correctamente.');
     }
 
-    // Mostrar perfil (solo lectura)
     public function show()
     {
         $profile = Auth::user()->profile;
@@ -89,14 +82,12 @@ class UserProfileController extends Controller
 
     }
 
-// Lista de perfiles cargados (solo para directivos)
 public function index()
 {
     $perfiles = UserProfile::with('user')->get();
     return view('directivo.perfiles.index', compact('perfiles'));
 }
 
-// Mostrar un perfil específico de un alumno (solo para directivos)
 public function showAlumno(User $user)
 {
     $perfil = $user->profile;
@@ -108,7 +99,6 @@ public function showAlumno(User $user)
     return view('directivo.perfiles.show', compact('perfil', 'user'));
 }
 
-// Reestablecer perfil (permitir edición nuevamente, solo para directivos)
 public function reset(User $user)
 {
     $perfil = $user->profile;

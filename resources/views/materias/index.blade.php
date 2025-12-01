@@ -122,8 +122,10 @@ document.addEventListener("DOMContentLoaded", animarTexto);
 
 <div class="container" id="container">
     <!-- columna izquierda -->
+<!-- columna izquierda -->
 <div class="columna izquierda" id="columnaNotificaciones">
   <h2>Notificaciones</h2>
+  <div class="contnotis">
     
     @if(Auth::user()->role === 'directivo')
     <div class="notis">
@@ -159,6 +161,7 @@ document.addEventListener("DOMContentLoaded", animarTexto);
         </li>
       @endforelse
     </ul>
+  </div>
 </div>
 
 <div class="botonestoggle izq">
@@ -231,6 +234,7 @@ document.addEventListener("DOMContentLoaded", animarTexto);
 <div class="columna derecha" id="columnaRecordatorios">
   <h2>Recordatorios</h2>
 
+  <div class="contnotis">
     <div class="notis">
       <form action="{{ route('recordatorios.store') }}" method="POST">
         @csrf
@@ -246,29 +250,28 @@ document.addEventListener("DOMContentLoaded", animarTexto);
           <option value="rojo">Alta</option>
         </select>
 
-        <button class="boton entrar" type="submit">Agregar</button>
+        <button class="boton-agregar" type="submit">Agregar</button>
       </form>
     </div>
 
-    <ul class="listanotis" id="listaRecordatorios">
+    <div class="recordatorios-lista" id="listaRecordatorios">
       @forelse ($recordatorios as $recordatorio)
-        <li class="notis {{ $recordatorio->prioridad }}">
-          <small>Vence el: {{ \Carbon\Carbon::parse($recordatorio->fecha)->format('d/m/Y') }}</small>
-          <strong>{{ $recordatorio->titulo }}</strong>
+        <div class="recordatorio" style="border-left: 5px solid {{ $recordatorio->prioridad }}">
+          <h4>{{ $recordatorio->titulo }}</h4>
           <p>{{ $recordatorio->descripcion }}</p>
-          
-<div class="acciones">
+          <small>{{ \Carbon\Carbon::parse($recordatorio->fecha)->format('d/m/Y') }}</small>
+
           <form action="{{ route('recordatorios.destroy', $recordatorio->id) }}" method="POST" style="display:inline;">
             @csrf
             @method('DELETE')
             <button class="boton eliminar" type="submit">Eliminar</button>
           </form>
-</div>
-        </li>
+        </div>
       @empty
         <p>No hay recordatorios.</p>
       @endforelse
-    </ul>
+    </div>
+  </div>
 </div>
 <script>
   document.addEventListener('DOMContentLoaded', function() {

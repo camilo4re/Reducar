@@ -82,7 +82,7 @@
                 $meses = [
                     1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril',
                     5 => 'Mayo', 6 => 'Junio', 7 => 'Julio', 8 => 'Agosto',
-                    9 => 'Septiembre', 10 => 'Octubre', 11 => 'Noviembre', 12 => 'Diciembre'//traduccion al español paaa
+                    9 => 'Septiembre', 10 => 'Octubre', 11 => 'Noviembre', 12 => 'Diciembre'
                 ];
             @endphp
             @foreach($meses as $numero => $nombre)
@@ -112,7 +112,6 @@
         <tr>
             <td><strong>{{ $data['alumno']->name }}</strong></td>
             @foreach($fechas as $fecha)
-                <!-- IMPORTANTE: Ahora el onclick recibe userId y fecha como parámetros -->
                 <td class="asistencia-celda" 
                     onclick="mostrarPopover(this, {{ $userId }}, '{{ $fecha }}')">
                     @if(isset($data['asistencias'][$fecha]) && $data['asistencias'][$fecha])
@@ -207,7 +206,6 @@
 
 
 <div id="popover" class="popover hidden">
-    <!-- Formulario para PRESENTE -->
     <form method="POST" action="{{ route('asistencias.marcar', $materia->id) }}" style="display: inline;">
         @csrf
         <input type="hidden" name="user_id" id="popover-user-id">
@@ -218,7 +216,6 @@
         <button type="submit"> Presente <i class="fas fa-check"></i></button>
     </form>
 
-    <!-- Formulario para AUSENTE -->
     <form method="POST" action="{{ route('asistencias.marcar', $materia->id) }}" style="display: inline;">
         @csrf
         <input type="hidden" name="user_id" id="popover-user-id-2">
@@ -229,7 +226,6 @@
         <button type="submit"> Ausente <i class="fas fa-times"></i></button>
     </form>
 
-    <!-- Formulario para TARDANZA -->
     <form method="POST" action="{{ route('asistencias.marcar', $materia->id) }}" style="display: inline;">
         @csrf
         <input type="hidden" name="user_id" id="popover-user-id-3">
@@ -240,7 +236,6 @@
         <button type="submit"> Tardanza <i class="fas fa-clock"></i></button>
     </form>
 
-    <!-- Formulario para JUSTIFICADA -->
     <form method="POST" action="{{ route('asistencias.marcar', $materia->id) }}" style="display: inline;">
         @csrf
         <input type="hidden" name="user_id" id="popover-user-id-4">
@@ -251,7 +246,6 @@
         <button type="submit"> Justificada <i class="fas fa-clipboard-check"></i></button>
     </form>
 
-    <!-- Formulario para ELIMINAR -->
     <form method="POST" action="{{ route('asistencias.eliminar', $materia->id) }}" style="display: inline;">
         @csrf
         <input type="hidden" name="user_id" id="popover-user-id-5">
@@ -263,19 +257,15 @@
 </div>
 
 <script>
-// Mostrar el popover y llenar los campos
 function mostrarPopover(celda, userId, fecha) {
-    // Si es alumno, no hacer nada
     if ({{ auth()->user()->role === 'alumno' ? 'true' : 'false' }}) return;
     
     const popover = document.getElementById('popover');
     const rect = celda.getBoundingClientRect();
     
-    // Posicionar el popover arriba de la celda
     popover.style.left = (rect.left + window.scrollX) + 'px';
     popover.style.top = (rect.top + window.scrollY - 120) + 'px';
     
-    // Llenar TODOS los inputs hidden con user_id y fecha
     document.getElementById('popover-user-id').value = userId;
     document.getElementById('popover-fecha').value = fecha;
     
@@ -291,18 +281,15 @@ function mostrarPopover(celda, userId, fecha) {
     document.getElementById('popover-user-id-5').value = userId;
     document.getElementById('popover-fecha-5').value = fecha;
     
-    // Mostrar el popover
     popover.classList.remove('hidden');
 }
 
-// Ocultar el popover cuando haces click fuera
 document.addEventListener('click', function(e) {
     if (!e.target.closest('.asistencia-celda') && !e.target.closest('#popover')) {
         document.getElementById('popover').classList.add('hidden');
     }
 });
 
-// Menú lateral (este código ya lo tienes)
 const menu = document.getElementById('menuLateral');
 const abrir = document.getElementById('abrirMenu');
 const cerrar = document.getElementById('cerrarMenu');

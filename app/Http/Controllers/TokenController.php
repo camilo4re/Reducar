@@ -11,13 +11,12 @@ class TokenController extends Controller
 {
     public function index()
     {
-        // Obtener cursos de la BD
         $cursos = Curso::all();
         $roles = ['profesor', 'alumno'];
 
         return view('directivo.tokens', compact('cursos', 'roles'));
     }
-
+    
     public function store(Request $request)
     {
         $rules = [
